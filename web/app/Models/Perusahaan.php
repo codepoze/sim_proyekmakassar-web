@@ -9,14 +9,13 @@ class Perusahaan extends Model
 {
     use HasFactory;
     // untuk default tabel
-    protected $table = 'perusahaans';
+    protected $table = 'perusahaan';
     // untuk default primary key
     protected $primaryKey = 'id_perusahaan';
     // untuk fillable
     protected $fillable = [
         'id_perusahaan',
         'nama',
-        'email',
         'telepon',
         'alamat',
         'by_users'

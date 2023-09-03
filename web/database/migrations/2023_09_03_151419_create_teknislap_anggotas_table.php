@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAnggPengawasTable extends Migration
+class CreateTeknislapAnggotasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateAnggPengawasTable extends Migration
      */
     public function up()
     {
-        Schema::create('angg_pengawas', function (Blueprint $table) {
-            $table->increments('id_angg_pengawas');
-            $table->integer('id_kord_pengawas')->unsigned()->nullable();
+        Schema::create('teknislap_anggota', function (Blueprint $table) {
+            $table->increments('id_teknislap_anggota');
+            $table->integer('id_teknislap')->unsigned()->nullable();
             $table->integer('id_users')->unsigned()->nullable();
             $table->string('telepon', 15)->nullable();
             $table->text('alamat')->nullable();
@@ -24,8 +24,8 @@ class CreateAnggPengawasTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_kord_pengawas')->references('id_kord_pengawas')->on('kord_pengawas')->onDelete('cascade');
-            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('id_teknislap')->references('id_teknislap')->on('teknislap')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -36,6 +36,6 @@ class CreateAnggPengawasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('angg_pengawas');
+        Schema::dropIfExists('teknislap_anggota');
     }
 }

@@ -16,7 +16,7 @@ class PengawasDetFoto extends Model
     protected $fillable = [
         'id_pengawas_det_foto',
         'id_pengawas',
-        'foto',
+        'foto'
     ];
 
     // untuk relasi ke tabel pengawas

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhoDetFotosTable extends Migration
+class CreatePengawasDetFotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreatePhoDetFotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('pho_det_fotos', function (Blueprint $table) {
-            $table->increments('id_pho_det_foto');
-            $table->integer('id_pho')->unsigned()->nullable();
+        Schema::create('pengawas_det_foto', function (Blueprint $table) {
+            $table->increments('id_pengawas_det_foto');
+            $table->integer('id_pengawas')->unsigned()->nullable();
             $table->binary('foto')->nullable();
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_pho')->references('id_pho')->on('phos')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('id_pengawas')->references('id_pengawas')->on('pengawas')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 
@@ -32,6 +32,6 @@ class CreatePhoDetFotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pho_det_fotos');
+        Schema::dropIfExists('pengawas_det_foto');
     }
 }

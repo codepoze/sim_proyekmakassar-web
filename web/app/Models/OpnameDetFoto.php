@@ -16,7 +16,7 @@ class OpnameDetFoto extends Model
     protected $fillable = [
         'id_opname_det_foto',
         'id_opname',
-        'foto',
+        'foto'
     ];
 
     // untuk relasi ke tabel opname

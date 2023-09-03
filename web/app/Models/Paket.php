@@ -9,7 +9,7 @@ class Paket extends Model
 {
     use HasFactory;
     // untuk default tabel
-    protected $table = 'pakets';
+    protected $table = 'paket';
     // untuk default primary key
     protected $primaryKey = 'id_paket';
     // untuk fillable
@@ -17,22 +17,16 @@ class Paket extends Model
         'id_paket',
         'id_kegiatan',
         'id_perusahaan',
-        'id_kord_pengawas',
-        'nama_paket',
-        'nama_pekerjaan',
-        'lama_pekerjaan',
-        'nilai_kontrak',
-        'nomor_kontrak',
-        'nomor_spk',
-        'nama_lokasi',
-        'ruas_jalan',
-        'nilai_peruas',
-        'nilai_total_ruas',
-        'titik_kordinat',
+        'id_teknislap',
+        'no_spmk',
+        'no_kontrak',
+        'nil_kontrak',
+        'waktu_kontrak',
+        'doc_kontrak',
+        'lokasi_pekerjaan',
         'schedule',
         'foto_lokasi',
-        'doc_administrasi',
-        'doc_kontrak',
+        'laporan',
         'by_users'
     ];
 
@@ -48,9 +42,9 @@ class Paket extends Model
         return $this->belongsTo(Perusahaan::class, 'id_perusahaan', 'id_perusahaan');
     }
 
-    // untuk relasi ke tabel kord pengawas
-    public function toKordPengawas()
+    // untuk relasi ke tabel teknislap
+    public function toTeknislap()
     {
-        return $this->belongsTo(KordPengawas::class, 'id_kord_pengawas', 'id_kord_pengawas');
+        return $this->belongsTo(Teknislap::class, 'id_teknislap', 'id_teknislap');
     }
 }

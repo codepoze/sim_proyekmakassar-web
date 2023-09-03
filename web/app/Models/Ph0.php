@@ -5,24 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pengawas extends Model
+class Ph0 extends Model
 {
     use HasFactory;
     // untuk default tabel
-    protected $table = 'pengawas';
+    protected $table = 'ph0';
     // untuk default primary key
-    protected $primaryKey = 'id_pengawas';
+    protected $primaryKey = 'id_ph0';
     // untuk fillable
     protected $fillable = [
-        'id_pengawas',
+        'id_ph0',
         'id_ruas',
-        'nama',
         'tgl',
-        'keterngan',
-        'panjang',
-        'lebar',
         'video',
-        'foto',
+        'doc',
         'by_users'
     ];
 
@@ -32,9 +28,9 @@ class Pengawas extends Model
         return $this->belongsTo(Ruas::class, 'id_ruas', 'id_ruas');
     }
 
-    // untuk relasi ke tabel pengawas_det_foto
-    public function toPengawasDetFoto()
+    // untuk relasi ke tabel ph0_det_foto
+    public function toPh0DetFoto()
     {
-        return $this->hasMany(PengawasDetFoto::class, 'id_pengawas', 'id_pengawas');
+        return $this->hasMany(Ph0DetFoto::class, 'id_ph0', 'id_ph0');
     }
 }

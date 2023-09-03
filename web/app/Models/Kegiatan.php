@@ -9,7 +9,7 @@ class Kegiatan extends Model
 {
     use HasFactory;
     // untuk default tabel
-    protected $table = 'kegiatans';
+    protected $table = 'kegiatan';
     // untuk default primary key
     protected $primaryKey = 'id_kegiatan';
     // untuk fillable

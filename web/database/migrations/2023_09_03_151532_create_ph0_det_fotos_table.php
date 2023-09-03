@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRapatDetFotosTable extends Migration
+class CreatePh0DetFotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateRapatDetFotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('rapat_det_fotos', function (Blueprint $table) {
-            $table->increments('id_rapat_det_foto');
-            $table->integer('id_rapat')->unsigned()->nullable();
+        Schema::create('ph0_det_foto', function (Blueprint $table) {
+            $table->increments('id_ph0_det_foto');
+            $table->integer('id_ph0')->unsigned()->nullable();
             $table->binary('foto')->nullable();
 
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_rapat')->references('id_rapat')->on('rapats')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('id_ph0')->references('id_ph0')->on('ph0')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateRapatDetFotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rapat_det_fotos');
+        Schema::dropIfExists('ph0_det_foto');
     }
 }

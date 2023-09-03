@@ -58,7 +58,7 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="nama">Nama Kegiatan</label>
+                                        <label class="col-form-label" for="nama">Nama Kegiatan&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Masukkan Nama" />
@@ -69,7 +69,7 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="role">Tanggal Kegiatan</label>
+                                        <label class="col-form-label" for="role">Tanggal Kegiatan&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" id="tgl" class="form-control form-control-sm pickadate" name="tgl" placeholder="18 June, 2020" />

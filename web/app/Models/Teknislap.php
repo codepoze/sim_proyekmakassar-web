@@ -5,28 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class AnggPengawas extends Model
+class Teknislap extends Model
 {
     use HasFactory;
     // untuk default tabel
-    protected $table = 'angg_pengawas';
+    protected $table = 'teknislap';
     // untuk default primary key
-    protected $primaryKey = 'id_angg_pengawas';
+    protected $primaryKey = 'id_teknislap';
     // untuk fillable
     protected $fillable = [
-        'id_angg_pengawas',
-        'id_kord_pengawas',
+        'id_teknislap',
         'id_users',
         'telepon',
         'alamat',
         'by_users'
     ];
-
-    // untuk relasi ke tabel kord pengawas
-    public function toKordPengawas()
-    {
-        return $this->belongsTo(KordPengawas::class, 'id_kord_pengawas', 'id_kord_pengawas');
-    }
 
     // untuk relasi ke tabel users
     public function toUser()

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKordPengawasTable extends Migration
+class CreatePh0sTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,19 @@ class CreateKordPengawasTable extends Migration
      */
     public function up()
     {
-        Schema::create('kord_pengawas', function (Blueprint $table) {
-            $table->increments('id_kord_pengawas');
-            $table->integer('id_users')->unsigned()->nullable();
-            $table->string('telepon', 15)->nullable();
-            $table->text('alamat')->nullable();
+        Schema::create('ph0', function (Blueprint $table) {
+            $table->increments('id_ph0');
+            $table->integer('id_ruas')->unsigned()->nullable();
+            $table->date('tgl')->nullable();
+            $table->binary('video')->nullable();
+            $table->binary('doc')->nullable();
+
 
             $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');;
+            $table->foreign('id_ruas')->references('id_ruas')->on('ruas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -34,6 +36,6 @@ class CreateKordPengawasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kord_pengawas');
+        Schema::dropIfExists('ph0');
     }
 }

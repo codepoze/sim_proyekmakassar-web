@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOpnameDetFotosTable extends Migration
+class CreateRuasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreateOpnameDetFotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('opname_det_fotos', function (Blueprint $table) {
-            $table->increments('id_opname_det_foto');
-            $table->integer('id_opname')->unsigned()->nullable();
-            $table->binary('foto')->nullable();
+        Schema::create('ruas', function (Blueprint $table) {
+            $table->increments('id_ruas');
+            $table->integer('id_paket')->unsigned()->nullable();
+            $table->string('nilai_ruas', 50)->nullable();
+            $table->string('lat', 50)->nullable();
+            $table->string('long', 50)->nullable();
 
+            $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
-
-            $table->foreign('id_opname')->references('id_opname')->on('opnames')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 
@@ -32,6 +33,6 @@ class CreateOpnameDetFotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('opname_det_fotos');
+        Schema::dropIfExists('ruas');
     }
 }

@@ -15,17 +15,22 @@ class Opname extends Model
     // untuk fillable
     protected $fillable = [
         'id_opname',
-        'id_paket',
+        'id_ruas',
         'tgl',
-        'foto',
         'video',
         'doc',
         'by_users'
     ];
 
-    // untuk relasi ke tabel paket
-    public function toPaket()
+    // untuk relasi ke tabel ruas
+    public function toRuas()
     {
-        return $this->belongsTo(Paket::class, 'id_paket', 'id_paket');
+        return $this->belongsTo(Ruas::class, 'id_ruas', 'id_ruas');
+    }
+
+    // untuk relasi ke tabel opname_det_foto
+    public function toOpnameDetFoto()
+    {
+        return $this->hasMany(OpnameDetFoto::class, 'id_opname', 'id_opname');
     }
 }

@@ -5,21 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Mco extends Model
+class Ruas extends Model
 {
     use HasFactory;
     // untuk default tabel
-    protected $table = 'mco';
+    protected $table = 'ruas';
     // untuk default primary key
-    protected $primaryKey = 'id_mco';
+    protected $primaryKey = 'id_ruas';
     // untuk fillable
     protected $fillable = [
-        'id_mco',
+        'id_ruas',
         'id_paket',
-        'hasil_perhitungan',
-        'volume',
-        'foto',
-        'doc',
+        'nilai_ruas',
+        'lat',
+        'long',
         'by_users'
     ];
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePengawasTable extends Migration
+class CreateOpnamesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,21 +13,19 @@ class CreatePengawasTable extends Migration
      */
     public function up()
     {
-        Schema::create('pengawas', function (Blueprint $table) {
-            $table->increments('id_pengawas');
-            $table->integer('id_paket')->unsigned()->nullable();
+        Schema::create('opname', function (Blueprint $table) {
+            $table->increments('id_opname');
+            $table->integer('id_ruas')->unsigned()->nullable();
             $table->date('tgl')->nullable();
-            $table->string('nama')->nullable();
-            $table->text('keterangan')->nullable();
-            $table->integer('volume')->nullable();
             $table->binary('video')->nullable();
             $table->binary('doc')->nullable();
+
 
             $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_paket')->references('id_paket')->on('pakets')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('id_ruas')->references('id_ruas')->on('ruas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -38,6 +36,6 @@ class CreatePengawasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengawas');
+        Schema::dropIfExists('opname');
     }
 }

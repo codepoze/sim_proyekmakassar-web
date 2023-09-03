@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateKegiatansTable extends Migration
+class CreateMc0sTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,18 @@ class CreateKegiatansTable extends Migration
      */
     public function up()
     {
-        Schema::create('kegiatans', function (Blueprint $table) {
-            $table->increments('id_kegiatan');
-            $table->string('nama')->nullable();
-            $table->date('tgl')->nullable();
+        Schema::create('mc0', function (Blueprint $table) {
+            $table->increments('id_mc0');
+            $table->integer('id_ruas')->unsigned()->nullable();
+            $table->integer('cc0')->nullable();
+            $table->integer('volume_mc0')->nullable();
+            $table->binary('doc')->nullable();
 
             $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreign('id_ruas')->references('id_ruas')->on('ruas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -31,6 +35,6 @@ class CreateKegiatansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('kegiatans');
+        Schema::dropIfExists('mc0');
     }
 }

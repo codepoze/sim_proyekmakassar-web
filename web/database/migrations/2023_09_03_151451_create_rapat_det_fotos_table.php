@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePerusahaansTable extends Migration
+class CreateRapatDetFotosTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreatePerusahaansTable extends Migration
      */
     public function up()
     {
-        Schema::create('perusahaans', function (Blueprint $table) {
-            $table->increments('id_perusahaan');
-            $table->string('nama')->nullable();
-            $table->string('email')->nullable();
-            $table->string('telepon', 15)->nullable();
-            $table->text('alamat')->nullable();
+        Schema::create('rapat_det_foto', function (Blueprint $table) {
+            $table->increments('id_rapat_det_foto');
+            $table->integer('id_rapat')->unsigned()->nullable();
+            $table->binary('foto')->nullable();
 
-            $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
+
+            $table->foreign('id_rapat')->references('id_rapat')->on('rapat')->onDelete('restrict')->onUpdate('restrict');
         });
     }
 
@@ -33,6 +32,6 @@ class CreatePerusahaansTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('perusahaans');
+        Schema::dropIfExists('rapat_det_foto');
     }
 }

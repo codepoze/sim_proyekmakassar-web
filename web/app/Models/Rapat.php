@@ -18,10 +18,8 @@ class Rapat extends Model
         'id_paket',
         'nama',
         'notulen',
-        'foto_kegiatan',
         'foto_surat',
         'foto_daftar_hadir',
-        'by_users'
     ];
 
     // untuk relasi ke tabel paket

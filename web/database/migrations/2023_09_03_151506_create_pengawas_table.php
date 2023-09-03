@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePhosTable extends Migration
+class CreatePengawasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,14 @@ class CreatePhosTable extends Migration
      */
     public function up()
     {
-        Schema::create('phos', function (Blueprint $table) {
-            $table->increments('id_pho');
-            $table->integer('id_paket')->unsigned()->nullable();
+        Schema::create('pengawas', function (Blueprint $table) {
+            $table->increments('id_pengawas');
+            $table->integer('id_ruas')->unsigned()->nullable();
+            $table->string('nama')->nullable();
             $table->date('tgl')->nullable();
+            $table->text('keterangan')->nullable();
+            $table->integer('panjang')->nullable();
+            $table->integer('lebar')->nullable();
             $table->binary('video')->nullable();
             $table->binary('doc')->nullable();
 
@@ -24,7 +28,7 @@ class CreatePhosTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_paket')->references('id_paket')->on('pakets')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('id_ruas')->references('id_ruas')->on('ruas')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -35,6 +39,6 @@ class CreatePhosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('phos');
+        Schema::dropIfExists('pengawas');
     }
 }
