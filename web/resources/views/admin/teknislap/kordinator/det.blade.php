@@ -28,7 +28,7 @@
                                 <label class="col-form-label" for="username">NIK</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control-plaintext" value="{{ $kord_pengawas->toUser->username }}" readonly>
+                                <input type="text" class="form-control-plaintext" value="{{ $teknislap->toUser->username }}" readonly>
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -36,7 +36,7 @@
                                 <label class="col-form-label" for="nama">Nama</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control-plaintext" value="{{ $kord_pengawas->toUser->nama }}" readonly>
+                                <input type="text" class="form-control-plaintext" value="{{ $teknislap->toUser->nama }}" readonly>
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -44,7 +44,7 @@
                                 <label class="col-form-label" for="email">Email</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control-plaintext" value="{{ $kord_pengawas->toUser->email }}" readonly>
+                                <input type="text" class="form-control-plaintext" value="{{ $teknislap->toUser->email }}" readonly>
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -52,7 +52,7 @@
                                 <label class="col-form-label" for="telepon">Telepon</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control-plaintext" value="{{ $kord_pengawas->telepon }}" readonly>
+                                <input type="text" class="form-control-plaintext" value="{{ $teknislap->telepon }}" readonly>
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -60,7 +60,7 @@
                                 <label class="col-form-label" for="alamat">Alamat</label>
                             </div>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control-plaintext" value="{{ $kord_pengawas->alamat }}" readonly>
+                                <input type="text" class="form-control-plaintext" value="{{ $teknislap->alamat }}" readonly>
                             </div>
                         </div>
                     </form>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
                 <div class="card-datatable">
-                    <table class="table table-striped table-bordered" id="tabel-anggota-pengawaas-dt" style="width: 100%;">
+                    <table class="table table-striped table-bordered" id="tabel-teknislap-anggota-dt" style="width: 100%;">
                     </table>
                 </div>
             </div>
@@ -98,7 +98,7 @@
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
             <!-- begin:: untuk form -->
-            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.pengawas.anggota.save') }}" method="POST">
+            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.teknislap.anggota.save') }}" method="POST">
                 <div class="modal-body">
                     <!-- begin:: untuk loading -->
                     <div id="form-loading"></div>
@@ -106,8 +106,8 @@
                     <div id="form-show">
                         <div class="row">
                             <!-- begin:: id -->
-                            <input type="hidden" name="id_kord_pengawas" id="id_kord_pengawas" value="{{ $kord_pengawas->id_kord_pengawas }}" />
-                            <input type="hidden" name="id_angg_pengawas" id="id_angg_pengawas" />
+                            <input type="hidden" name="id_teknislap" id="id_teknislap" value="{{ $teknislap->id_teknislap }}" />
+                            <input type="hidden" name="id_teknislap_anggota" id="id_teknislap_anggota" />
                             <!-- end:: id -->
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
@@ -206,7 +206,7 @@
     var table;
 
     let untukTabel = function() {
-        table = $('#tabel-anggota-pengawaas-dt').DataTable({
+        table = $('#tabel-teknislap-anggota-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
@@ -217,10 +217,10 @@
                 processing: "Data sedang diproses...",
             },
             ajax: {
-                url: "{{ route('admin.pengawas.anggota.get_data_dt') }}",
+                url: "{{ route('admin.teknislap.anggota.get_data_dt') }}",
                 type: "GET",
                 data: {
-                    id_kord_pengawas: $('#id_kord_pengawas').val()
+                    id_teknislap: $('#id_teknislap').val()
                 }
             },
             dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
@@ -369,7 +369,7 @@
             e.preventDefault();
             $('#judul-add-upd').text('Tambah');
 
-            $('#id_angg_pengawas').removeAttr('value');
+            $('#id_teknislap_anggota').removeAttr('value');
 
             $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
             $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
@@ -387,7 +387,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: "{{ route('admin.pengawas.anggota.show') }}",
+                url: "{{ route('admin.teknislap.anggota.show') }}",
                 data: {
                     id: ini.data('id')
                 },
@@ -450,7 +450,7 @@
                     }).then((result) => {
                         $.ajax({
                             type: "post",
-                            url: "{{ route('admin.pengawas.anggota.del') }}",
+                            url: "{{ route('admin.teknislap.anggota.del') }}",
                             dataType: 'json',
                             data: {
                                 id: ini.data('id'),

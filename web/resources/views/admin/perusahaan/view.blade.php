@@ -68,17 +68,6 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="email">Email&nbsp;*</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="email" class="form-control form-control-sm" name="email" placeholder="Masukkan Email" />
-                                        <div class="invalid-feedback"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="field-input mb-1 row">
-                                    <div class="col-sm-3">
                                         <label class="col-form-label" for="telepon">Telepon&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
@@ -159,11 +148,6 @@
                 {
                     title: 'Nama',
                     data: 'nama',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Email',
-                    data: 'email',
                     class: 'text-center'
                 },
                 {

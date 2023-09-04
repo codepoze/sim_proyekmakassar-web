@@ -44,7 +44,7 @@
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
             <!-- begin:: untuk form -->
-            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.pengawas.kordinator.save') }}" method="POST">
+            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.teknislap.kordinator.save') }}" method="POST">
                 <div class="modal-body">
                     <!-- begin:: untuk loading -->
                     <div id="form-loading"></div>
@@ -52,7 +52,7 @@
                     <div id="form-show">
                         <div class="row">
                             <!-- begin:: id -->
-                            <input type="hidden" name="id_kord_pengawas" id="id_kord_pengawas" />
+                            <input type="hidden" name="id_teknislap" id="id_teknislap" />
                             <!-- end:: id -->
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
@@ -157,7 +157,7 @@
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.pengawas.kordinator.get_data_dt') }}",
+            ajax: "{{ route('admin.teknislap.kordinator.get_data_dt') }}",
             dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             drawCallback: function() {
                 feather.replace();
@@ -309,7 +309,7 @@
             e.preventDefault();
             $('#judul-add-upd').text('Tambah');
 
-            $('#id_kord_pengawas').removeAttr('value');
+            $('#id_teknislap').removeAttr('value');
 
             $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
             $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
@@ -327,7 +327,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: "{{ route('admin.pengawas.kordinator.show') }}",
+                url: "{{ route('admin.teknislap.kordinator.show') }}",
                 data: {
                     id: ini.data('id')
                 },
@@ -390,7 +390,7 @@
                     }).then((result) => {
                         $.ajax({
                             type: "post",
-                            url: "{{ route('admin.pengawas.kordinator.del') }}",
+                            url: "{{ route('admin.teknislap.kordinator.del') }}",
                             dataType: 'json',
                             data: {
                                 id: ini.data('id'),

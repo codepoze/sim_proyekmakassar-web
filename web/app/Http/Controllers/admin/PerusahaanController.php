@@ -56,22 +56,24 @@ class PerusahaanController extends Controller
 
     public function save(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $rule = [
             'nama'    => 'required',
-            'email'   => 'required|email',
             'telepon' => 'required|numeric|digits_between:10,13',
             'alamat'  => 'required',
-        ]);
+        ];
+
+        $message = [
+            'nama.required'          => 'Nama Perusahaan tidak boleh kosong!',
+            'telepon.required'       => 'Telepon tidak boleh kosong!',
+            'telepon.numeric'        => 'Telepon harus berupa angka!',
+            'telepon.digits_between' => 'Telepon harus berupa angka dan minimal 10 digit dan maksimal 13 digit!',
+            'alamat.required'        => 'Alamat tidak boleh kosong!',
+        ];
+
+        $validator = Validator::make($request->all(), $rule, $message);
 
         if ($validator->fails()) {
-            $response = [
-                'title'  => 'Gagal!',
-                'text'   => 'Data gagal ditambahkan!',
-                'type'   => 'error',
-                'button' => 'Ok!',
-                'class'  => 'danger',
-                'errors' => $validator->errors()
-            ];
+            $response = ['title' => 'Gagal!', 'text'  => 'Data gagal ditambahkan!', 'type'  => 'error', 'button' => 'Ok!', 'class' => 'danger', 'errors' => $validator->errors()];
 
             return Response::json($response);
         }
@@ -83,7 +85,6 @@ class PerusahaanController extends Controller
                 ],
                 [
                     'nama'     => $request->nama,
-                    'email'    => $request->email,
                     'telepon'  => $request->telepon,
                     'alamat'   => $request->alamat,
                     'by_users' => $this->session['id_users'],

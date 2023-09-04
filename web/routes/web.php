@@ -12,6 +12,8 @@ use App\Http\Controllers\admin\PerusahaanController;
 use App\Http\Controllers\admin\ProfilController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\RoleMenuController;
+use App\Http\Controllers\admin\TeknislapAnggotaController;
+use App\Http\Controllers\admin\TeknislapController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -93,36 +95,36 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         });
         // end:: users
 
-        // begin:: pengawas & anggota
-        Route::group(['prefix' => 'pengawas', 'as' => 'pengawas.'], function () {
-            Route::prefix('/kordinator')->group(function () {
-                Route::get('/', [KordPengawasController::class, 'index'])->name('kordinator');
-                Route::get('/detail/{any}', [KordPengawasController::class, 'detail'])->name('kordinator.detail');
-                Route::get('/get_data_dt', [KordPengawasController::class, 'get_data_dt'])->name('kordinator.get_data_dt');
-                Route::get('/get_all', [KordPengawasController::class, 'get_all'])->name('kordinator.get_all');
-                Route::post('/show', [KordPengawasController::class, 'show'])->name('kordinator.show');
-                Route::post('/save', [KordPengawasController::class, 'save'])->name('kordinator.save');
-                Route::post('/del', [KordPengawasController::class, 'del'])->name('kordinator.del');
+        // begin:: teknis lapangan koordinator & anggota
+        Route::group(['prefix' => 'teknislap', 'as' => 'teknislap.'], function () {
+            Route::controller(TeknislapController::class)->prefix('kordinator')->as('kordinator.')->group(function () {
+                Route::get('/', 'index')->name('kordinator');
+                Route::get('/detail/{any}', 'detail')->name('detail');
+                Route::get('/get_all', 'get_all')->name('get_all');
+                Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+                Route::post('/show', 'show')->name('show');
+                Route::post('/save', 'save')->name('save');
+                Route::post('/del', 'del')->name('del');
             });
 
-            Route::prefix('/anggota')->group(function () {
-                Route::get('/', [AnggPengawasController::class, 'index'])->name('anggota');
-                Route::get('/get_data_dt', [AnggPengawasController::class, 'get_data_dt'])->name('anggota.get_data_dt');
-                Route::post('/show', [AnggPengawasController::class, 'show'])->name('anggota.show');
-                Route::post('/save', [AnggPengawasController::class, 'save'])->name('anggota.save');
-                Route::post('/del', [AnggPengawasController::class, 'del'])->name('anggota.del');
+            Route::controller(TeknislapAnggotaController::class)->prefix('anggota')->as('anggota.')->group(function () {
+                Route::get('/', 'index')->name('anggota');
+                Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+                Route::post('/show', 'show')->name('show');
+                Route::post('/save', 'save')->name('save');
+                Route::post('/del', 'del')->name('del');
             });
         });
-        // end:: pengawas & anggota
+        // end:: teknis lapangan koordinator & anggota
 
         // begin:: perusahaan
-        Route::prefix('/perusahaan')->group(function () {
-            Route::get('/', [PerusahaanController::class, 'index'])->name('perusahaan');
-            Route::get('/get_data_dt', [PerusahaanController::class, 'get_data_dt'])->name('perusahaan.get_data_dt');
-            Route::get('/get_all', [PerusahaanController::class, 'get_all'])->name('perusahaan.get_all');
-            Route::post('/show', [PerusahaanController::class, 'show'])->name('perusahaan.show');
-            Route::post('/save', [PerusahaanController::class, 'save'])->name('perusahaan.save');
-            Route::post('/del', [PerusahaanController::class, 'del'])->name('perusahaan.del');
+        Route::controller(PerusahaanController::class)->prefix('perusahaan')->as('perusahaan.')->group(function () {
+            Route::get('/', 'index')->name('perusahaan');
+            Route::get('/get_all', 'get_all')->name('get_all');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
         });
         // end:: perusahaan
 
