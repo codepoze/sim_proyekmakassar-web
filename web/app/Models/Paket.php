@@ -47,4 +47,10 @@ class Paket extends Model
     {
         return $this->belongsTo(Teknislap::class, 'id_teknislap', 'id_teknislap');
     }
+
+    // untuk relasi ke tabel ruas
+    public function toRuas()
+    {
+        return $this->hasMany(Ruas::class, 'id_paket', 'id_paket');
+    }
 }

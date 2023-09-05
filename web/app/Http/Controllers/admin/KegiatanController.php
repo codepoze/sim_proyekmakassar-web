@@ -30,6 +30,7 @@ class KegiatanController extends Controller
         $id_kegiatan = my_decrypt($id);
 
         $data = [
+            'id'       => $id,
             'kegiatan' => Kegiatan::find($id_kegiatan),
         ];
 
@@ -70,14 +71,7 @@ class KegiatanController extends Controller
         ]);
 
         if ($validator->fails()) {
-            $response = [
-                'title'  => 'Gagal!',
-                'text'   => 'Data gagal ditambahkan!',
-                'type'   => 'error',
-                'button' => 'Ok!',
-                'class'  => 'danger',
-                'errors' => $validator->errors()
-            ];
+            $response = ['title' => 'Gagal!', 'text'  => 'Data gagal ditambahkan!', 'type'  => 'error', 'button' => 'Ok!', 'class' => 'danger', 'errors' => $validator->errors()];
 
             return Response::json($response);
         }

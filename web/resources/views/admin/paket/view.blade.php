@@ -70,63 +70,43 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Kegiatan',
-                    data: 'to_kegiatan.nama',
-                    class: 'text-center'
-                },
-                {
                     title: 'Perusahaan',
                     data: 'to_perusahaan.nama',
                     class: 'text-center'
                 },
                 {
-                    title: 'Kordinator Pengawas',
-                    data: 'to_kord_pengawas.to_user.nama',
+                    title: 'Kordinator Teknis Lapangan',
+                    data: 'to_teknislap.to_user.nama',
                     class: 'text-center'
                 },
                 {
-                    title: 'Nama Paket',
-                    data: 'nama_paket',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Nama Pekerjaan',
-                    data: 'nama_pekerjaan',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Lama Pekerjaan',
-                    data: 'lama_pekerjaan',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Nilai Kontrak',
-                    data: 'nilai_kontrak',
+                    title: 'Nomor SPMK',
+                    data: 'no_spmk',
                     class: 'text-center'
                 },
                 {
                     title: 'Nomor Kontrak',
-                    data: 'nomor_kontrak',
+                    data: 'no_kontrak',
                     class: 'text-center'
                 },
                 {
-                    title: 'Nomor SPK',
-                    data: 'nomor_spk',
+                    title: 'Nilai Kontrak',
+                    data: 'nil_kontrak',
                     class: 'text-center'
                 },
                 {
-                    title: 'Nama Lokasi',
-                    data: 'nama_lokasi',
+                    title: 'Waktu Kontrak',
+                    data: 'waktu_kontrak',
                     class: 'text-center'
                 },
                 {
-                    title: 'Ruas Jalan',
-                    data: 'ruas_jalan',
+                    title: 'Lokasi Pekerjaan',
+                    data: 'lokasi_pekerjaan',
                     class: 'text-center'
                 },
                 {
-                    title: 'Nilai Peruas',
-                    data: 'nilai_peruas',
+                    title: 'Schedule',
+                    data: 'schedule',
                     class: 'text-center'
                 },
                 {
@@ -135,14 +115,17 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Titik Kordinat',
-                    data: 'titik_kordinat',
-                    class: 'text-center'
-                },
-                {
                     title: 'Schedule',
                     data: 'schedule',
                     class: 'text-center'
+                },
+                {
+                    title: 'Aksi',
+                    data: 'action',
+                    className: 'text-center',
+                    responsivePriority: -1,
+                    orderable: false,
+                    searchable: false,
                 },
             ],
         });

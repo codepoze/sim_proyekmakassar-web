@@ -1,9 +1,7 @@
 <?php
 
-use App\Http\Controllers\admin\AnggPengawasController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\KegiatanController;
-use App\Http\Controllers\admin\KordPengawasController;
 use App\Http\Controllers\admin\MenuActionController;
 use App\Http\Controllers\admin\MenuBodyController;
 use App\Http\Controllers\admin\MenuHeadController;
@@ -140,11 +138,12 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         // end:: kegiatan
 
         // begin:: paket
-        Route::prefix('/paket')->group(function () {
-            Route::get('/', [PaketController::class, 'index'])->name('paket');
-            Route::get('/get_data_dt', [PaketController::class, 'get_data_dt'])->name('paket.get_data_dt');
-            Route::post('/save', [PaketController::class, 'save'])->name('paket.save');
-            Route::post('/del', [PaketController::class, 'del'])->name('paket.del');
+        Route::controller(PaketController::class)->prefix('paket')->as('paket.')->group(function () {
+            Route::get('/', 'index')->name('paket');
+            Route::get('/add/{id}', 'add')->name('add');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
         });
         // end:: paket
     });

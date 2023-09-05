@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Libraries\Template;
 use App\Models\Paket;
 use App\Models\Role;
+use App\Models\Ruas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -27,6 +28,15 @@ class PaketController extends Controller
         return Template::load('admin', 'Paket', 'paket', 'view');
     }
 
+    public function add($id)
+    {
+        $data = [
+            'id_kegiatan' => $id,
+        ];
+
+        return Template::load('admin', 'Tambah Paket', 'paket', 'add', $data);
+    }
+
     public function get_data_dt(Request $request)
     {
         $query = Paket::query();
@@ -35,10 +45,17 @@ class PaketController extends Controller
             $query->whereIdKegiatan($request->id_kegiatan);
         }
 
-        $data = $query->with(['toKegiatan', 'toPerusahaan', 'toKordPengawas.toUser'])->orderBy('id_paket', 'desc')->get();
+        $data = $query->with(['toKegiatan', 'toPerusahaan', 'toTeknislap.toUser'])->orderBy('id_paket', 'desc')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
+            ->addColumn('nilai_total_ruas', function ($row) {
+                $nilai_total_ruas = 0;
+                foreach ($row->toRuas as $key => $value) {
+                    $nilai_total_ruas += $value->nilai_ruas;
+                }
+                return $nilai_total_ruas;
+            })
             ->addColumn('action', function ($row) {
                 return '
                     <button type="button" id="upd" data-id="' . my_encrypt($row->id_paket) . '" class="btn btn-action btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
@@ -52,71 +69,63 @@ class PaketController extends Controller
     {
         $post = $request->all();
 
+        $data = [];
         foreach ($post as $key => $value) {
             $data[$key] = $value;
         }
 
-        $data['foto_lokasi']      = $request->file('foto_lokasi');
-        $data['doc_administrasi'] = $request->file('doc_administrasi');
-        $data['doc_kontrak']      = $request->file('doc_kontrak');
+        foreach ($data['nilai_ruas'] as $key => $value) {
+            $data['nilai_ruas_' . $key] = $value;
+            $data['lat_' . $key]        = $value;
+            $data['long_' . $key]       = $value;
+        }
 
         $rules = [
             'id_perusahaan'    => 'required',
-            'id_kord_pengawas' => 'required',
-            'nama_paket'       => 'required',
-            'nama_pekerjaan'   => 'required',
-            'lama_pekerjaan'   => 'required',
-            'nilai_kontrak'    => 'required|numeric',
-            'nomor_kontrak'    => 'required',
-            'nomor_spk'        => 'required',
-            'nama_lokasi'      => 'required',
-            'ruas_jalan'       => 'required',
-            'nilai_peruas'     => 'required|numeric',
-            'nilai_total_ruas' => 'required|numeric',
-            'titik_kordinat'   => 'required',
+            'id_teknislap'     => 'required',
+            'no_spmk'          => 'required',
+            'no_kontrak'       => 'required',
+            'nil_kontrak'      => 'required',
+            'waktu_kontrak'    => 'required',
+            'lokasi_pekerjaan' => 'required',
             'schedule'         => 'required',
-            'foto_lokasi'      => 'required|mimes:png,jpg,jpeg',
-            'doc_administrasi' => 'required|mimes:pdf',
+            'laporan'          => 'required|mimes:pdf',
             'doc_kontrak'      => 'required|mimes:pdf',
+            'foto_lokasi'      => 'required|mimes:png,jpg,jpeg',
         ];
 
         $messages = [
-            'id_perusahaan.required'    => 'Perusahaan harus diisi!',
-            'id_kord_pengawas.required' => 'Koordinator harus diisi!',
-            'nama_paket.required'       => 'Nama Paket harus diisi!',
-            'nama_pekerjaan.required'   => 'Nama Pekerjaan harus diisi!',
-            'lama_pekerjaan.required'   => 'Lama Pekerjaan harus diisi!',
-            'nilai_kontrak.required'    => 'Nilai Kontrak harus diisi!',
-            'nilai_kontrak.numeric'     => 'Nilai Kontrak harus berupa angka!',
-            'nomor_kontrak.required'    => 'Nomor Kontrak harus diisi!',
-            'nomor_spk.required'        => 'Nomor SPK harus diisi!',
-            'nama_lokasi.required'      => 'Nama Lokasi harus diisi!',
-            'ruas_jalan.required'       => 'Ruas Jalan harus diisi!',
-            'nilai_peruas.required'     => 'Nilai Per Ruas harus diisi!',
-            'nilai_peruas.numeric'      => 'Nilai Per Ruas harus berupa angka!',
-            'nilai_total_ruas.required' => 'Nilai Total Ruas harus diisi!',
-            'nilai_total_ruas.numeric'  => 'Nilai Total Ruas harus berupa angka!',
-            'titik_kordinat.required'   => 'Titik Kordinat harus diisi!',
-            'schedule.required'         => 'Schedule harus diisi!',
-            'foto_lokasi.required'      => 'Foto Lokasi harus diisi!',
-            'foto_lokasi.mimes'         => 'Foto Lokasi harus berupa file gambar!',
-            'doc_administrasi.required' => 'Dokumen Administrasi harus diisi!',
-            'doc_administrasi.mimes'    => 'Dokumen Administrasi harus berupa file pdf!',
-            'doc_kontrak.required'      => 'Dokumen Kontrak harus diisi!',
-            'doc_kontrak.mimes'         => 'Dokumen Kontrak harus berupa file pdf!',
+            'id_perusahaan.required'    => 'Perusahaan tidak boleh kosong!',
+            'id_teknislap.required'     => 'Teknis lapangan tidak boleh kosong!',
+            'no_spmk.required'          => 'No SPMK tidak boleh kosong!',
+            'no_kontrak.required'       => 'No Kontrak tidak boleh kosong!',
+            'nil_kontrak.required'      => 'Nilai Kontrak tidak boleh kosong!',
+            'waktu_kontrak.required'    => 'Waktu Kontrak tidak boleh kosong!',
+            'lokasi_pekerjaan.required' => 'Lokasi Pekerjaan tidak boleh kosong!',
+            'schedule.required'         => 'Schedule tidak boleh kosong!',
+            'laporan.required'          => 'Laporan tidak boleh kosong!',
+            'laporan.mimes'             => 'Laporan harus berupa pdf!',
+            'doc_kontrak.required'      => 'Dokumen Kontrak tidak boleh kosong!',
+            'doc_kontrak.mimes'         => 'Dokumen Kontrak harus berupa pdf!',
+            'foto_lokasi.required'      => 'Foto Lokasi tidak boleh kosong!',
+            'foto_lokasi.mimes'         => 'Foto Lokasi harus berupa png, jpg, jpeg!',
         ];
+
+        foreach ($data['nilai_ruas'] as $key => $value) {
+            $rules['nilai_ruas_' . $key] = 'required|numeric';
+            $rules['lat_' . $key]        = 'required';
+            $rules['long_' . $key]       = 'required';
+
+            $messages['nilai_ruas_' . $key . '.required'] = 'Nilai Ruas tidak boleh kosong!';
+            $messages['nilai_ruas_' . $key . '.numeric']  = 'Nilai Ruas harus berupa angka!';
+            $messages['lat_' . $key . '.required']        = 'Latitude tidak boleh kosong!';
+            $messages['long_' . $key . '.required']       = 'Longitude tidak boleh kosong!';
+        }
 
         $validator = Validator::make($data, $rules, $messages);
 
         if ($validator->fails()) {
-            $response = [
-                'title'  => 'Gagal!',
-                'text'   => 'Data gagal ditambahkan!',
-                'type'   => 'error',
-                'button' => 'Ok!',
-                'class'  => 'danger',
-                'errors' => $validator->errors()
-            ];
+            $response = ['title' => 'Gagal!', 'text'  => 'Data gagal ditambahkan!', 'type'  => 'error', 'button' => 'Ok!', 'class' => 'danger', 'errors' => $validator->errors()];
 
             return Response::json($response);
         }
@@ -124,33 +133,41 @@ class PaketController extends Controller
         try {
             if ($request->id_paket === null) {
                 // tambah
-                $foto_lokasi      = add_picture($request->foto_lokasi);
-                $doc_administrasi = add_pdf($request->doc_administrasi);
-                $doc_kontrak      = add_pdf($request->doc_kontrak);
+                $laporan     = add_pdf($request->laporan);
+                $doc_kontrak = add_pdf($request->doc_kontrak);
+                $foto_lokasi = add_picture($request->foto_lokasi);
 
-                $paket = new Paket();
-                $paket->id_kegiatan      = $request->id_kegiatan;
-                $paket->id_perusahaan    = $request->id_perusahaan;
-                $paket->id_kord_pengawas = $request->id_kord_pengawas;
-                $paket->nama_paket       = $request->nama_paket;
-                $paket->nama_pekerjaan   = $request->nama_pekerjaan;
-                $paket->lama_pekerjaan   = $request->lama_pekerjaan;
-                $paket->nilai_kontrak    = $request->nilai_kontrak;
-                $paket->nomor_kontrak    = $request->nomor_kontrak;
-                $paket->nomor_spk        = $request->nomor_spk;
-                $paket->nama_lokasi      = $request->nama_lokasi;
-                $paket->ruas_jalan       = $request->ruas_jalan;
-                $paket->nilai_peruas     = $request->nilai_peruas;
-                $paket->nilai_total_ruas = $request->nilai_total_ruas;
-                $paket->titik_kordinat   = $request->titik_kordinat;
-                $paket->schedule         = $request->schedule;
-                $paket->foto_lokasi      = $foto_lokasi;
-                $paket->doc_administrasi = $doc_administrasi;
-                $paket->doc_kontrak      = $doc_kontrak;
-                $paket->by_users         = $this->session['id_users'];
-                $paket->save();
+                $paket = Paket::create([
+                    'id_kegiatan'      => my_decrypt($request->id_kegiatan),
+                    'id_perusahaan'    => $request->id_perusahaan,
+                    'id_teknislap'     => $request->id_teknislap,
+                    'no_spmk'          => $request->no_spmk,
+                    'no_kontrak'       => $request->no_kontrak,
+                    'nil_kontrak'      => $request->nil_kontrak,
+                    'waktu_kontrak'    => $request->waktu_kontrak,
+                    'lokasi_pekerjaan' => $request->lokasi_pekerjaan,
+                    'schedule'         => $request->schedule,
+                    'laporan'          => $laporan,
+                    'doc_kontrak'      => $doc_kontrak,
+                    'foto_lokasi'      => $foto_lokasi,
+                    'by_users'         => $this->session['id_users'],
+                ]);
+
+                $id_paket = $paket->id_paket;
+
+                foreach ($data['nilai_ruas'] as $key => $value) {
+                    Ruas::create([
+                        'id_paket'    => $id_paket,
+                        'nilai_ruas'  => $value,
+                        'lat'         => $data['lat_' . $key],
+                        'long'        => $data['long_' . $key],
+                        'by_users'    => $this->session['id_users'],
+                    ]);
+                }
             } else {
                 // ubah
+
+                dd($data);
             }
 
             $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];

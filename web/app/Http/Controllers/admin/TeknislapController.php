@@ -62,21 +62,21 @@ class TeknislapController extends Controller
             ->make(true);
     }
 
-    // public function get_all()
-    // {
-    //     $data = KordPengawas::with(['toUser'])->orderBy('id_kord_pengawas', 'asc')->get();
+    public function get_all()
+    {
+        $data = Teknislap::with(['toUser'])->orderBy('id_teknislap', 'desc')->get();
 
-    //     $response = [];
+        $response = [];
 
-    //     foreach ($data as $key => $value) {
-    //         $response[] = [
-    //             'id'   => $value->id_kord_pengawas,
-    //             'text' => $value->toUser->nama,
-    //         ];
-    //     }
+        foreach ($data as $key => $value) {
+            $response[] = [
+                'id'   => $value->id_teknislap,
+                'text' => $value->toUser->nama,
+            ];
+        }
 
-    //     return Response::json($response);
-    // }
+        return Response::json($response);
+    }
 
     public function show(Request $request)
     {

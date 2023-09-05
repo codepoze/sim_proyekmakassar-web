@@ -97,6 +97,30 @@ Breadcrumbs::for('admin.perusahaan.perusahaan', function (BreadcrumbTrail $trail
     $trail->push('Perusahaan', route('admin.perusahaan.perusahaan'));
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Breadcrumbs::for('admin.kegiatan', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
@@ -109,8 +133,14 @@ Breadcrumbs::for('admin.kegiatan.detail', function (BreadcrumbTrail $trail) {
     $trail->push('Detail Kegiatan');
 });
 
-Breadcrumbs::for('admin.paket', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.paket.paket', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Paket', route('admin.paket'));
+    $trail->push('Paket', route('admin.paket.paket'));
+});
+
+Breadcrumbs::for('admin.paket.add', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.paket.paket');
+
+    $trail->push('Add', '#');
 });
