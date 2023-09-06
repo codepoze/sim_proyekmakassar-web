@@ -35,14 +35,14 @@ class RoleTableSeeder extends Seeder
             ],
             [
                 'id_role'  => 4,
-                'nama'     => 'Kordinator Pengawas',
-                'role'     => 'kord_pengawas',
+                'nama'     => 'Kordinator Teknis Lapangan',
+                'role'     => 'kord_teknislap',
                 'by_users' => 1,
             ],
             [
                 'id_role'  => 5,
-                'nama'     => 'Pengawas',
-                'role'     => 'pengawas',
+                'nama'     => 'Anggota Teknis Lapangan',
+                'role'     => 'ang_teknislap',
                 'by_users' => 1,
             ],
         ];

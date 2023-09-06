@@ -122,7 +122,7 @@ class TeknislapAnggotaController extends Controller
         }
 
         try {
-            $role = Role::whereRole('pengawas')->first();
+            $role = Role::whereRole('ang_teknislap')->first();
 
             if ($request->id_teknislap_anggota === null) {
                 // tambah

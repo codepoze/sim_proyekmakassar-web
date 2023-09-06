@@ -16,9 +16,9 @@ class MenuHeadTableSeeder extends Seeder
     {
         $menu_heads = [
             [
-                'nama'         => 'Pengawas',
+                'nama'         => 'Teknis Lapangan',
                 'icon'         => 'list',
-                'path'         => '/pengawas',
+                'path'         => '/teknislap',
                 'status'       => '1',
                 'jenis'        => 'multi',
                 'by_users'     => 1,
