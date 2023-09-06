@@ -62,16 +62,16 @@ class TeknislapController extends Controller
             ->make(true);
     }
 
-    public function get_all()
+    public function get_all(Request $request)
     {
         $data = Teknislap::with(['toUser'])->orderBy('id_teknislap', 'desc')->get();
 
         $response = [];
-
         foreach ($data as $key => $value) {
             $response[] = [
-                'id'   => $value->id_teknislap,
-                'text' => $value->toUser->nama,
+                'id'       => $value->id_teknislap,
+                'text'     => $value->toUser->nama,
+                'selected' => ($request->id == $value->id_teknislap ? true : false)
             ];
         }
 

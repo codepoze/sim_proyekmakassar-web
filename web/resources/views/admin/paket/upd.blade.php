@@ -23,8 +23,7 @@
                 <div class="card-body">
                     <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route('admin.paket.save') }}" method="POST">
                         <!-- begin:: id -->
-                        <input type="hidden" name="id_kegiatan" id="id_kegiatan" value="{{ $id_kegiatan }}" />
-                        <input type="hidden" name="id_paket" id="id_paket" />
+                        <input type="hidden" name="id_paket" id="id_paket" value="{{ $id_paket }}" />
                         <!-- end:: id -->
 
                         <div class="field-input mb-1 row">
@@ -54,7 +53,7 @@
                                 <label class="col-form-label" for="no_spmk">Nomor SPMK&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="no_spmk" class="form-control form-control-sm" name="no_spmk" placeholder="Masukkan Nomor SPMK" />
+                                <input type="text" id="no_spmk" class="form-control form-control-sm" name="no_spmk" placeholder="Masukkan Nomor SPMK" value="{{ $paket->no_spmk }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -63,7 +62,7 @@
                                 <label class="col-form-label" for="no_kontrak">Nomor Kontrak&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="no_kontrak" class="form-control form-control-sm" name="no_kontrak" placeholder="Masukkan Nomor Kontrak" />
+                                <input type="text" id="no_kontrak" class="form-control form-control-sm" name="no_kontrak" placeholder="Masukkan Nomor Kontrak" value="{{ $paket->no_kontrak }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -72,7 +71,7 @@
                                 <label class="col-form-label" for="nil_kontrak">Nilai Kontrak&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="nil_kontrak" class="form-control form-control-sm" name="nil_kontrak" placeholder="Masukkan Nilai Kontrak" />
+                                <input type="text" id="nil_kontrak" class="form-control form-control-sm" name="nil_kontrak" placeholder="Masukkan Nilai Kontrak" value="{{ $paket->nil_kontrak }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -81,7 +80,7 @@
                                 <label class="col-form-label" for="waktu_kontrak">Waktu Kontrak&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="waktu_kontrak" class="form-control form-control-sm" name="waktu_kontrak" placeholder="Masukkan Waktu Kontrak" />
+                                <input type="text" id="waktu_kontrak" class="form-control form-control-sm" name="waktu_kontrak" placeholder="Masukkan Waktu Kontrak" value="{{ $paket->waktu_kontrak }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -90,7 +89,7 @@
                                 <label class="col-form-label" for="doc_kontrak">Doc Kontrak&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="file" id="doc_kontrak" class="form-control form-control-sm" name="doc_kontrak" />
+                                <input type="file" id="doc_kontrak" class="form-control form-control-sm" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -99,7 +98,7 @@
                                 <label class="col-form-label" for="lokasi_pekerjaan">Lokasi Pekerjaan&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="lokasi_pekerjaan" class="form-control form-control-sm" name="lokasi_pekerjaan" placeholder="Masukkan Lokasi Pekerjaan" />
+                                <input type="text" id="lokasi_pekerjaan" class="form-control form-control-sm" name="lokasi_pekerjaan" placeholder="Masukkan Lokasi Pekerjaan" value="{{ $paket->lokasi_pekerjaan }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -108,7 +107,7 @@
                                 <label class="col-form-label" for="schedule">Schedule&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="date" id="schedule" class="form-control form-control-sm" name="schedule" />
+                                <input type="date" id="schedule" class="form-control form-control-sm" name="schedule" value="{{ $paket->schedule }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -117,7 +116,7 @@
                                 <label class="col-form-label" for="foto_lokasi">Foto Lokasi&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="file" id="foto_lokasi" class="form-control form-control-sm" name="foto_lokasi" />
+                                <input type="file" id="foto_lokasi" class="form-control form-control-sm" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -126,7 +125,7 @@
                                 <label class="col-form-label" for="laporan">Laporan&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="file" id="laporan" class="form-control form-control-sm" name="laporan" />
+                                <input type="file" id="laporan" class="form-control form-control-sm" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -136,17 +135,20 @@
                                 <label class="col-form-label">Ruas&nbsp;*</label>
                             </div>
                             <div class="col-sm-9">
+                                @foreach ($paket->toRuas as $key => $row)
+                                <input type="hidden" name="id_ruas[]" value="{{ $row->id_ruas }}" />
+                                @if ($key === 0)
                                 <div class="row my-1 ruas">
                                     <div class="field-input col-3">
-                                        <input type="text" id="nilai_ruas_0" name="nilai_ruas[]" class="form-control form-control-sm" placeholder="Masukkan Nilai Ruas" />
+                                        <input type="text" id="nilai_ruas_0" name="nilai_ruas[]" class="form-control form-control-sm" placeholder="Masukkan Nilai Ruas" value="{{ $row->nilai_ruas }}" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="field-input col-3">
-                                        <input type="text" id="lat_0" name="lat[]" class="form-control form-control-sm" placeholder="Masukkan Latitude" />
+                                        <input type="text" id="lat_0" name="lat[]" class="form-control form-control-sm" placeholder="Masukkan Latitude" value="{{ $row->lat }}" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="field-input col-3">
-                                        <input type="text" id="long_0" name="long[]" class="form-control form-control-sm" placeholder="Masukkan Longitude" />
+                                        <input type="text" id="long_0" name="long[]" class="form-control form-control-sm" placeholder="Masukkan Longitude" value="{{ $row->long }}" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="col-3 d-flex justify-content-center">
@@ -155,6 +157,29 @@
                                         </button>
                                     </div>
                                 </div>
+                                @else
+                                <div class="row my-1 ruas-ini">
+                                    <div class="field-input col-3">
+                                        <input type="text" id="nilai_ruas_{{ $key }}" name="nilai_ruas[]" class="form-control form-control-sm" placeholder="Masukkan Nilai Ruas" value="{{ $row->nilai_ruas }}" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="field-input col-3">
+                                        <input type="text" id="lat_{{ $key }}" name="lat[]" class="form-control form-control-sm" placeholder="Masukkan Latitude" value="{{ $row->lat }}" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="field-input col-3">
+                                        <input type="text" id="long_{{ $key }}" name="long[]" class="form-control form-control-sm" placeholder="Masukkan Longitude" value="{{ $row->long }}" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="col-3 d-flex justify-content-center">
+                                        <button type="button" id="del" class="btn btn-sm btn-relief-danger">
+                                            <span>Hapus</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                @endif
+                                @endforeach
+
                             </div>
                         </div>
                         <!-- end:: untuk ruas -->
@@ -215,7 +240,7 @@
                             },
                             buttonsStyling: false,
                         }).then((value) => {
-                            location.href = "{{ route('admin.paket.paket') }}";
+                            location.reload();
                         });
                     } else {
                         $.each(response.errors, function(key, value) {
@@ -291,12 +316,13 @@
     }();
 
     let untukRuas = function() {
-        var i = 0;
+        var i = $('.ruas-ini').length;
 
         $(document).on("click", "#add", function() {
             i++;
 
             var html = `
+                <input type="hidden" name="id_ruas[]" value="0" />
                 <div class="row my-1 ruas-ini">
                     <div class="field-input col-3">
                         <input type="text" id="nilai_ruas_` + i + `" name="nilai_ruas[]" class="form-control form-control-sm"
@@ -333,7 +359,9 @@
     }();
 
     let untukSelectPerusahaan = function() {
-        $.get("{{ route('admin.perusahaan.get_all') }}", function(response) {
+        $.get("{{ route('admin.perusahaan.get_all') }}", {
+            id: '{{ $paket->id_perusahaan }}'
+        }, function(response) {
             $("#id_perusahaan").select2({
                 placeholder: "Pilih Perusahaan",
                 width: '100%',
@@ -345,7 +373,9 @@
     }();
 
     let untukSelectTeknisLapangan = function() {
-        $.get("{{ route('admin.teknislap.kordinator.get_all') }}", function(response) {
+        $.get("{{ route('admin.teknislap.kordinator.get_all') }}", {
+            id: '{{ $paket->id_teknislap }}'
+        }, function(response) {
             $("#id_teknislap").select2({
                 placeholder: "Pilih Kordinator Teknis Lapangan",
                 width: '100%',

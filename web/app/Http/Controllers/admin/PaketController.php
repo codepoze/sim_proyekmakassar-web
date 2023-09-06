@@ -37,6 +37,16 @@ class PaketController extends Controller
         return Template::load('admin', 'Tambah Paket', 'paket', 'add', $data);
     }
 
+    public function upd($id)
+    {
+        $data = [
+            'id_paket' => $id,
+            'paket'    => Paket::with(['toRuas'])->findOrFail(my_decrypt($id))
+        ];
+
+        return Template::load('admin', 'Ubah Paket', 'paket', 'upd', $data);
+    }
+
     public function get_data_dt(Request $request)
     {
         $query = Paket::query();
@@ -58,7 +68,7 @@ class PaketController extends Controller
             })
             ->addColumn('action', function ($row) {
                 return '
-                    <button type="button" id="upd" data-id="' . my_encrypt($row->id_paket) . '" class="btn btn-action btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
+                    <a href="' . route("admin.paket.upd", my_encrypt($row->id_paket)) . '" class="btn btn-action btn-sm btn-relief-primary"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></a>&nbsp;
                     <button type="button" id="del" data-id="' . my_encrypt($row->id_paket) . '" class="btn btn-action btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';
             })
@@ -74,10 +84,21 @@ class PaketController extends Controller
             $data[$key] = $value;
         }
 
-        foreach ($data['nilai_ruas'] as $key => $value) {
-            $data['nilai_ruas_' . $key] = $value;
-            $data['lat_' . $key]        = $value;
-            $data['long_' . $key]       = $value;
+        if ($request->id_paket === null) {
+            // tambah
+            foreach ($data['nilai_ruas'] as $key => $value) {
+                $data['nilai_ruas_' . $key] = $value;
+                $data['lat_' . $key]        = $data['lat'][$key];
+                $data['long_' . $key]       = $data['long'][$key];
+            }
+        } else {
+            // ubah
+            foreach ($data['nilai_ruas'] as $key => $value) {
+                $data['id_ruas_' . $key]    = $data['id_ruas'][$key];
+                $data['nilai_ruas_' . $key] = $value;
+                $data['lat_' . $key]        = $data['lat'][$key];
+                $data['long_' . $key]       = $data['long'][$key];
+            }
         }
 
         $rules = [
@@ -89,9 +110,9 @@ class PaketController extends Controller
             'waktu_kontrak'    => 'required',
             'lokasi_pekerjaan' => 'required',
             'schedule'         => 'required',
-            'laporan'          => 'required|mimes:pdf',
-            'doc_kontrak'      => 'required|mimes:pdf',
-            'foto_lokasi'      => 'required|mimes:png,jpg,jpeg',
+            // 'laporan'          => 'required|mimes:pdf',
+            // 'doc_kontrak'      => 'required|mimes:pdf',
+            // 'foto_lokasi'      => 'required|mimes:png,jpg,jpeg',
         ];
 
         $messages = [
@@ -103,12 +124,12 @@ class PaketController extends Controller
             'waktu_kontrak.required'    => 'Waktu Kontrak tidak boleh kosong!',
             'lokasi_pekerjaan.required' => 'Lokasi Pekerjaan tidak boleh kosong!',
             'schedule.required'         => 'Schedule tidak boleh kosong!',
-            'laporan.required'          => 'Laporan tidak boleh kosong!',
-            'laporan.mimes'             => 'Laporan harus berupa pdf!',
-            'doc_kontrak.required'      => 'Dokumen Kontrak tidak boleh kosong!',
-            'doc_kontrak.mimes'         => 'Dokumen Kontrak harus berupa pdf!',
-            'foto_lokasi.required'      => 'Foto Lokasi tidak boleh kosong!',
-            'foto_lokasi.mimes'         => 'Foto Lokasi harus berupa png, jpg, jpeg!',
+            // 'laporan.required'          => 'Laporan tidak boleh kosong!',
+            // 'laporan.mimes'             => 'Laporan harus berupa pdf!',
+            // 'doc_kontrak.required'      => 'Dokumen Kontrak tidak boleh kosong!',
+            // 'doc_kontrak.mimes'         => 'Dokumen Kontrak harus berupa pdf!',
+            // 'foto_lokasi.required'      => 'Foto Lokasi tidak boleh kosong!',
+            // 'foto_lokasi.mimes'         => 'Foto Lokasi harus berupa png, jpg, jpeg!',
         ];
 
         foreach ($data['nilai_ruas'] as $key => $value) {
@@ -166,10 +187,52 @@ class PaketController extends Controller
                 }
             } else {
                 // ubah
+                $paket = Paket::find(my_decrypt($request->id_paket));
+                $paket->update([
+                    'id_perusahaan'    => $request->id_perusahaan,
+                    'id_teknislap'     => $request->id_teknislap,
+                    'no_spmk'          => $request->no_spmk,
+                    'no_kontrak'       => $request->no_kontrak,
+                    'nil_kontrak'      => $request->nil_kontrak,
+                    'waktu_kontrak'    => $request->waktu_kontrak,
+                    'lokasi_pekerjaan' => $request->lokasi_pekerjaan,
+                    'schedule'         => $request->schedule,
+                    'by_users'         => $this->session['id_users'],
+                ]);
 
-                dd($data);
+                $check_ruas = Ruas::whereIdPaket(my_decrypt($request->id_paket))->get()->count();
+                $data_ruas  = [];
+                foreach ($data['nilai_ruas'] as $key => $value) {
+                    $id_ruas    = (int) $data['id_ruas_' . $key];
+                    $nilai_ruas = $data['nilai_ruas_' . $key];
+                    $lat        = $data['lat_' . $key];
+                    $long       = $data['long_' . $key];
+
+                    if ($id_ruas !== 0) {
+                        $data_ruas[] = $id_ruas;
+
+                        $ruas = Ruas::find($id_ruas);
+                        $ruas->update([
+                            'nilai_ruas'  => $nilai_ruas,
+                            'lat'         => $lat,
+                            'long'        => $long,
+                            'by_users'    => $this->session['id_users'],
+                        ]);
+                    } else {
+                        Ruas::create([
+                            'id_paket'    => my_decrypt($request->id_paket),
+                            'nilai_ruas'  => $nilai_ruas,
+                            'lat'         => $lat,
+                            'long'        => $long,
+                            'by_users'    => $this->session['id_users'],
+                        ]);
+                    }
+                }
+
+                if (count($data['nilai_ruas']) < $check_ruas) {
+                    Ruas::whereNotIn('id_ruas', $data_ruas)->whereIdPaket(my_decrypt($request->id_paket))->delete();
+                }
             }
-
             $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
         } catch (\Exception $e) {
             $response = ['title' => 'Gagal!', 'text' => 'Data Gagal di Proses!', 'type' => 'error', 'button' => 'Ok!', 'class' => 'danger'];

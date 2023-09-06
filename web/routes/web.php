@@ -141,6 +141,7 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         Route::controller(PaketController::class)->prefix('paket')->as('paket.')->group(function () {
             Route::get('/', 'index')->name('paket');
             Route::get('/add/{id}', 'add')->name('add');
+            Route::get('/upd/{id}', 'upd')->name('upd');
             Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
             Route::post('/save', 'save')->name('save');
             Route::post('/del', 'del')->name('del');

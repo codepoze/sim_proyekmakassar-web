@@ -40,9 +40,18 @@ class PerusahaanController extends Controller
             ->make(true);
     }
 
-    public function get_all()
+    public function get_all(Request $request)
     {
-        $response = Perusahaan::select('id_perusahaan AS id', 'nama AS text')->orderBy('id_perusahaan', 'asc')->get();
+        $data = Perusahaan::select('id_perusahaan AS id', 'nama AS text')->orderBy('id_perusahaan', 'asc')->get();
+
+        $response = [];
+        foreach ($data as $key => $value) {
+            $response[] = [
+                'id'       => $value->id,
+                'text'     => $value->text,
+                'selected' => ($request->id == $value->id ? true : false)
+            ];
+        }
 
         return Response::json($response);
     }

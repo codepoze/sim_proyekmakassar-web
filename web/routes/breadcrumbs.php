@@ -133,6 +133,7 @@ Breadcrumbs::for('admin.kegiatan.detail', function (BreadcrumbTrail $trail) {
     $trail->push('Detail Kegiatan');
 });
 
+
 Breadcrumbs::for('admin.paket.paket', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
@@ -143,4 +144,10 @@ Breadcrumbs::for('admin.paket.add', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.paket.paket');
 
     $trail->push('Add', '#');
+});
+
+Breadcrumbs::for('admin.paket.upd', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.paket.paket');
+
+    $trail->push('Upd', '#');
 });
