@@ -86,15 +86,6 @@
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="doc_kontrak">Doc Kontrak&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="file" id="doc_kontrak" class="form-control form-control-sm" />
-                                <div class="invalid-feedback"></div>
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
                                 <label class="col-form-label" for="lokasi_pekerjaan">Lokasi Pekerjaan&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
@@ -116,7 +107,28 @@
                                 <label class="col-form-label" for="foto_lokasi">Foto Lokasi&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="file" id="foto_lokasi" class="form-control form-control-sm" />
+                                <input type="file" name="foto_lokasi" class="form-control form-control-sm" disabled="disabled" />
+                                <div style="padding-top: 10px">
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" name="change_picture_lokasi" id="change_picture_lokasi" onclick="change('change_picture_lokasi', 'foto_lokasi')"><label class="form-check-label">Ubah Gambar!</label>
+                                    </div>
+                                </div>
+                                <p><small class="text-muted">File dengan tipe (*.png,*.jpg,*.jpeg).</small></p>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="doc_kontrak">Doc Kontrak&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="file" name="doc_kontrak" class="form-control form-control-sm" disabled="disabled" />
+                                <div style="padding-top: 10px">
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" name="change_kontrak" id="change_kontrak" onclick="change('change_kontrak', 'doc_kontrak')"><label class="form-check-label">Ubah Gambar!</label>
+                                    </div>
+                                </div>
+                                <p><small class="text-muted">File dengan tipe (*.pdf).</small></p>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -125,7 +137,13 @@
                                 <label class="col-form-label" for="laporan">Laporan&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="file" id="laporan" class="form-control form-control-sm" />
+                                <input type="file" name="laporan" class="form-control form-control-sm" disabled="disabled" />
+                                <div style="padding-top: 10px">
+                                    <div class="form-check form-check-inline">
+                                        <input type="checkbox" class="form-check-input" name="change_report" id="change_report" onclick="change('change_report', 'laporan')"><label class="form-check-label">Ubah Gambar!</label>
+                                    </div>
+                                </div>
+                                <p><small class="text-muted">File dengan tipe (*.pdf).</small></p>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>

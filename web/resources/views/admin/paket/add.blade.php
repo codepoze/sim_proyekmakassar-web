@@ -87,15 +87,6 @@
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="doc_kontrak">Doc Kontrak&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="file" id="doc_kontrak" class="form-control form-control-sm" name="doc_kontrak" />
-                                <div class="invalid-feedback"></div>
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
                                 <label class="col-form-label" for="lokasi_pekerjaan">Lokasi Pekerjaan&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
@@ -118,6 +109,15 @@
                             </div>
                             <div class="col-sm-9 my-auto">
                                 <input type="file" id="foto_lokasi" class="form-control form-control-sm" name="foto_lokasi" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="doc_kontrak">Doc Kontrak&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="file" id="doc_kontrak" class="form-control form-control-sm" name="doc_kontrak" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>

@@ -78,6 +78,22 @@ function readMore(string) {
     return string.substring(0, 30) + '...';
 }
 
+// untuk ubah gambar
+function change(button, input) {
+    $(document).on('click', '#' + button, function () {
+        var ini = $(this);
+        if (ini.is(':checked')) {
+            $("input[name*='" + input + "']").removeAttr('disabled');
+            $("input[name*='" + input + "']").attr('id', input);
+        } else {
+            $("input[name*='" + input + "']").attr('disabled', 'disabled');
+            $("input[name*='" + input + "']").removeAttr('id');
+            $("input[name*='" + input + "']").removeAttr('required');
+            ini.parent().parent().find('#error').empty();
+        }
+    });
+}
+
 // untuk input nomor type text
 (function ($) {
     $.fn.inputFilter = function (inputFilter) {

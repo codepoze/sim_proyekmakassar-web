@@ -146,6 +146,33 @@ class PaketController extends Controller
                 'schedule.required'         => 'Schedule tidak boleh kosong!',
             ];
 
+            if ($request->change_picture_lokasi === 'on') {
+                // untuk tambah rule
+                $rules['foto_lokasi'] = 'required|mimes:png,jpg,jpeg';
+
+                // untuk tambah message
+                $messages['foto_lokasi.required'] = 'Gambar harus diisi!';
+                $messages['foto_lokasi.mimes']    = 'Gambar harus berupa file PNG, JPG, atau JPEG!';
+            }
+
+            if ($request->change_kontrak === 'on') {
+                // untuk tambah rule
+                $rules['doc_kontrak'] = 'required|mimes:pdf';
+
+                // untuk tambah message
+                $messages['doc_kontrak.required'] = 'Dokumen Free harus diisi!';
+                $messages['doc_kontrak.mimes']    = 'Dokumen Free harus format pdf!';
+            }
+
+            if ($request->change_report === 'on') {
+                // untuk tambah rule
+                $rules['laporan'] = 'required|mimes:pdf';
+
+                // untuk tambah message
+                $messages['laporan.required'] = 'Dokumen Pro harus diisi!';
+                $messages['laporan.mimes']    = 'Dokumen Pro harus format pdf!';
+            }
+
             foreach ($data['nilai_ruas'] as $key => $value) {
                 $data['id_ruas_' . $key]    = $data['id_ruas'][$key];
                 $data['nilai_ruas_' . $key] = $value;
@@ -210,17 +237,32 @@ class PaketController extends Controller
             } else {
                 // ubah
                 $paket = Paket::find(my_decrypt($request->id_paket));
-                $paket->update([
-                    'id_perusahaan'    => $request->id_perusahaan,
-                    'id_teknislap'     => $request->id_teknislap,
-                    'no_spmk'          => $request->no_spmk,
-                    'no_kontrak'       => $request->no_kontrak,
-                    'nil_kontrak'      => $request->nil_kontrak,
-                    'waktu_kontrak'    => $request->waktu_kontrak,
-                    'lokasi_pekerjaan' => $request->lokasi_pekerjaan,
-                    'schedule'         => $request->schedule,
-                    'by_users'         => $this->session['id_users'],
-                ]);
+
+                if ($request->change_picture_lokasi === 'on') {
+                    $foto_lokasi        = add_picture($request->foto_lokasi);
+                    $paket->foto_lokasi = $foto_lokasi;
+                }
+
+                if ($request->change_kontrak === 'on') {
+                    $doc_kontrak        = add_pdf($request->doc_kontrak);
+                    $paket->doc_kontrak = $doc_kontrak;
+                }
+
+                if ($request->change_report === 'on') {
+                    $laporan        = add_pdf($request->laporan);
+                    $paket->laporan = $laporan;
+                }
+
+                $paket->id_perusahaan    = $request->id_perusahaan;
+                $paket->id_teknislap     = $request->id_teknislap;
+                $paket->no_spmk          = $request->no_spmk;
+                $paket->no_kontrak       = $request->no_kontrak;
+                $paket->nil_kontrak      = $request->nil_kontrak;
+                $paket->waktu_kontrak    = $request->waktu_kontrak;
+                $paket->lokasi_pekerjaan = $request->lokasi_pekerjaan;
+                $paket->schedule         = $request->schedule;
+                $paket->by_users         = $this->session['id_users'];
+                $paket->save();
 
                 $check_ruas = Ruas::whereIdPaket(my_decrypt($request->id_paket))->get()->count();
                 $data_ruas  = [];
