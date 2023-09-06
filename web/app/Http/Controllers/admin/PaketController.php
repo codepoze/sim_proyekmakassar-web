@@ -183,17 +183,13 @@ class PaketController extends Controller
         $checking = is_valid_user($this->session['id_users'], $request->password);
         if ($checking) {
             try {
-                $paket = Paket::find(my_decrypt($request->id));
+                $data = Paket::find(my_decrypt($request->id));
 
-                $foto_lokasi      = $paket->foto_lokasi;
-                $doc_administrasi = $paket->doc_administrasi;
-                $doc_kontrak      = $paket->doc_kontrak;
+                del_pdf($data->laporan);
+                del_pdf($data->doc_kontrak);
+                del_picture($data->foto_lokasi);
 
-                del_picture($foto_lokasi);
-                del_pdf($doc_administrasi);
-                del_pdf($doc_kontrak);
-
-                $paket->delete();
+                $data->delete();
 
                 $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Hapus!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
             } catch (\Exception $e) {
