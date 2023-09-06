@@ -86,6 +86,37 @@ class PaketController extends Controller
 
         if ($request->id_paket === null) {
             // tambah
+            $rules = [
+                'id_perusahaan'    => 'required',
+                'id_teknislap'     => 'required',
+                'no_spmk'          => 'required',
+                'no_kontrak'       => 'required',
+                'nil_kontrak'      => 'required',
+                'waktu_kontrak'    => 'required',
+                'lokasi_pekerjaan' => 'required',
+                'schedule'         => 'required',
+                'laporan'          => 'required|mimes:pdf',
+                'doc_kontrak'      => 'required|mimes:pdf',
+                'foto_lokasi'      => 'required|mimes:png,jpg,jpeg',
+            ];
+
+            $messages = [
+                'id_perusahaan.required'    => 'Perusahaan tidak boleh kosong!',
+                'id_teknislap.required'     => 'Teknis lapangan tidak boleh kosong!',
+                'no_spmk.required'          => 'No SPMK tidak boleh kosong!',
+                'no_kontrak.required'       => 'No Kontrak tidak boleh kosong!',
+                'nil_kontrak.required'      => 'Nilai Kontrak tidak boleh kosong!',
+                'waktu_kontrak.required'    => 'Waktu Kontrak tidak boleh kosong!',
+                'lokasi_pekerjaan.required' => 'Lokasi Pekerjaan tidak boleh kosong!',
+                'schedule.required'         => 'Schedule tidak boleh kosong!',
+                'laporan.required'          => 'Laporan tidak boleh kosong!',
+                'laporan.mimes'             => 'Laporan harus berupa pdf!',
+                'doc_kontrak.required'      => 'Dokumen Kontrak tidak boleh kosong!',
+                'doc_kontrak.mimes'         => 'Dokumen Kontrak harus berupa pdf!',
+                'foto_lokasi.required'      => 'Foto Lokasi tidak boleh kosong!',
+                'foto_lokasi.mimes'         => 'Foto Lokasi harus berupa png, jpg, jpeg!',
+            ];
+
             foreach ($data['nilai_ruas'] as $key => $value) {
                 $data['nilai_ruas_' . $key] = $value;
                 $data['lat_' . $key]        = $data['lat'][$key];
@@ -93,6 +124,28 @@ class PaketController extends Controller
             }
         } else {
             // ubah
+            $rules = [
+                'id_perusahaan'    => 'required',
+                'id_teknislap'     => 'required',
+                'no_spmk'          => 'required',
+                'no_kontrak'       => 'required',
+                'nil_kontrak'      => 'required',
+                'waktu_kontrak'    => 'required',
+                'lokasi_pekerjaan' => 'required',
+                'schedule'         => 'required',
+            ];
+
+            $messages = [
+                'id_perusahaan.required'    => 'Perusahaan tidak boleh kosong!',
+                'id_teknislap.required'     => 'Teknis lapangan tidak boleh kosong!',
+                'no_spmk.required'          => 'No SPMK tidak boleh kosong!',
+                'no_kontrak.required'       => 'No Kontrak tidak boleh kosong!',
+                'nil_kontrak.required'      => 'Nilai Kontrak tidak boleh kosong!',
+                'waktu_kontrak.required'    => 'Waktu Kontrak tidak boleh kosong!',
+                'lokasi_pekerjaan.required' => 'Lokasi Pekerjaan tidak boleh kosong!',
+                'schedule.required'         => 'Schedule tidak boleh kosong!',
+            ];
+
             foreach ($data['nilai_ruas'] as $key => $value) {
                 $data['id_ruas_' . $key]    = $data['id_ruas'][$key];
                 $data['nilai_ruas_' . $key] = $value;
@@ -100,37 +153,6 @@ class PaketController extends Controller
                 $data['long_' . $key]       = $data['long'][$key];
             }
         }
-
-        $rules = [
-            'id_perusahaan'    => 'required',
-            'id_teknislap'     => 'required',
-            'no_spmk'          => 'required',
-            'no_kontrak'       => 'required',
-            'nil_kontrak'      => 'required',
-            'waktu_kontrak'    => 'required',
-            'lokasi_pekerjaan' => 'required',
-            'schedule'         => 'required',
-            // 'laporan'          => 'required|mimes:pdf',
-            // 'doc_kontrak'      => 'required|mimes:pdf',
-            // 'foto_lokasi'      => 'required|mimes:png,jpg,jpeg',
-        ];
-
-        $messages = [
-            'id_perusahaan.required'    => 'Perusahaan tidak boleh kosong!',
-            'id_teknislap.required'     => 'Teknis lapangan tidak boleh kosong!',
-            'no_spmk.required'          => 'No SPMK tidak boleh kosong!',
-            'no_kontrak.required'       => 'No Kontrak tidak boleh kosong!',
-            'nil_kontrak.required'      => 'Nilai Kontrak tidak boleh kosong!',
-            'waktu_kontrak.required'    => 'Waktu Kontrak tidak boleh kosong!',
-            'lokasi_pekerjaan.required' => 'Lokasi Pekerjaan tidak boleh kosong!',
-            'schedule.required'         => 'Schedule tidak boleh kosong!',
-            // 'laporan.required'          => 'Laporan tidak boleh kosong!',
-            // 'laporan.mimes'             => 'Laporan harus berupa pdf!',
-            // 'doc_kontrak.required'      => 'Dokumen Kontrak tidak boleh kosong!',
-            // 'doc_kontrak.mimes'         => 'Dokumen Kontrak harus berupa pdf!',
-            // 'foto_lokasi.required'      => 'Foto Lokasi tidak boleh kosong!',
-            // 'foto_lokasi.mimes'         => 'Foto Lokasi harus berupa png, jpg, jpeg!',
-        ];
 
         foreach ($data['nilai_ruas'] as $key => $value) {
             $rules['nilai_ruas_' . $key] = 'required|numeric';
