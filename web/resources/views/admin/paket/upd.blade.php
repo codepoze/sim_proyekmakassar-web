@@ -203,7 +203,7 @@
                         <!-- end:: untuk ruas -->
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="{{ route('admin.paket.paket') }}" class="btn btn-sm btn-relief-danger">
+                                <a href="{{ route('admin.kegiatan.detail', my_encrypt($paket->id_kegiatan)) }}" class="btn btn-sm btn-relief-danger">
                                     <i data-feather="x"></i>&nbsp;<span>Batal</span>
                                 </a>&nbsp;
                                 <button type="submit" id="save" class="btn btn-sm btn-relief-primary">

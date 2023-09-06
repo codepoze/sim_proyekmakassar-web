@@ -57,7 +57,7 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="nik">NIK</label>
+                                        <label class="col-form-label" for="nik">NIK&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" id="nik" class="form-control form-control-sm" name="nik" placeholder="Masukkan NIK" />
@@ -68,7 +68,7 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="nama">Nama</label>
+                                        <label class="col-form-label" for="nama">Nama&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Masukkan Nama" />
@@ -79,7 +79,7 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="email">Email</label>
+                                        <label class="col-form-label" for="email">Email&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" id="email" class="form-control form-control-sm" name="email" placeholder="Masukkan Email" />
@@ -90,7 +90,7 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="telepon">Telepon</label>
+                                        <label class="col-form-label" for="telepon">Telepon&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <input type="text" id="telepon" class="form-control form-control-sm" name="telepon" placeholder="Masukkan Telepon" />
@@ -101,7 +101,7 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="alamat">Alamat</label>
+                                        <label class="col-form-label" for="alamat">Alamat&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
                                         <textarea id="alamat" class="form-control form-control-sm" name="alamat" placeholder="Masukkan Alamat"></textarea>

@@ -97,42 +97,17 @@ Breadcrumbs::for('admin.perusahaan.perusahaan', function (BreadcrumbTrail $trail
     $trail->push('Perusahaan', route('admin.perusahaan.perusahaan'));
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Breadcrumbs::for('admin.kegiatan', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.kegiatan.kegiatan', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Kegiatan', route('admin.kegiatan'));
+    $trail->push('Kegiatan', route('admin.kegiatan.kegiatan'));
 });
 
 Breadcrumbs::for('admin.kegiatan.detail', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.kegiatan');
+    $trail->parent('admin.kegiatan.kegiatan');
 
     $trail->push('Detail Kegiatan');
 });
-
 
 Breadcrumbs::for('admin.paket.paket', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
@@ -143,11 +118,11 @@ Breadcrumbs::for('admin.paket.paket', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.paket.add', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.paket.paket');
 
-    $trail->push('Add', '#');
+    $trail->push('Tambah', '#');
 });
 
 Breadcrumbs::for('admin.paket.upd', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.paket.paket');
 
-    $trail->push('Upd', '#');
+    $trail->push('Ubah', '#');
 });

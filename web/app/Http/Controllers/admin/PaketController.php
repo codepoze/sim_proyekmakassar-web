@@ -234,6 +234,8 @@ class PaketController extends Controller
                         'by_users'    => $this->session['id_users'],
                     ]);
                 }
+
+                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route('admin.kegiatan.detail', $data['id_kegiatan'])];
             } else {
                 // ubah
                 $paket = Paket::find(my_decrypt($request->id_paket));
@@ -296,8 +298,9 @@ class PaketController extends Controller
                 if (count($data['nilai_ruas']) < $check_ruas) {
                     Ruas::whereNotIn('id_ruas', $data_ruas)->whereIdPaket(my_decrypt($request->id_paket))->delete();
                 }
+
+                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
             }
-            $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
         } catch (\Exception $e) {
             $response = ['title' => 'Gagal!', 'text' => 'Data Gagal di Proses!', 'type' => 'error', 'button' => 'Ok!', 'class' => 'danger'];
         }

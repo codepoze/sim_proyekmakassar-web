@@ -127,13 +127,13 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         // end:: perusahaan
 
         // begin:: kegiatan
-        Route::prefix('/kegiatan')->group(function () {
-            Route::get('/', [KegiatanController::class, 'index'])->name('kegiatan');
-            Route::get('/detail/{any}', [KegiatanController::class, 'detail'])->name('kegiatan.detail');
-            Route::get('/get_data_dt', [KegiatanController::class, 'get_data_dt'])->name('kegiatan.get_data_dt');
-            Route::post('/show', [KegiatanController::class, 'show'])->name('kegiatan.show');
-            Route::post('/save', [KegiatanController::class, 'save'])->name('kegiatan.save');
-            Route::post('/del', [KegiatanController::class, 'del'])->name('kegiatan.del');
+        Route::controller(KegiatanController::class)->prefix('kegiatan')->as('kegiatan.')->group(function () {
+            Route::get('/', 'index')->name('kegiatan');
+            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
         });
         // end:: kegiatan
 
