@@ -1,6 +1,6 @@
+import 'package:aaa/auth/forgot_password/view.dart';
 import 'package:aaa/components/footer.dart';
-import 'package:aaa/pages/forgot_password/forgot_password.dart';
-import 'package:aaa/pages/home/home.dart';
+import 'package:aaa/pages/home.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {

@@ -1,16 +1,8 @@
-import 'package:aaa/pages/sign_in/sign_in.dart';
+import 'package:aaa/auth/sign_in/view.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
-class Splash extends StatefulWidget {
-  const Splash({Key? key}) : super(key: key);
-
-  @override
-  State<Splash> createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
+class Splash extends StatelessWidget {
   _splashIcon() {
     return Center(
       child: Column(

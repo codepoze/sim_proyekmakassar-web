@@ -1,3 +1,4 @@
+import 'package:aaa/widgets/alert_error.dart';
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -8,6 +9,6 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
-    return Text('Hello world');
+    return AlertError();
   }
 }

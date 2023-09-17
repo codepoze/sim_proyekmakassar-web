@@ -1,6 +1,6 @@
-import 'package:aaa/pages/home/home.dart';
-import 'package:aaa/pages/sign_in/sign_in.dart';
-import 'package:aaa/components/splash.dart';
+import 'package:aaa/auth/sign_in/view.dart';
+import 'package:aaa/pages/home.dart';
+import 'package:aaa/widgets/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => const Splash(),
+        '/': (context) => Splash(),
         '/home': (context) => Home(),
         '/sign_in': (context) => SignIn(),
       },
