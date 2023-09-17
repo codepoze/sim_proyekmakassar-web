@@ -12,7 +12,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     return Scaffold(
       body: Center(
           child: ListView(shrinkWrap: true, children: <Widget>[
-        Container(margin: EdgeInsets.only(top: 30), alignment: Alignment.center, child: Image.asset("assets/images/logo.png", width: 100)),
+        Container(margin: EdgeInsets.only(top: 30), alignment: Alignment.center, child: Image.asset("assets/images/logo/logo.png", width: 100)),
         Card(
             margin: EdgeInsets.all(30),
             elevation: 3,
