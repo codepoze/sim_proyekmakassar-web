@@ -1,5 +1,7 @@
 import 'package:aaa/auth/sign_in/view.dart';
 import 'package:aaa/pages/home.dart';
+import 'package:aaa/pages/paket/detail.dart';
+import 'package:aaa/pages/paket/view.dart';
 import 'package:aaa/widgets/splash.dart';
 import 'package:flutter/material.dart';
 

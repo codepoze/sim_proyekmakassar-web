@@ -1,3 +1,4 @@
+import 'package:aaa/pages/paket/view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,7 @@ class _HomeState extends State<Home> {
     'assets/images/slide/slide3.jpg',
   ];
 
-  _homeScreen() {
+  _homeScreen(context) {
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -67,7 +68,14 @@ class _HomeState extends State<Home> {
                     ),
                     child: InkWell(
                       splashColor: Colors.yellow.withAlpha(30),
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => Paket(),
+                          ),
+                        );
+                      },
                       child: const SizedBox(
                         width: 150,
                         height: 100,
@@ -90,6 +98,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return _homeScreen();
+    return _homeScreen(context);
   }
 }

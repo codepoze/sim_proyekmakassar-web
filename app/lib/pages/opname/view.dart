@@ -108,7 +108,7 @@ class Opname extends StatelessWidget {
         ],
       ),
       body: Container(
-        margin: const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+        margin: const EdgeInsets.all(15),
         child: _form(),
       ),
     );
