@@ -6,7 +6,6 @@
         <!-- end:: left -->
         <!-- begin:: right -->
         <ul class="nav navbar-nav align-items-center ms-auto">
-            <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
             <!-- begin:: notifikasi -->
             <li class="nav-item dropdown dropdown-notification me-25"><a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="bell"></i><span class="badge rounded-pill bg-danger badge-up">5</span></a>
                 <ul class="dropdown-menu dropdown-menu-media dropdown-menu-end">
