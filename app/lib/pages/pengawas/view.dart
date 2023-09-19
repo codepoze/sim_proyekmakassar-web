@@ -5,141 +5,141 @@ import 'package:intl/intl.dart';
 class Pengawas extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
-  _form() {
-    return CustomScrollView(
-      slivers: <Widget>[
-        SliverList(
-          delegate: SliverChildListDelegate([
-            Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: Column(
-                children: <Widget>[
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Nama Pengawas *',
-                      hintText: 'Masukkan Pengawas',
-                    ),
-                  ),
-                  DateTimeField(
-                    format: DateFormat("dd-MM-yyyy"),
-                    decoration: const InputDecoration(
-                      labelText: 'Tanggal *',
-                    ),
-                    onShowPicker: (context, currentValue) {
-                      return showDatePicker(
-                        context: context,
-                        firstDate: DateTime(1900),
-                        initialDate: currentValue ?? DateTime.now(),
-                        lastDate: DateTime(2100),
-                      );
-                    },
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Panjang *',
-                      hintText: 'Masukkan Panjang',
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Lebar *',
-                      hintText: 'Masukkan Lebar',
-                    ),
-                  ),
-                  TextFormField(
-                    decoration: const InputDecoration(
-                      labelText: 'Keterangan *',
-                      hintText: 'Masukkan Keterangan',
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                      ),
-                      onPressed: () => {},
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[Text("Upload Foto", style: TextStyle(color: Colors.white))],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                      ),
-                      onPressed: () => {},
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[Text("Upload Video", style: TextStyle(color: Colors.white))],
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                      ),
-                      onPressed: () => {},
-                      child: Container(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: const <Widget>[Text("Upload Dokumen", style: TextStyle(color: Colors.white))],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ]),
-        ),
-      ],
-    );
-  }
-
-  _loading() {
-    return const Center(
-      child: CircularProgressIndicator(),
-    );
-  }
-
-  _pengawasScreen() {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('PENGAWAS'),
-        backgroundColor: const Color(0xFFF6CB00),
-        actions: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(right: 20.0),
-            child: GestureDetector(
-              child: const Icon(
-                Icons.check,
-                size: 26.0,
-              ),
-            ),
-          ),
-        ],
-      ),
-      body: Container(
-        margin: const EdgeInsets.all(15),
-        child: _form(),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    _form() {
+      return CustomScrollView(
+        slivers: <Widget>[
+          SliverList(
+            delegate: SliverChildListDelegate([
+              Form(
+                key: _formKey,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Nama Pengawas *',
+                        hintText: 'Masukkan Pengawas',
+                      ),
+                    ),
+                    DateTimeField(
+                      format: DateFormat("dd-MM-yyyy"),
+                      decoration: const InputDecoration(
+                        labelText: 'Tanggal *',
+                      ),
+                      onShowPicker: (context, currentValue) {
+                        return showDatePicker(
+                          context: context,
+                          firstDate: DateTime(1900),
+                          initialDate: currentValue ?? DateTime.now(),
+                          lastDate: DateTime(2100),
+                        );
+                      },
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Panjang *',
+                        hintText: 'Masukkan Panjang',
+                      ),
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Lebar *',
+                        hintText: 'Masukkan Lebar',
+                      ),
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Keterangan *',
+                        hintText: 'Masukkan Keterangan',
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        onPressed: () => {},
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[Text("Upload Foto", style: TextStyle(color: Colors.white))],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        onPressed: () => {},
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[Text("Upload Video", style: TextStyle(color: Colors.white))],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        ),
+                        onPressed: () => {},
+                        child: Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const <Widget>[Text("Upload Dokumen", style: TextStyle(color: Colors.white))],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          ),
+        ],
+      );
+    }
+
+    _loading() {
+      return const Center(
+        child: CircularProgressIndicator(),
+      );
+    }
+
+    _pengawasScreen() {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text('PENGAWAS'),
+          backgroundColor: const Color(0xFFF6CB00),
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                child: const Icon(
+                  Icons.check,
+                  size: 26.0,
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: Container(
+          margin: const EdgeInsets.all(15),
+          child: _form(),
+        ),
+      );
+    }
+
     return _pengawasScreen();
   }
 }
