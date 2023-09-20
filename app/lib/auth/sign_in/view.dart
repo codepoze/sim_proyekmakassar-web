@@ -106,9 +106,14 @@ class _SignInState extends State<SignIn> {
                       child: MaterialButton(
                         minWidth: double.infinity,
                         onPressed: () {
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                            return Home();
-                          }));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return Home();
+                              },
+                            ),
+                          );
                         },
                         child: Icon(Icons.arrow_forward, color: Colors.white),
                       ),

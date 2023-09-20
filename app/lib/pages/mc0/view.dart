@@ -1,3 +1,4 @@
+import 'package:aaa/widgets/alert_success.dart';
 import 'package:flutter/material.dart';
 
 class Mc0 extends StatelessWidget {
@@ -31,13 +32,18 @@ class Mc0 extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFF6CB00)),
                         ),
                         onPressed: () => {},
                         child: Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const <Widget>[Text("Upload Foto", style: TextStyle(color: Colors.white))],
+                            children: const <Widget>[
+                              Text(
+                                "Upload Foto",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -46,13 +52,18 @@ class Mc0 extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFF6CB00)),
                         ),
                         onPressed: () => {},
                         child: Container(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: const <Widget>[Text("Upload Dokumen", style: TextStyle(color: Colors.white))],
+                            children: const <Widget>[
+                              Text(
+                                "Upload Dokumen",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -82,6 +93,14 @@ class Mc0 extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(right: 20.0),
               child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AlertSuccess(),
+                    ),
+                  );
+                },
                 child: const Icon(
                   Icons.check,
                   size: 26.0,

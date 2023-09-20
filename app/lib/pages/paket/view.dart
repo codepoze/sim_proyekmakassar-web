@@ -10,6 +10,35 @@ class Paket extends StatelessWidget {
           SliverList(
             delegate: SliverChildListDelegate([
               Container(
+                margin: EdgeInsets.all(10),
+                child: TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Search',
+                    labelStyle: TextStyle(
+                      color: Colors.black,
+                    ),
+                    suffixIcon: Icon(
+                      Icons.search,
+                      color: Colors.black,
+                    ),
+                    contentPadding: EdgeInsets.fromLTRB(10, 10, 0, 10),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        width: 2,
+                        color: const Color(0xFFF6CB00),
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5),
+                      borderSide: BorderSide(
+                        color: const Color(0xFFF6CB00),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
                 child: Column(
                   children: <Widget>[
                     Container(
