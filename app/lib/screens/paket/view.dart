@@ -1,4 +1,4 @@
-import 'package:aaa/pages/paket/detail.dart';
+import 'package:manpro/screens/paket/detail.dart';
 import 'package:flutter/material.dart';
 
 class Paket extends StatelessWidget {

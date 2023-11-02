@@ -1,9 +1,9 @@
-import 'package:aaa/widgets/alert_success.dart';
+import 'package:manpro/widgets/global/alert_success.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class Opname extends StatelessWidget {
+class Pengawas extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -18,6 +18,12 @@ class Opname extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   children: <Widget>[
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Nama Pengawas *',
+                        hintText: 'Masukkan Pengawas',
+                      ),
+                    ),
                     DateTimeField(
                       format: DateFormat("dd-MM-yyyy"),
                       decoration: const InputDecoration(
@@ -32,13 +38,29 @@ class Opname extends StatelessWidget {
                         );
                       },
                     ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Panjang *',
+                        hintText: 'Masukkan Panjang',
+                      ),
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Lebar *',
+                        hintText: 'Masukkan Lebar',
+                      ),
+                    ),
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Keterangan *',
+                        hintText: 'Masukkan Keterangan',
+                      ),
+                    ),
                     Container(
                       padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFFF6CB00),
-                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFF6CB00)),
                         ),
                         onPressed: () => {},
                         child: Container(
@@ -58,9 +80,7 @@ class Opname extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFFF6CB00),
-                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFF6CB00)),
                         ),
                         onPressed: () => {},
                         child: Container(
@@ -80,9 +100,7 @@ class Opname extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                            const Color(0xFFF6CB00),
-                          ),
+                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFF6CB00)),
                         ),
                         onPressed: () => {},
                         child: Container(
@@ -113,11 +131,11 @@ class Opname extends StatelessWidget {
       );
     }
 
-    _opnameScreen() {
+    _pengawasScreen() {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('OPNAME'),
+          title: Text('PENGAWAS'),
           backgroundColor: const Color(0xFFF6CB00),
           actions: <Widget>[
             Padding(
@@ -146,6 +164,6 @@ class Opname extends StatelessWidget {
       );
     }
 
-    return _opnameScreen();
+    return _pengawasScreen();
   }
 }

@@ -1,4 +1,4 @@
-import 'package:aaa/pages/home.dart';
+import 'package:manpro/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class AlertSuccess extends StatelessWidget {

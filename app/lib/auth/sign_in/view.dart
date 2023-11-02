@@ -1,6 +1,6 @@
-import 'package:aaa/auth/forgot_password/view.dart';
-import 'package:aaa/components/footer.dart';
-import 'package:aaa/pages/home.dart';
+import 'package:manpro/auth/forgot_password/view.dart';
+import 'package:manpro/widgets/global/footer.dart';
+import 'package:manpro/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class SignIn extends StatefulWidget {
@@ -18,7 +18,7 @@ class _SignInState extends State<SignIn> {
             Container(
               margin: EdgeInsets.only(top: 30),
               alignment: Alignment.center,
-              child: Image.asset('assets/images/logo/logo.png', width: 100),
+              child: Image.asset('assets/icons/logo.png', width: 100),
             ),
             Card(
               margin: EdgeInsets.all(30),

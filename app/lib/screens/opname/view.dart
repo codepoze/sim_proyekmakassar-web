@@ -1,9 +1,9 @@
-import 'package:aaa/widgets/alert_success.dart';
+import 'package:manpro/widgets/global/alert_success.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class Ph0 extends StatelessWidget {
+class Opname extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -113,11 +113,11 @@ class Ph0 extends StatelessWidget {
       );
     }
 
-    _ph0Screen() {
+    _opnameScreen() {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('PH0'),
+          title: Text('OPNAME'),
           backgroundColor: const Color(0xFFF6CB00),
           actions: <Widget>[
             Padding(
@@ -146,6 +146,6 @@ class Ph0 extends StatelessWidget {
       );
     }
 
-    return _ph0Screen();
+    return _opnameScreen();
   }
 }

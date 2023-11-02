@@ -1,4 +1,4 @@
-import 'package:aaa/pages/paket/view.dart';
+import 'package:manpro/screens/paket/view.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
@@ -9,9 +9,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<String> imgList = [
-    'assets/images/slide/slide1.jpg',
-    'assets/images/slide/slide2.jpg',
-    'assets/images/slide/slide3.jpg',
+    'assets/images/slider/slide1.jpg',
+    'assets/images/slider/slide2.jpg',
+    'assets/images/slider/slide3.jpg',
   ];
 
   @override

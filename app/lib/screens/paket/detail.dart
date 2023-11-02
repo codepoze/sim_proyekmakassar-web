@@ -1,7 +1,7 @@
-import 'package:aaa/pages/mc0/view.dart';
-import 'package:aaa/pages/opname/view.dart';
-import 'package:aaa/pages/pengawas/view.dart';
-import 'package:aaa/pages/ph0/view.dart';
+import 'package:manpro/screens/mc0/view.dart';
+import 'package:manpro/screens/opname/view.dart';
+import 'package:manpro/screens/pengawas/view.dart';
+import 'package:manpro/screens/ph0/view.dart';
 import 'package:flutter/material.dart';
 
 class PaketDetail extends StatelessWidget {

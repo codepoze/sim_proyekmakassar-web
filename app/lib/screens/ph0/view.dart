@@ -1,9 +1,9 @@
-import 'package:aaa/widgets/alert_success.dart';
+import 'package:manpro/widgets/global/alert_success.dart';
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class Pengawas extends StatelessWidget {
+class Ph0 extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -18,12 +18,6 @@ class Pengawas extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
                   children: <Widget>[
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Nama Pengawas *',
-                        hintText: 'Masukkan Pengawas',
-                      ),
-                    ),
                     DateTimeField(
                       format: DateFormat("dd-MM-yyyy"),
                       decoration: const InputDecoration(
@@ -38,29 +32,13 @@ class Pengawas extends StatelessWidget {
                         );
                       },
                     ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Panjang *',
-                        hintText: 'Masukkan Panjang',
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Lebar *',
-                        hintText: 'Masukkan Lebar',
-                      ),
-                    ),
-                    TextFormField(
-                      decoration: const InputDecoration(
-                        labelText: 'Keterangan *',
-                        hintText: 'Masukkan Keterangan',
-                      ),
-                    ),
                     Container(
                       padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFF6CB00)),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFFF6CB00),
+                          ),
                         ),
                         onPressed: () => {},
                         child: Container(
@@ -80,7 +58,9 @@ class Pengawas extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFF6CB00)),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFFF6CB00),
+                          ),
                         ),
                         onPressed: () => {},
                         child: Container(
@@ -100,7 +80,9 @@ class Pengawas extends StatelessWidget {
                       padding: const EdgeInsets.only(right: 10, top: 10, bottom: 10),
                       child: ElevatedButton(
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(const Color(0xFFF6CB00)),
+                          backgroundColor: MaterialStateProperty.all<Color>(
+                            const Color(0xFFF6CB00),
+                          ),
                         ),
                         onPressed: () => {},
                         child: Container(
@@ -131,11 +113,11 @@ class Pengawas extends StatelessWidget {
       );
     }
 
-    _pengawasScreen() {
+    _ph0Screen() {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('PENGAWAS'),
+          title: Text('PH0'),
           backgroundColor: const Color(0xFFF6CB00),
           actions: <Widget>[
             Padding(
@@ -164,6 +146,6 @@ class Pengawas extends StatelessWidget {
       );
     }
 
-    return _pengawasScreen();
+    return _ph0Screen();
   }
 }

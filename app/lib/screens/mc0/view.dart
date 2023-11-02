@@ -1,4 +1,4 @@
-import 'package:aaa/widgets/alert_success.dart';
+import 'package:manpro/widgets/global/alert_success.dart';
 import 'package:flutter/material.dart';
 
 class Mc0 extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:aaa/widgets/splash.dart';
+import 'package:manpro/widgets/global/splash.dart';
 import 'package:flutter/material.dart';
 
 void main() {

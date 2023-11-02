@@ -1,4 +1,4 @@
-import 'package:aaa/auth/sign_in/view.dart';
+import 'package:manpro/auth/sign_in/view.dart';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +9,7 @@ class Splash extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Image.asset(
-            'assets/images/logo/logo.png',
+            'assets/icons/logo.png',
             height: 61,
             width: 61,
           ),
