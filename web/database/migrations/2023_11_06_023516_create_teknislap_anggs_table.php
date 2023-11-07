@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateRapatsTable extends Migration
+class CreateTeknislapAnggsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateRapatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('rapat', function (Blueprint $table) {
-            $table->increments('id_rapat');
-            $table->integer('id_paket')->unsigned()->nullable();
+        Schema::create('teknislap_angg', function (Blueprint $table) {
+            $table->increments('id_teknislap_angg');
+            $table->integer('id_teknislap')->unsigned()->nullable();
+            $table->string('nik', 16)->nullable();
             $table->string('nama', 50)->nullable();
-            $table->string('notulen')->nullable();
-            $table->binary('foto_surat')->nullable();
-            $table->binary('foto_daftar_hadir')->nullable();
+            $table->string('telepon', 15)->nullable();
+            $table->text('alamat')->nullable();
 
             $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_paket')->references('id_paket')->on('paket')->onDelete('restrict')->onUpdate('restrict');
+            $table->foreign('id_teknislap')->references('id_teknislap')->on('teknislap')->onDelete('cascade');
         });
     }
 
@@ -36,6 +36,6 @@ class CreateRapatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('rapat');
+        Schema::dropIfExists('teknislap_angg');
     }
 }

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Ph0 extends Model
+class PaketRuas extends Model
 {
     use HasFactory;
 }

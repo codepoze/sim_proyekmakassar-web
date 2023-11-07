@@ -4,10 +4,8 @@
 
 <!-- begin:: css local -->
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/forms/select/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/pickers/pickadate/pickadate.css') }}">
 @endsection
 <!-- end:: css local -->
 
@@ -30,7 +28,7 @@
                     </div>
                 </div>
                 <div class="card-datatable">
-                    <table class="table table-striped table-bordered" id="tabel-kegiatan-dt" style="width: 100%;">
+                    <table class="table table-striped table-bordered" id="tabel-penyedia-dt" style="width: 100%;">
                     </table>
                 </div>
             </div>
@@ -40,13 +38,13 @@
 
 <!-- begin:: modal tambah & ubah -->
 <div id="modal-add-upd" class="modal fade text-start" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
             <!-- begin:: untuk form -->
-            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.kegiatan.save') }}" method="POST">
+            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.penyedia.save') }}" method="POST">
                 <div class="modal-body">
                     <!-- begin:: untuk loading -->
                     <div id="form-loading"></div>
@@ -54,15 +52,15 @@
                     <div id="form-show">
                         <div class="row">
                             <!-- begin:: id -->
-                            <input type="hidden" name="id_kegiatan" id="id_kegiatan" />
+                            <input type="hidden" name="id_penyedia" id="id_penyedia" />
                             <!-- end:: id -->
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="nama">Nama Kegiatan&nbsp;*</label>
+                                        <label class="col-form-label" for="nama">Nama Perusahaan&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Masukkan Nama" />
+                                        <input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Masukkan Nama Perusahaan" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -70,10 +68,10 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="role">Tanggal Kegiatan&nbsp;*</label>
+                                        <label class="col-form-label" for="telepon">Telepon Perusahaan&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" id="tgl" class="form-control form-control-sm pickadate" name="tgl" placeholder="18 June, 2020" />
+                                        <input type="text" id="telepon" class="form-control form-control-sm" name="telepon" placeholder="Masukkan Telepon Perusahaan" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -81,12 +79,10 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="">Pptk&nbsp;*</label>
+                                        <label class="col-form-label" for="alamat">Alamat Perusahaan&nbsp;*</label>
                                     </div>
-                                    <div class="col-sm-9 my-auto">
-                                        <select class="form-select select2" id="id_pptk" name="id_pptk">
-                                            <option value=""></option>
-                                        </select>
+                                    <div class="col-sm-9">
+                                        <textarea id="alamat" class="form-control form-control-sm" name="alamat" placeholder="Masukkan Alamat Perusahaan"></textarea>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -124,40 +120,12 @@
 <script src="{{ asset_admin('vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
 <script src="{{ asset_admin('vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
 <script src="{{ asset_admin('vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.time.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/legacy.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/forms/select/select2.full.min.js') }}"></script>
 
 <script>
-    let tgl = $('#tgl').pickadate({
-        format: 'dd mmmm, yyyy',
-        formatSubmit: 'yyyy-mm-dd',
-        monthsFull: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
-        weekdaysShort: ["Mn", "Sn", "Sl", "Rb", "Km", "Jm", "Sb"],
-        hiddenName: true,
-        clear: 'Hapus',
-        close: 'Tutup',
-        today: 'Hari Ini',
-        selectYears: true,
-        selectMonths: true,
-        min: true,
-        max: 365,
-        closeOnSelect: true,
-        closeOnClear: true,
-        onSet: function(context) {
-            if (context.select) {
-                this.close();
-            }
-        },
-    });
-
     var table;
-    var picker = tgl.pickadate('picker');
 
     let untukTabel = function() {
-        table = $('#tabel-kegiatan-dt').DataTable({
+        table = $('#tabel-penyedia-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
@@ -167,7 +135,7 @@
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.kegiatan.get_data_dt') }}",
+            ajax: "{{ route('admin.penyedia.get_data_dt') }}",
             dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             drawCallback: function() {
                 feather.replace();
@@ -178,18 +146,18 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Nama Kegiatan',
+                    title: 'Nama',
                     data: 'nama',
                     class: 'text-center'
                 },
                 {
-                    title: 'Tanggal Kegiatan',
-                    data: 'tgl',
+                    title: 'Telepon',
+                    data: 'telepon',
                     class: 'text-center'
                 },
                 {
-                    title: 'Pptk',
-                    data: 'to_pptk.to_user.nama',
+                    title: 'Alamat',
+                    data: 'alamat',
                     class: 'text-center'
                 },
                 {
@@ -278,7 +246,7 @@
             }
         });
 
-        $(document).on('change', '#form-add-upd select', function(e) {
+        $(document).on('keyup', '#form-add-upd textarea', function(e) {
             e.preventDefault();
 
             if ($(this).val() == '') {
@@ -288,7 +256,9 @@
             }
         });
 
-        tgl.on('change', function() {
+        $(document).on('change', '#form-add-upd select', function(e) {
+            e.preventDefault();
+
             if ($(this).val() == '') {
                 $(this).removeClass('is-valid').addClass('is-invalid');
             } else {
@@ -302,7 +272,7 @@
             e.preventDefault();
             $('#judul-add-upd').text('Tambah');
 
-            $('#id_kegiatan').removeAttr('value');
+            $('#id_penyedia').removeAttr('value');
 
             $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
             $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
@@ -320,7 +290,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: "{{ route('admin.kegiatan.show') }}",
+                url: "{{ route('admin.penyedia.show') }}",
                 data: {
                     id: ini.data('id')
                 },
@@ -383,7 +353,7 @@
                     }).then((result) => {
                         $.ajax({
                             type: "post",
-                            url: "{{ route('admin.kegiatan.del') }}",
+                            url: "{{ route('admin.penyedia.del') }}",
                             dataType: 'json',
                             data: {
                                 id: ini.data('id'),
@@ -413,18 +383,6 @@
                 }
             });
         });
-    }();
-
-    let untukSelectPptk = function() {
-        $.get("{{ route('admin.pptk.get_all') }}", function(response) {
-            $("#id_pptk").select2({
-                placeholder: "Pilih pptk",
-                width: '100%',
-                allowClear: true,
-                containerCssClass: 'select-sm',
-                data: response,
-            });
-        }, 'json');
     }();
 </script>
 @endsection

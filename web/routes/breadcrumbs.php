@@ -67,6 +67,87 @@ Breadcrumbs::for('admin.users', function (BreadcrumbTrail $trail) {
     $trail->push('Users', route('admin.users'));
 });
 
+Breadcrumbs::for('admin.penyedia.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Penyedia', route('admin.penyedia.index'));
+});
+
+Breadcrumbs::for('admin.konsultan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Konsultan', route('admin.konsultan.index'));
+});
+
+Breadcrumbs::for('admin.pptk.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('PPTK', route('admin.pptk.index'));
+});
+
+Breadcrumbs::for('admin.satuan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Satuan', route('admin.satuan.index'));
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Breadcrumbs::for('admin.teknislap', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
@@ -89,12 +170,6 @@ Breadcrumbs::for('admin.teknislap.anggota.anggota', function (BreadcrumbTrail $t
     $trail->parent('admin.teknislap.kordinator.kordinator');
 
     $trail->push('Anggota', route('admin.teknislap.anggota.anggota'));
-});
-
-Breadcrumbs::for('admin.perusahaan.perusahaan', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.dashboard');
-
-    $trail->push('Perusahaan', route('admin.perusahaan.perusahaan'));
 });
 
 Breadcrumbs::for('admin.kegiatan.kegiatan', function (BreadcrumbTrail $trail) {

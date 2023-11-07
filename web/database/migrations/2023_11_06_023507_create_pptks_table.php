@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePh0DetFotosTable extends Migration
+class CreatePptksTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,16 @@ class CreatePh0DetFotosTable extends Migration
      */
     public function up()
     {
-        Schema::create('ph0_det_foto', function (Blueprint $table) {
-            $table->increments('id_ph0_det_foto');
-            $table->integer('id_ph0')->unsigned()->nullable();
-            $table->binary('foto')->nullable();
+        Schema::create('pptk', function (Blueprint $table) {
+            $table->increments('id_pptk');
+            $table->integer('id_users')->unsigned()->nullable();
+            $table->string('nip', 20)->nullable();
 
+            $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_ph0')->references('id_ph0')->on('ph0')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_users')->references('id_users')->on('users')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -32,6 +33,6 @@ class CreatePh0DetFotosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ph0_det_foto');
+        Schema::dropIfExists('pptk');
     }
 }

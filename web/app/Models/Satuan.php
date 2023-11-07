@@ -5,19 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Perusahaan extends Model
+class Satuan extends Model
 {
     use HasFactory;
     // untuk default tabel
-    protected $table = 'perusahaan';
+    protected $table = 'satuan';
     // untuk default primary key
-    protected $primaryKey = 'id_perusahaan';
+    protected $primaryKey = 'id_satuan';
     // untuk fillable
     protected $fillable = [
-        'id_perusahaan',
+        'id_satuan',
         'nama',
-        'telepon',
-        'alamat',
         'by_users'
     ];
 }

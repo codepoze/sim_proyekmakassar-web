@@ -4,13 +4,14 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
-use App\Models\Perusahaan;
+use App\Models\Konsultan;
+use App\Models\Satuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class PerusahaanController extends Controller
+class SatuanController extends Controller
 {
     public function __construct()
     {
@@ -22,43 +23,43 @@ class PerusahaanController extends Controller
 
     public function index()
     {
-        return Template::load('admin', 'Perusahaan', 'perusahaan', 'view');
+        return Template::load('admin', 'Satuan', 'satuan', 'view');
     }
 
     public function get_data_dt()
     {
-        $data = Perusahaan::orderBy('id_perusahaan', 'desc')->get();
+        $data = Satuan::orderBy('id_satuan', 'desc')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
                 return '
-                    <button type="button" id="upd" data-id="' . my_encrypt($row->id_perusahaan) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
-                    <button type="button" id="del" data-id="' . my_encrypt($row->id_perusahaan) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
+                    <button type="button" id="upd" data-id="' . my_encrypt($row->id_satuan) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
+                    <button type="button" id="del" data-id="' . my_encrypt($row->id_satuan) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';
             })
             ->make(true);
     }
 
-    public function get_all(Request $request)
-    {
-        $data = Perusahaan::select('id_perusahaan AS id', 'nama AS text')->orderBy('id_perusahaan', 'asc')->get();
+    // // public function get_all(Request $request)
+    // // {
+    // //     $data = Perusahaan::select('id_konsultan AS id', 'nama AS text')->orderBy('id_konsultan', 'asc')->get();
 
-        $response = [];
-        foreach ($data as $key => $value) {
-            $response[] = [
-                'id'       => $value->id,
-                'text'     => $value->text,
-                'selected' => ($request->id == $value->id ? true : false)
-            ];
-        }
+    // //     $response = [];
+    // //     foreach ($data as $key => $value) {
+    // //         $response[] = [
+    // //             'id'       => $value->id,
+    // //             'text'     => $value->text,
+    // //             'selected' => ($request->id == $value->id ? true : false)
+    // //         ];
+    // //     }
 
-        return Response::json($response);
-    }
+    // //     return Response::json($response);
+    // // }
 
     public function show(Request $request)
     {
-        $response = Perusahaan::find(my_decrypt($request->id));
+        $response = Satuan::find(my_decrypt($request->id));
 
         return Response::json($response);
     }
@@ -66,17 +67,11 @@ class PerusahaanController extends Controller
     public function save(Request $request)
     {
         $rule = [
-            'nama'    => 'required',
-            'telepon' => 'required|numeric|digits_between:10,13',
-            'alamat'  => 'required',
+            'nama' => 'required',
         ];
 
         $message = [
-            'nama.required'          => 'Nama Perusahaan tidak boleh kosong!',
-            'telepon.required'       => 'Telepon tidak boleh kosong!',
-            'telepon.numeric'        => 'Telepon harus berupa angka!',
-            'telepon.digits_between' => 'Telepon harus berupa angka dan minimal 10 digit dan maksimal 13 digit!',
-            'alamat.required'        => 'Alamat tidak boleh kosong!',
+            'nama.required' => 'Nama Perusahaan tidak boleh kosong!',
         ];
 
         $validator = Validator::make($request->all(), $rule, $message);
@@ -88,14 +83,12 @@ class PerusahaanController extends Controller
         }
 
         try {
-            Perusahaan::updateOrCreate(
+            Satuan::updateOrCreate(
                 [
-                    'id_perusahaan' => $request->id_perusahaan,
+                    'id_satuan' => $request->id_satuan,
                 ],
                 [
                     'nama'     => $request->nama,
-                    'telepon'  => $request->telepon,
-                    'alamat'   => $request->alamat,
                     'by_users' => $this->session['id_users'],
                 ]
             );
@@ -113,9 +106,9 @@ class PerusahaanController extends Controller
         $checking = is_valid_user($this->session['id_users'], $request->password);
         if ($checking) {
             try {
-                $perusahaan = Perusahaan::find(my_decrypt($request->id));
+                $data = Satuan::find(my_decrypt($request->id));
 
-                $perusahaan->delete();
+                $data->delete();
 
                 $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Hapus!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
             } catch (\Exception $e) {

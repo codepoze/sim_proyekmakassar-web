@@ -2,14 +2,17 @@
 
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\KegiatanController;
+use App\Http\Controllers\admin\KonsultanController;
 use App\Http\Controllers\admin\MenuActionController;
 use App\Http\Controllers\admin\MenuBodyController;
 use App\Http\Controllers\admin\MenuHeadController;
 use App\Http\Controllers\admin\PaketController;
-use App\Http\Controllers\admin\PerusahaanController;
+use App\Http\Controllers\admin\PenyediaController;
+use App\Http\Controllers\admin\PptkController;
 use App\Http\Controllers\admin\ProfilController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\RoleMenuController;
+use App\Http\Controllers\admin\SatuanController;
 use App\Http\Controllers\admin\TeknislapAnggotaController;
 use App\Http\Controllers\admin\TeknislapController;
 use App\Http\Controllers\admin\UsersController;
@@ -93,6 +96,50 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         });
         // end:: users
 
+        // begin:: satuan
+        Route::controller(SatuanController::class)->prefix('satuan')->as('satuan.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/get_all', 'get_all')->name('get_all');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
+        });
+        // end:: satuan
+
+        // begin:: penyedia
+        Route::controller(PenyediaController::class)->prefix('penyedia')->as('penyedia.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/get_all', 'get_all')->name('get_all');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
+        });
+        // end:: penyedia
+
+        // begin:: konsultan
+        Route::controller(KonsultanController::class)->prefix('konsultan')->as('konsultan.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/get_all', 'get_all')->name('get_all');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
+        });
+        // end:: konsultan
+
+        // begin:: pptk
+        Route::controller(PptkController::class)->prefix('pptk')->as('pptk.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/get_all', 'get_all')->name('get_all');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
+        });
+        // end:: pptk
+
         // begin:: teknis lapangan koordinator & anggota
         Route::group(['prefix' => 'teknislap', 'as' => 'teknislap.'], function () {
             Route::controller(TeknislapController::class)->prefix('kordinator')->as('kordinator.')->group(function () {
@@ -114,17 +161,6 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
             });
         });
         // end:: teknis lapangan koordinator & anggota
-
-        // begin:: perusahaan
-        Route::controller(PerusahaanController::class)->prefix('perusahaan')->as('perusahaan.')->group(function () {
-            Route::get('/', 'index')->name('perusahaan');
-            Route::get('/get_all', 'get_all')->name('get_all');
-            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
-            Route::post('/show', 'show')->name('show');
-            Route::post('/save', 'save')->name('save');
-            Route::post('/del', 'del')->name('del');
-        });
-        // end:: perusahaan
 
         // begin:: kegiatan
         Route::controller(KegiatanController::class)->prefix('kegiatan')->as('kegiatan.')->group(function () {

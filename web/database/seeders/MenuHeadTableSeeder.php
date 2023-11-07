@@ -16,19 +16,43 @@ class MenuHeadTableSeeder extends Seeder
     {
         $menu_heads = [
             [
+                'nama'         => 'Satuan',
+                'icon'         => 'list',
+                'path'         => '/satuan',
+                'status'       => '1',
+                'jenis'        => 'single',
+                'by_users'     => 1,
+            ],
+            [
+                'nama'         => 'Penyedia',
+                'icon'         => 'list',
+                'path'         => '/penyedia',
+                'status'       => '1',
+                'jenis'        => 'single',
+                'by_users'     => 1,
+            ],
+            [
+                'nama'         => 'Konsultan',
+                'icon'         => 'list',
+                'path'         => '/konsultan',
+                'status'       => '1',
+                'jenis'        => 'single',
+                'by_users'     => 1,
+            ],
+            [
+                'nama'         => 'PPTK',
+                'icon'         => 'list',
+                'path'         => '/pptk',
+                'status'       => '1',
+                'jenis'        => 'single',
+                'by_users'     => 1,
+            ],
+            [
                 'nama'         => 'Teknis Lapangan',
                 'icon'         => 'list',
                 'path'         => '/teknislap',
                 'status'       => '1',
                 'jenis'        => 'multi',
-                'by_users'     => 1,
-            ],
-            [
-                'nama'         => 'Perusahaan',
-                'icon'         => 'list',
-                'path'         => '/perusahaan',
-                'status'       => '1',
-                'jenis'        => 'single',
                 'by_users'     => 1,
             ],
             [

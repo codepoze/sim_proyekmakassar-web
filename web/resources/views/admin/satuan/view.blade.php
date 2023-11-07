@@ -28,7 +28,7 @@
                     </div>
                 </div>
                 <div class="card-datatable">
-                    <table class="table table-striped table-bordered" id="tabel-perusahaan-dt" style="width: 100%;">
+                    <table class="table table-striped table-bordered" id="tabel-satuan-dt" style="width: 100%;">
                     </table>
                 </div>
             </div>
@@ -38,13 +38,13 @@
 
 <!-- begin:: modal tambah & ubah -->
 <div id="modal-add-upd" class="modal fade text-start" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
             <!-- begin:: untuk form -->
-            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.perusahaan.save') }}" method="POST">
+            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.satuan.save') }}" method="POST">
                 <div class="modal-body">
                     <!-- begin:: untuk loading -->
                     <div id="form-loading"></div>
@@ -52,7 +52,7 @@
                     <div id="form-show">
                         <div class="row">
                             <!-- begin:: id -->
-                            <input type="hidden" name="id_perusahaan" id="id_perusahaan" />
+                            <input type="hidden" name="id_satuan" id="id_satuan" />
                             <!-- end:: id -->
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
@@ -60,29 +60,7 @@
                                         <label class="col-form-label" for="nama">Nama&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Masukkan Nama" />
-                                        <div class="invalid-feedback"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="field-input mb-1 row">
-                                    <div class="col-sm-3">
-                                        <label class="col-form-label" for="telepon">Telepon&nbsp;*</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="telepon" class="form-control form-control-sm" name="telepon" placeholder="Masukkan Telepon" />
-                                        <div class="invalid-feedback"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="field-input mb-1 row">
-                                    <div class="col-sm-3">
-                                        <label class="col-form-label" for="alamat">Alamat&nbsp;*</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <textarea id="alamat" class="form-control form-control-sm" name="alamat" placeholder="Masukkan Alamat"></textarea>
+                                        <input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Masukkan Nama Perusahaan" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -125,7 +103,7 @@
     var table;
 
     let untukTabel = function() {
-        table = $('#tabel-perusahaan-dt').DataTable({
+        table = $('#tabel-satuan-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
@@ -135,7 +113,7 @@
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.perusahaan.get_data_dt') }}",
+            ajax: "{{ route('admin.satuan.get_data_dt') }}",
             dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             drawCallback: function() {
                 feather.replace();
@@ -148,16 +126,6 @@
                 {
                     title: 'Nama',
                     data: 'nama',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Telepon',
-                    data: 'telepon',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Alamat',
-                    data: 'alamat',
                     class: 'text-center'
                 },
                 {
@@ -272,7 +240,7 @@
             e.preventDefault();
             $('#judul-add-upd').text('Tambah');
 
-            $('#id_perusahaan').removeAttr('value');
+            $('#id_satuan').removeAttr('value');
 
             $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
             $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
@@ -290,7 +258,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: "{{ route('admin.perusahaan.show') }}",
+                url: "{{ route('admin.satuan.show') }}",
                 data: {
                     id: ini.data('id')
                 },
@@ -353,7 +321,7 @@
                     }).then((result) => {
                         $.ajax({
                             type: "post",
-                            url: "{{ route('admin.perusahaan.del') }}",
+                            url: "{{ route('admin.satuan.del') }}",
                             dataType: 'json',
                             data: {
                                 id: ini.data('id'),

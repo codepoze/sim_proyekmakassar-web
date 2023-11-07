@@ -15,8 +15,20 @@ class Kegiatan extends Model
     // untuk fillable
     protected $fillable = [
         'id_kegiatan',
+        'id_pptk',
         'nama',
         'tgl',
         'by_users'
     ];
+
+    // untuk foreign key
+    protected $with = [
+        'toPptk'
+    ];
+
+    // untuk relasi ke tabel pptk
+    public function toPptk()
+    {
+        return $this->belongsTo(Pptk::class, 'id_pptk', 'id_pptk');
+    }
 }

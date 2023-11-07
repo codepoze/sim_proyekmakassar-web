@@ -14,17 +14,24 @@ class CreatePaketsTable extends Migration
     public function up()
     {
         Schema::create('paket', function (Blueprint $table) {
+            // paket / pekerjaan
             $table->increments('id_paket');
             $table->integer('id_kegiatan')->unsigned()->nullable();
-            $table->integer('id_perusahaan')->unsigned()->nullable();
+            $table->integer('id_penyedia')->unsigned()->nullable();
+            $table->integer('id_konsultan')->unsigned()->nullable();
             $table->integer('id_teknislap')->unsigned()->nullable();
+            $table->string('nma_paket', 50)->nullable();
+            $table->string('pj_penyedia', 45)->nullable();
+            $table->string('pj_konsultan', 45)->nullable();
             $table->string('no_spmk', 50)->nullable();
             $table->string('no_kontrak', 50)->nullable();
-            $table->bigInteger('nil_kontrak')->nullable();
-            $table->string('waktu_kontrak', 50)->nullable();
             $table->text('doc_kontrak')->nullable();
-            $table->string('lokasi_pekerjaan', 50)->nullable();
-            $table->date('schedule')->nullable();
+            $table->date('tgl_kontrak_mulai')->nullable();
+            $table->date('tgl_kontrak_akhir')->nullable();
+            $table->string('thn_anggaran', 10)->nullable();
+            $table->bigInteger('nil_pagu')->nullable();
+            $table->string('kd_rekening', 50)->nullable();
+            $table->string('sumber_dana', 50)->nullable();
             $table->text('foto_lokasi')->nullable();
             $table->text('laporan')->nullable();
 
@@ -33,7 +40,8 @@ class CreatePaketsTable extends Migration
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->foreign('id_kegiatan')->references('id_kegiatan')->on('kegiatan')->onDelete('cascade')->onUpdate('cascade');
-            $table->foreign('id_perusahaan')->references('id_perusahaan')->on('perusahaan')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_penyedia')->references('id_penyedia')->on('penyedia')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_konsultan')->references('id_konsultan')->on('konsultan')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_teknislap')->references('id_teknislap')->on('teknislap')->onDelete('cascade')->onUpdate('cascade');
         });
     }

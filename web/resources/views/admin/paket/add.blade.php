@@ -29,10 +29,10 @@
 
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="id_perusahaan">Perusahaan&nbsp;*</label>
+                                <label class="col-form-label" for="id_penyedia">Penyedia&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <select class="form-select select2" id="id_perusahaan" name="id_perusahaan">
+                                <select class="form-select select2" id="id_penyedia" name="id_penyedia">
                                     <option value=""></option>
                                 </select>
                                 <div class="invalid-feedback"></div>
@@ -40,12 +40,50 @@
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="id_teknislap">Kordinator Teknis Lapangan&nbsp;*</label>
+                                <label class="col-form-label" for="no_spmk">PJ Penyedia&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="text" id="no_spmk" class="form-control form-control-sm" name="no_spmk" placeholder="Masukkan Nomor SPMK" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="id_konsultan">Konsultan&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <select class="form-select select2" id="id_konsultan" name="id_konsultan">
+                                    <option value=""></option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="no_spmk">PJ Konsultan&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="text" id="no_spmk" class="form-control form-control-sm" name="no_spmk" placeholder="Masukkan Nomor SPMK" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="id_teknislap">Kord Teknis Lapangan&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
                                 <select class="form-select select2" id="id_teknislap" name="id_teknislap">
                                     <option value=""></option>
                                 </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="nma_paket">Nama Paket&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="text" id="nma_paket" class="form-control form-control-sm" name="nma_paket" placeholder="Masukkan Nama Paket" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -332,10 +370,22 @@
         });
     }();
 
-    let untukSelectPerusahaan = function() {
-        $.get("{{ route('admin.perusahaan.get_all') }}", function(response) {
-            $("#id_perusahaan").select2({
-                placeholder: "Pilih Perusahaan",
+    let untukSelectPenyedia = function() {
+        $.get("{{ route('admin.penyedia.get_all') }}", function(response) {
+            $("#id_penyedia").select2({
+                placeholder: "Pilih penyedia",
+                width: '100%',
+                allowClear: true,
+                containerCssClass: 'select-sm',
+                data: response,
+            });
+        }, 'json');
+    }();
+
+    let untukSelectKonsultan = function() {
+        $.get("{{ route('admin.konsultan.get_all') }}", function(response) {
+            $("#id_konsultan").select2({
+                placeholder: "Pilih konsultan",
                 width: '100%',
                 allowClear: true,
                 containerCssClass: 'select-sm',

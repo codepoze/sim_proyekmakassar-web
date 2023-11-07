@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePh0sTable extends Migration
+class CreatePaketRuasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,16 @@ class CreatePh0sTable extends Migration
      */
     public function up()
     {
-        Schema::create('ph0', function (Blueprint $table) {
-            $table->increments('id_ph0');
-            $table->integer('id_ruas')->unsigned()->nullable();
-            $table->date('tgl')->nullable();
-            $table->binary('video')->nullable();
-            $table->binary('doc')->nullable();
-
+        Schema::create('paket_ruas', function (Blueprint $table) {
+            $table->increments('id_paket_ruas');
+            $table->integer('id_paket')->unsigned()->nullable();
+            $table->text('nama')->nullable();
 
             $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
-            $table->foreign('id_ruas')->references('id_ruas')->on('ruas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_paket')->references('id_paket')->on('paket')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -36,6 +33,6 @@ class CreatePh0sTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ph0');
+        Schema::dropIfExists('paket_ruas');
     }
 }
