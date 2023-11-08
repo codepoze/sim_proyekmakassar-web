@@ -406,6 +406,54 @@ if (!function_exists('count_mounth')) {
     }
 }
 
+if (!function_exists('count_day_excluding_weekends_holiday')) {
+    function count_day_excluding_weekends_holiday($to, $from)
+    {
+        $start = new DateTime($from);
+        $end = new DateTime($to);
+        // otherwise the  end date is excluded (bug?)
+        $end->modify('+1 day');
+
+        $interval = $end->diff($start);
+
+        // total days
+        $days = $interval->days;
+
+        // create an iterateable period of date (P1D equates to 1 day)
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+
+        // best stored as array, so you can add more than one
+        $holidays = [
+            '2023-01-01',
+            '2023-01-22',
+            '2023-02-18',
+            '2023-03-22',
+            '2023-04-07',
+            '2023-05-01',
+            '2023-05-18',
+            '2023-06-01',
+            '2023-06-04',
+            '2023-06-29',
+            '2023-07-19',
+            '2023-08-17',
+            '2023-12-25',
+        ];
+
+        foreach ($period as $dt) {
+            $curr = $dt->format('D');
+
+            // substract if Saturday or Sunday
+            if ($curr == 'Sat' || $curr == 'Sun') {
+                $days--;
+            } else if (in_array($dt->format('Y-m-d'), $holidays)) {
+                $days--;
+            }
+        }
+        
+        return $days;
+    }
+}
+
 if (!function_exists('get_extension')) {
     function get_extension($file)
     {

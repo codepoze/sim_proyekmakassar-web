@@ -25,7 +25,7 @@ class KegiatanController extends Controller
         return Template::load('admin', 'Kegiatan', 'kegiatan', 'view');
     }
 
-    public function detail($id)
+    public function det($id)
     {
         $id_kegiatan = my_decrypt($id);
 
@@ -48,7 +48,7 @@ class KegiatanController extends Controller
             })
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="' . route('admin.kegiatan.detail', my_encrypt($row->id_kegiatan)) . '" class="btn btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
+                    <a href="' . route('admin.kegiatan.det', my_encrypt($row->id_kegiatan)) . '" class="btn btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
                     <button type="button" id="upd" data-id="' . my_encrypt($row->id_kegiatan) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
                     <button type="button" id="del" data-id="' . my_encrypt($row->id_kegiatan) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';

@@ -5,7 +5,6 @@
 <!-- begin:: css local -->
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/forms/select/select2.min.css') }}">
-<link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/pickers/pickadate/pickadate.css') }}">
 @endsection
 <!-- end:: css local -->
 
@@ -28,10 +27,10 @@
 
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="id_perusahaan">Perusahaan&nbsp;*</label>
+                                <label class="col-form-label" for="id_penyedia">Penyedia&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <select class="form-select select2" id="id_perusahaan" name="id_perusahaan">
+                                <select class="form-select select2" id="id_penyedia" name="id_penyedia">
                                     <option value=""></option>
                                 </select>
                                 <div class="invalid-feedback"></div>
@@ -39,7 +38,36 @@
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="id_teknislap">Kordinator Teknis Lapangan&nbsp;*</label>
+                                <label class="col-form-label" for="pj_penyedia">PJ Penyedia&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="text" class="form-control form-control-sm" id="pj_penyedia" name="pj_penyedia" placeholder="Masukkan nama penanggung jawab penyedia" value="{{ $paket->pj_penyedia }}" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="id_konsultan">Konsultan&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <select class="form-select select2" id="id_konsultan" name="id_konsultan">
+                                    <option value=""></option>
+                                </select>
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="pj_konsultan">PJ Konsultan&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="text" class="form-control form-control-sm" id="pj_konsultan" name="pj_konsultan" placeholder="Masukkan nama penanggung jawab konsultan" value="{{ $paket->pj_konsultan }}" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="id_teknislap">Kord Teknis Lapangan&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
                                 <select class="form-select select2" id="id_teknislap" name="id_teknislap">
@@ -50,10 +78,19 @@
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
+                                <label class="col-form-label" for="nma_paket">Nama Paket&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="text" class="form-control form-control-sm" id="nma_paket" name="nma_paket" placeholder="Masukkan nama paket" value="{{ $paket->nma_paket }}" />
+                                <div class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
                                 <label class="col-form-label" for="no_spmk">Nomor SPMK&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="no_spmk" class="form-control form-control-sm" name="no_spmk" placeholder="Masukkan Nomor SPMK" value="{{ $paket->no_spmk }}" />
+                                <input type="text" class="form-control form-control-sm" id="no_spmk" name="no_spmk" placeholder="Masukkan nomor spmk" value="{{ $paket->no_spmk }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -62,47 +99,64 @@
                                 <label class="col-form-label" for="no_kontrak">Nomor Kontrak&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="no_kontrak" class="form-control form-control-sm" name="no_kontrak" placeholder="Masukkan Nomor Kontrak" value="{{ $paket->no_kontrak }}" />
+                                <input type="text" class="form-control form-control-sm" id="no_kontrak" name="no_kontrak" placeholder="Masukkan nomor kontrak" value="{{ $paket->no_kontrak }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="nil_kontrak">Nilai Kontrak&nbsp;*</label>
+                                <label class="col-form-label" for="waktu_kontrak">Schedule&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="nil_kontrak" class="form-control form-control-sm" name="nil_kontrak" placeholder="Masukkan Nilai Kontrak" value="{{ $paket->nil_kontrak }}" />
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type="date" class="form-control form-control-sm" id="tgl_kontrak_mulai" name="tgl_kontrak_mulai" placeholder="Masukkan tanggal mulai kontrak" value="{{ $paket->tgl_kontrak_mulai }}" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="date" class="form-control form-control-sm" id="tgl_kontrak_akhir" name="tgl_kontrak_akhir" placeholder="Masukkan tanggal akhir kontrak" value="{{ $paket->tgl_kontrak_akhir }}" />
+                                        <div class="invalid-feedback"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field-input mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label" for="thn_anggaran">Tahun Anggaran&nbsp;*</label>
+                            </div>
+                            <div class="col-sm-9 my-auto">
+                                <input type="text" class="form-control form-control-sm" id="thn_anggaran" name="thn_anggaran" placeholder="Masukkan tahun anggaran" value="{{ $paket->thn_anggaran }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="waktu_kontrak">Waktu Kontrak&nbsp;*</label>
+                                <label class="col-form-label" for="nil_pagu">Nilai Pagu&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="waktu_kontrak" class="form-control form-control-sm" name="waktu_kontrak" placeholder="Masukkan Waktu Kontrak" value="{{ $paket->waktu_kontrak }}" />
+                                <input type="text" class="form-control form-control-sm" id="nil_pagu" name="nil_pagu" placeholder="Masukkan nilai pagu" value="{{ $paket->nil_pagu }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="lokasi_pekerjaan">Lokasi Pekerjaan&nbsp;*</label>
+                                <label class="col-form-label" for="kd_rekening">Kode Rekening&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" id="lokasi_pekerjaan" class="form-control form-control-sm" name="lokasi_pekerjaan" placeholder="Masukkan Lokasi Pekerjaan" value="{{ $paket->lokasi_pekerjaan }}" />
+                                <input type="text" class="form-control form-control-sm" id="kd_rekening" name="kd_rekening" placeholder="Masukkan kode rekening" value="{{ $paket->kd_rekening }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
                         <div class="field-input mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="schedule">Schedule&nbsp;*</label>
+                                <label class="col-form-label" for="sumber_dana">Sumber Dana&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="date" id="schedule" class="form-control form-control-sm" name="schedule" value="{{ $paket->schedule }}" />
+                                <input type="text" class="form-control form-control-sm" id="sumber_dana" name="sumber_dana" placeholder="Masukkan sumber dana" value="{{ $paket->sumber_dana }}" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
-                        <div class="field-input mb-1 row">
+                        <!-- <div class="field-input mb-1 row">
                             <div class="col-sm-3">
                                 <label class="col-form-label" for="foto_lokasi">Foto Lokasi&nbsp;*</label>
                             </div>
@@ -146,27 +200,19 @@
                                 <p><small class="text-muted">File dengan tipe (*.pdf).</small></p>
                                 <div class="invalid-feedback"></div>
                             </div>
-                        </div>
+                        </div> -->
                         <!-- begin:: untuk ruas -->
                         <div class="mb-1 row">
                             <div class="col-sm-3">
                                 <label class="col-form-label">Ruas&nbsp;*</label>
                             </div>
                             <div class="col-sm-9">
-                                @foreach ($paket->toRuas as $key => $row)
-                                <input type="hidden" name="id_ruas[]" value="{{ $row->id_ruas }}" />
+                                @foreach ($paket->toPaketRuas as $key => $row)
+                                <input type="hidden" name="id_paket_ruas[]" value="{{ $row->id_paket_ruas }}" />
                                 @if ($key === 0)
                                 <div class="row my-1 ruas">
-                                    <div class="field-input col-3">
-                                        <input type="text" id="nilai_ruas_0" name="nilai_ruas[]" class="form-control form-control-sm" placeholder="Masukkan Nilai Ruas" value="{{ $row->nilai_ruas }}" />
-                                        <div class="invalid-feedback"></div>
-                                    </div>
-                                    <div class="field-input col-3">
-                                        <input type="text" id="lat_0" name="lat[]" class="form-control form-control-sm" placeholder="Masukkan Latitude" value="{{ $row->lat }}" />
-                                        <div class="invalid-feedback"></div>
-                                    </div>
-                                    <div class="field-input col-3">
-                                        <input type="text" id="long_0" name="long[]" class="form-control form-control-sm" placeholder="Masukkan Longitude" value="{{ $row->long }}" />
+                                    <div class="field-input col-9">
+                                        <input type="text" id="nama_ruas_0" name="nama_ruas[]" class="form-control form-control-sm" placeholder="Masukkan nama ruas" value="{{ $row->nama }}" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="col-3 d-flex justify-content-center">
@@ -177,33 +223,24 @@
                                 </div>
                                 @else
                                 <div class="row my-1 ruas-ini">
-                                    <div class="field-input col-3">
-                                        <input type="text" id="nilai_ruas_{{ $key }}" name="nilai_ruas[]" class="form-control form-control-sm" placeholder="Masukkan Nilai Ruas" value="{{ $row->nilai_ruas }}" />
-                                        <div class="invalid-feedback"></div>
-                                    </div>
-                                    <div class="field-input col-3">
-                                        <input type="text" id="lat_{{ $key }}" name="lat[]" class="form-control form-control-sm" placeholder="Masukkan Latitude" value="{{ $row->lat }}" />
-                                        <div class="invalid-feedback"></div>
-                                    </div>
-                                    <div class="field-input col-3">
-                                        <input type="text" id="long_{{ $key }}" name="long[]" class="form-control form-control-sm" placeholder="Masukkan Longitude" value="{{ $row->long }}" />
+                                    <div class="field-input col-9">
+                                        <input type="text" id="nama_ruas_{{ $key }}" name="nama_ruas[]" class="form-control form-control-sm" placeholder="Masukkan nama ruas" value="{{ $row->nama }}" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="col-3 d-flex justify-content-center">
-                                        <button type="button" id="del" class="btn btn-sm btn-relief-danger">
+                                        <button type="button" id="del" data-id="{{ my_encrypt($row->id_paket_ruas) }}" class="btn btn-sm btn-relief-danger">
                                             <span>Hapus</span>
                                         </button>
                                     </div>
                                 </div>
                                 @endif
                                 @endforeach
-
                             </div>
                         </div>
                         <!-- end:: untuk ruas -->
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="{{ route('admin.kegiatan.detail', my_encrypt($paket->id_kegiatan)) }}" class="btn btn-sm btn-relief-danger">
+                                <a href="{{ route('admin.kegiatan.det', my_encrypt($paket->id_kegiatan)) }}" class="btn btn-sm btn-relief-danger">
                                     <i data-feather="x"></i>&nbsp;<span>Batal</span>
                                 </a>&nbsp;
                                 <button type="submit" id="save" class="btn btn-sm btn-relief-primary">
@@ -222,10 +259,6 @@
 
 <!-- begin:: js local -->
 @section('js')
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.time.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/legacy.js') }}"></script>
 <script src="{{ asset_admin('vendors/js/forms/select/select2.full.min.js') }}"></script>
 
 <script>
@@ -258,7 +291,7 @@
                             },
                             buttonsStyling: false,
                         }).then((value) => {
-                            location.reload();
+                            location.href = response.url;
                         });
                     } else {
                         $.each(response.errors, function(key, value) {
@@ -333,28 +366,18 @@
         });
     }();
 
-    let untukRuas = function() {
+    let untukPaketRuas = function() {
         var i = $('.ruas-ini').length;
 
         $(document).on("click", "#add", function() {
             i++;
 
             var html = `
-                <input type="hidden" name="id_ruas[]" value="0" />
+                <input type="hidden" name="id_paket_ruas[]" value="0" />
                 <div class="row my-1 ruas-ini">
-                    <div class="field-input col-3">
-                        <input type="text" id="nilai_ruas_` + i + `" name="nilai_ruas[]" class="form-control form-control-sm"
-                            placeholder="Masukkan Nilai Ruas" />
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="field-input col-3">
-                        <input type="text" id="lat_` + i + `" name="lat[]" class="form-control form-control-sm"
-                            placeholder="Masukkan Latitude" />
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="field-input col-3">
-                        <input type="text" id="long_` + i + `" name="long[]" class="form-control form-control-sm"
-                            placeholder="Masukkan Longitude" />
+                    <div class="field-input col-9">
+                        <input type="text" id="nama_ruas_` + i + `" name="nama_ruas[]" class="form-control form-control-sm"
+                            placeholder="Masukkan nama ruas" />
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="col-3 d-flex justify-content-center">
@@ -372,16 +395,75 @@
             i--;
 
             var ini = $(this);
-            ini.parents(".ruas-ini").remove();
+            var id = ini.data("id");
+
+            if (id !== undefined) {
+                $.post("{{ route('admin.paket.ruas.del') }}", {
+                    id: id
+                }, function(response) {
+                    if (response.status) {
+                        Swal.fire({
+                            title: response.title,
+                            text: response.text,
+                            icon: response.type,
+                            confirmButtonText: response.button,
+                            customClass: {
+                                confirmButton: `btn btn-sm btn-${response.class}`,
+                            },
+                            buttonsStyling: false,
+                        }).then((value) => {
+                            ini.parents(".ruas-ini").remove();
+                        });
+                    } else {
+                        Swal.fire({
+                            title: response.title,
+                            text: response.text,
+                            icon: response.type,
+                            confirmButtonText: response.button,
+                            customClass: {
+                                confirmButton: `btn btn-sm btn-${response.class}`,
+                            },
+                            buttonsStyling: false,
+                        });
+                    }
+                }, 'json');
+            } else {
+                Swal.fire({
+                    title: 'Berhasil!',
+                    text: 'Data Sukses di Hapus!',
+                    icon: 'success',
+                    confirmButtonText: 'Ok!',
+                    customClass: {
+                        confirmButton: `btn btn-sm btn-success`,
+                    },
+                    buttonsStyling: false,
+                }).then((value) => {
+                    ini.parents(".ruas-ini").remove();
+                });
+            }
         });
     }();
 
-    let untukSelectPerusahaan = function() {
-        $.get("{{ route('admin.perusahaan.get_all') }}", {
-            id: '{{ $paket->id_perusahaan }}'
+    let untukSelectPenyedia = function() {
+        $.get("{{ route('admin.penyedia.get_all') }}", {
+            id: '{{ $paket->id_penyedia }}'
         }, function(response) {
-            $("#id_perusahaan").select2({
-                placeholder: "Pilih Perusahaan",
+            $("#id_penyedia").select2({
+                placeholder: "Pilih penyedia",
+                width: '100%',
+                allowClear: true,
+                containerCssClass: 'select-sm',
+                data: response,
+            });
+        }, 'json');
+    }();
+
+    let untukSelectKonsultan = function() {
+        $.get("{{ route('admin.konsultan.get_all') }}", {
+            id: '{{ $paket->id_konsultan }}'
+        }, function(response) {
+            $("#id_konsultan").select2({
+                placeholder: "Pilih konsultan",
                 width: '100%',
                 allowClear: true,
                 containerCssClass: 'select-sm',

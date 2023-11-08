@@ -21,6 +21,11 @@ class Teknislap extends Model
         'by_users'
     ];
 
+    // untuk relasi foreign key
+    protected $with = [
+        'toUser'
+    ];
+
     // untuk relasi ke tabel users
     public function toUser()
     {

@@ -178,26 +178,38 @@ Breadcrumbs::for('admin.kegiatan.kegiatan', function (BreadcrumbTrail $trail) {
     $trail->push('Kegiatan', route('admin.kegiatan.kegiatan'));
 });
 
-Breadcrumbs::for('admin.kegiatan.detail', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.kegiatan.det', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.kegiatan.kegiatan');
 
     $trail->push('Detail Kegiatan');
 });
 
-Breadcrumbs::for('admin.paket.paket', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.paket.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Paket', route('admin.paket.paket'));
+    $trail->push('Paket', route('admin.paket.index'));
 });
 
 Breadcrumbs::for('admin.paket.add', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.paket.paket');
+    $trail->parent('admin.paket.index');
 
     $trail->push('Tambah', '#');
 });
 
+Breadcrumbs::for('admin.paket.det', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.paket.index');
+
+    $trail->push('Detail', '#');
+});
+
 Breadcrumbs::for('admin.paket.upd', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.paket.paket');
+    $trail->parent('admin.paket.index');
 
     $trail->push('Ubah', '#');
+});
+
+Breadcrumbs::for('admin.paket.ruas.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.paket.index');
+
+    $trail->push('Paket Ruas', '#');
 });

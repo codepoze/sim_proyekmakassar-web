@@ -41,21 +41,21 @@ class SatuanController extends Controller
             ->make(true);
     }
 
-    // // public function get_all(Request $request)
-    // // {
-    // //     $data = Perusahaan::select('id_konsultan AS id', 'nama AS text')->orderBy('id_konsultan', 'asc')->get();
+    public function get_all(Request $request)
+    {
+        $data = Satuan::select('id_satuan AS id', 'nama AS text')->orderBy('id_satuan', 'asc')->get();
 
-    // //     $response = [];
-    // //     foreach ($data as $key => $value) {
-    // //         $response[] = [
-    // //             'id'       => $value->id,
-    // //             'text'     => $value->text,
-    // //             'selected' => ($request->id == $value->id ? true : false)
-    // //         ];
-    // //     }
+        $response = [];
+        foreach ($data as $key => $value) {
+            $response[] = [
+                'id'       => $value->id,
+                'text'     => $value->text,
+                'selected' => ($request->id == $value->id ? true : false)
+            ];
+        }
 
-    // //     return Response::json($response);
-    // // }
+        return Response::json($response);
+    }
 
     public function show(Request $request)
     {

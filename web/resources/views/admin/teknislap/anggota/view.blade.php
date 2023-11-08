@@ -76,17 +76,12 @@
                 },
                 {
                     title: 'NIK',
-                    data: 'to_user.username',
+                    data: 'nik',
                     class: 'text-center'
                 },
                 {
                     title: 'Nama',
-                    data: 'to_user.nama',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Email',
-                    data: 'to_user.email',
+                    data: 'nama',
                     class: 'text-center'
                 },
                 {

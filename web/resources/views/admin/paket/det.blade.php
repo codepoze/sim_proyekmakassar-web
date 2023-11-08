@@ -21,9 +21,9 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route('admin.paket.save') }}" method="POST">
+                    <form id="form-add-upd" class="form form-horizontal mt-2" action="" method="POST">
                         <!-- begin:: id -->
-                        <input type="hidden" name="id_kegiatan" id="id_kegiatan" value="{{ $id_kegiatan }}" />
+                        <input type="hidden" name="id_kegiatan" id="id_kegiatan" value="" />
                         <input type="hidden" name="id_paket" id="id_paket" />
                         <!-- end:: id -->
 
@@ -158,7 +158,7 @@
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
-                        <!-- <div class="field-input mb-1 row">
+                        <div class="field-input mb-1 row">
                             <div class="col-sm-3">
                                 <label class="col-form-label" for="foto_lokasi">Foto Lokasi&nbsp;*</label>
                             </div>
@@ -184,7 +184,7 @@
                                 <input type="file" class="form-control form-control-sm" id="laporan" name="laporan" />
                                 <div class="invalid-feedback"></div>
                             </div>
-                        </div> -->
+                        </div>
                         <!-- begin:: untuk ruas -->
                         <div class="mb-1 row">
                             <div class="col-sm-3">
@@ -207,7 +207,7 @@
                         <!-- end:: untuk ruas -->
                         <div class="row">
                             <div class="col-lg-12">
-                                <a href="{{ route('admin.kegiatan.det', $id_kegiatan) }}" class="btn btn-sm btn-relief-danger">
+                                <a href="" class="btn btn-sm btn-relief-danger">
                                     <i data-feather="x"></i>&nbsp;<span>Batal</span>
                                 </a>&nbsp;
                                 <button type="submit" id="save" class="btn btn-sm btn-relief-primary">
@@ -226,195 +226,5 @@
 
 <!-- begin:: js local -->
 @section('js')
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.time.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/pickers/pickadate/legacy.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/forms/select/select2.full.min.js') }}"></script>
-
-<script>
-    let untukSimpanData = function() {
-        $(document).on('submit', '#form-add-upd', function(e) {
-            e.preventDefault();
-
-            $.ajax({
-                method: $(this).attr('method'),
-                url: $(this).attr('action'),
-                data: new FormData(this),
-                contentType: false,
-                processData: false,
-                cache: false,
-                dataType: 'json',
-                beforeSend: function() {
-                    $('#save').attr('disabled', 'disabled');
-                    $('#save').html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
-                    feather.replace();
-                },
-                success: function(response) {
-                    if (response.type === 'success') {
-                        Swal.fire({
-                            title: response.title,
-                            text: response.text,
-                            icon: response.type,
-                            confirmButtonText: response.button,
-                            customClass: {
-                                confirmButton: `btn btn-sm btn-${response.class}`,
-                            },
-                            buttonsStyling: false,
-                        }).then((value) => {
-                            location.href = response.url;
-                        });
-                    } else {
-                        $.each(response.errors, function(key, value) {
-                            if (key) {
-                                if (($('#' + key).prop('tagName') === 'INPUT' || $('#' + key).prop('tagName') === 'TEXTAREA')) {
-                                    $('#' + key).addClass('is-invalid');
-                                    $('#' + key).parents('.field-input').find('.invalid-feedback').html(value);
-                                } else if ($('#' + key).prop('tagName') === 'SELECT') {
-                                    $('#' + key).addClass('is-invalid');
-                                    $('#' + key).parents('.field-input').find('.invalid-feedback').html(value);
-                                }
-                            }
-                        });
-
-                        Swal.fire({
-                            title: response.title,
-                            text: response.text,
-                            icon: response.type,
-                            confirmButtonText: response.button,
-                            customClass: {
-                                confirmButton: `btn btn-sm btn-${response.class}`,
-                            },
-                            buttonsStyling: false,
-                        });
-                    }
-
-                    $('#save').removeAttr('disabled');
-                    $('#save').html('<i data-feather="save"></i>&nbsp;<span>Simpan</span>');
-                    feather.replace();
-                }
-            });
-        });
-
-        $(document).on('keyup', '#form-add-upd input', function(e) {
-            e.preventDefault();
-
-            if ($(this).val() == '') {
-                $(this).removeClass('is-valid').addClass('is-invalid');
-            } else {
-                $(this).removeClass('is-invalid').addClass('is-valid');
-            }
-        });
-
-        $(document).on('keyup', '#form-add-upd textarea', function(e) {
-            e.preventDefault();
-
-            if ($(this).val() == '') {
-                $(this).removeClass('is-valid').addClass('is-invalid');
-            } else {
-                $(this).removeClass('is-invalid').addClass('is-valid');
-            }
-        });
-
-        $(document).on('change', '#form-add-upd select', function(e) {
-            e.preventDefault();
-
-            if ($(this).val() == '') {
-                $(this).removeClass('is-valid').addClass('is-invalid');
-            } else {
-                $(this).removeClass('is-invalid').addClass('is-valid');
-            }
-        });
-
-        $(document).on('change', '#form-add-upd input[type=file]', function(e) {
-            e.preventDefault();
-
-            if ($(this).val() == '') {
-                $(this).removeClass('is-valid').addClass('is-invalid');
-            } else {
-                $(this).removeClass('is-invalid').addClass('is-valid');
-            }
-        });
-    }();
-
-    let untukPaketRuas = function() {
-        var i = 0;
-
-        $(document).on("click", "#add", function() {
-            i++;
-
-            var html = `
-                <div class="row my-1 ruas-ini">
-                    <div class="field-input col-9">
-                        <input type="text" id="nama_ruas_` + i + `" name="nama_ruas[]" class="form-control form-control-sm"
-                            placeholder="Masukkan nama ruas" />
-                        <div class="invalid-feedback"></div>
-                    </div>
-                    <div class="col-3 d-flex justify-content-center">
-                        <button type="button" id="del" class="btn btn-sm btn-relief-danger">
-                            <span>Hapus</span>
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            $(".ruas").after(html);
-        });
-
-        $(document).on("click", "#del", function() {
-            i--;
-
-            var ini = $(this);
-            Swal.fire({
-                title: 'Berhasil!',
-                text: 'Data Sukses di Hapus!',
-                icon: 'success',
-                confirmButtonText: 'Ok!',
-                customClass: {
-                    confirmButton: `btn btn-sm btn-success`,
-                },
-                buttonsStyling: false,
-            }).then((value) => {
-                ini.parents(".ruas-ini").remove();
-            });
-        });
-    }();
-
-    let untukSelectPenyedia = function() {
-        $.get("{{ route('admin.penyedia.get_all') }}", function(response) {
-            $("#id_penyedia").select2({
-                placeholder: "Pilih penyedia",
-                width: '100%',
-                allowClear: true,
-                containerCssClass: 'select-sm',
-                data: response,
-            });
-        }, 'json');
-    }();
-
-    let untukSelectKonsultan = function() {
-        $.get("{{ route('admin.konsultan.get_all') }}", function(response) {
-            $("#id_konsultan").select2({
-                placeholder: "Pilih konsultan",
-                width: '100%',
-                allowClear: true,
-                containerCssClass: 'select-sm',
-                data: response,
-            });
-        }, 'json');
-    }();
-
-    let untukSelectTeknisLapangan = function() {
-        $.get("{{ route('admin.teknislap.kordinator.get_all') }}", function(response) {
-            $("#id_teknislap").select2({
-                placeholder: "Pilih Kordinator Teknis Lapangan",
-                width: '100%',
-                allowClear: true,
-                containerCssClass: 'select-sm',
-                data: response,
-            });
-        }, 'json');
-    }();
-</script>
 @endsection
 <!-- end:: js local -->

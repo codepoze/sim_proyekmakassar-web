@@ -5,7 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
 use App\Models\Role;
-use App\Models\TeknislapAnggota;
+use App\Models\TeknislapAngg;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
 
-class TeknislapAnggotaController extends Controller
+class TeknislapAnggController extends Controller
 {
     public function __construct()
     {
@@ -25,24 +25,24 @@ class TeknislapAnggotaController extends Controller
 
     public function index()
     {
-        return Template::load('admin', 'Anggota Tekni Lapangan', 'teknislap/anggota', 'view');
+        return Template::load('admin', 'Anggota Teknis Lapangan', 'teknislap/anggota', 'view');
     }
 
     public function get_data_dt(Request $request)
     {
-        $query = TeknislapAnggota::query();
+        $query = TeknislapAngg::query();
         if ($request->id_teknislap) {
             $query->whereIdTeknislap($request->id_teknislap);
         }
 
-        $data = $query->with(['toTeknislap.toUser', 'toUser'])->orderBy('id_teknislap_anggota', 'desc')->get();
+        $data = $query->with(['toTeknislap.toUser', 'toUser'])->orderBy('id_teknislap_angg', 'desc')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
                 return '
-                    <button type="button" id="upd" data-id="' . my_encrypt($row->id_teknislap_anggota) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
-                    <button type="button" id="del" data-id="' . my_encrypt($row->id_teknislap_anggota) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
+                    <button type="button" id="upd" data-id="' . my_encrypt($row->id_teknislap_angg) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
+                    <button type="button" id="del" data-id="' . my_encrypt($row->id_teknislap_angg) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';
             })
             ->make(true);
@@ -50,29 +50,17 @@ class TeknislapAnggotaController extends Controller
 
     public function show(Request $request)
     {
-        $data = TeknislapAnggota::with(['toUser'])->find(my_decrypt($request->id));
-
-        $response = [
-            'id_teknislap_anggota' => $data->id_teknislap_anggota,
-            'id_teknislap'         => $data->id_teknislap,
-            'id_users'             => $data->id_users,
-            'nik'                  => $data->toUser->username,
-            'nama'                 => $data->toUser->nama,
-            'email'                => $data->toUser->email,
-            'telepon'              => $data->telepon,
-            'alamat'               => $data->alamat,
-        ];
+        $response = TeknislapAngg::find(my_decrypt($request->id));
 
         return Response::json($response);
     }
 
     public function save(Request $request)
     {
-        if ($request->id_teknislap_anggota === null) {
+        if ($request->id_teknislap_angg === null) {
             $rule = [
-                'nik'     => 'required|numeric|digits:16|unique:users,username',
+                'nik'     => 'required|numeric|digits:16|unique:teknislap_angg,nik',
                 'nama'    => 'required',
-                'email'   => 'required|email',
                 'telepon' => 'required|numeric|digits_between:10,13',
                 'alamat'  => 'required',
             ];
@@ -83,8 +71,6 @@ class TeknislapAnggotaController extends Controller
                 'nik.digits'       => 'NIK harus 16 digit!',
                 'nik.unique'       => 'NIK sudah terdaftar!',
                 'nama.required'    => 'Nama tidak boleh kosong!',
-                'email.required'   => 'Email tidak boleh kosong!',
-                'email.email'      => 'Email tidak valid!',
                 'telepon.required' => 'Telepon tidak boleh kosong!',
                 'telepon.numeric'  => 'Telepon harus berupa angka!',
                 'telepon.digits'   => 'Telepon harus 10-13 digit!',
@@ -94,7 +80,6 @@ class TeknislapAnggotaController extends Controller
             $rule = [
                 'nik'     => 'required|numeric|digits:16',
                 'nama'    => 'required',
-                'email'   => 'required|email',
                 'telepon' => 'required|numeric|digits_between:10,13',
                 'alamat'  => 'required',
             ];
@@ -104,8 +89,6 @@ class TeknislapAnggotaController extends Controller
                 'nik.numeric'      => 'NIK harus berupa angka!',
                 'nik.digits'       => 'NIK harus 16 digit!',
                 'nama.required'    => 'Nama tidak boleh kosong!',
-                'email.required'   => 'Email tidak boleh kosong!',
-                'email.email'      => 'Email tidak valid!',
                 'telepon.required' => 'Telepon tidak boleh kosong!',
                 'telepon.numeric'  => 'Telepon harus berupa angka!',
                 'telepon.digits'   => 'Telepon harus 10-13 digit!',
@@ -122,47 +105,18 @@ class TeknislapAnggotaController extends Controller
         }
 
         try {
-            $role = Role::whereRole('ang_teknislap')->first();
-
-            if ($request->id_teknislap_anggota === null) {
-                // tambah
-                $id_users = get_acak_id(User::class, 'id_users');
-
-                User::create([
-                    'id_users' => $id_users,
-                    'id_role'  => $role->id_role,
-                    'username' => $request->nik,
-                    'nama'     => $request->nama,
-                    'email'    => $request->email,
-                    'active'   => 'y',
-                    'password' => Hash::make('12345678'),
-                ]);
-
-                TeknislapAnggota::create([
-                    'id_teknislap_anggota' => get_acak_id(TeknislapAnggota::class, 'id_teknislap_anggota'),
-                    'id_teknislap'         => $request->id_teknislap,
-                    'id_users'             => $id_users,
-                    'telepon'              => $request->telepon,
-                    'alamat'               => $request->alamat,
-                    'by_users'             => $this->session['id_users'],
-                ]);
-            } else {
-                // ubah
-                $teknislap_anggota = TeknislapAnggota::findOrfail($request->id_teknislap_anggota);
-                $teknislap_anggota->update([
+            TeknislapAngg::updateOrCreate(
+                [
+                    'id_teknislap_angg' => $request->id_teknislap_angg
+                ],
+                [
                     'id_teknislap' => $request->id_teknislap,
+                    'nik'          => $request->nik,
+                    'nama'         => $request->nama,
                     'telepon'      => $request->telepon,
                     'alamat'       => $request->alamat,
-                    'by_users'     => $this->session['id_users'],
-                ]);
-
-                $users = User::find($teknislap_anggota->id_users);
-                $users->update([
-                    'username' => $request->nik,
-                    'nama'     => $request->nama,
-                    'email'    => $request->email,
-                ]);
-            }
+                ]
+            );
 
             $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
         } catch (\Exception $e) {
@@ -177,10 +131,9 @@ class TeknislapAnggotaController extends Controller
         $checking = is_valid_user($this->session['id_users'], $request->password);
         if ($checking) {
             try {
-                $data = TeknislapAnggota::find(my_decrypt($request->id));
+                $data = TeknislapAngg::find(my_decrypt($request->id));
 
-                $users = User::find($data->id_users);
-                $users->delete();
+                $data->delete();
 
                 $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Hapus!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
             } catch (\Exception $e) {

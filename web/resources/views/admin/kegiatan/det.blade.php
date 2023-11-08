@@ -24,7 +24,7 @@
                     <form class="form form-horizontal mt-2">
                         <div class="mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="nama">Nama Kegiatan</label>
+                                <label class="col-form-label">Nama Kegiatan</label>
                             </div>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control-plaintext" value="{{ $kegiatan->nama }}" readonly>
@@ -32,10 +32,18 @@
                         </div>
                         <div class="mb-1 row">
                             <div class="col-sm-3">
-                                <label class="col-form-label" for="tgl">Tanggal Kegiatan</label>
+                                <label class="col-form-label">Tanggal Kegiatan</label>
                             </div>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kegiatan->tgl) }}" readonly>
+                            </div>
+                        </div>
+                        <div class="mb-1 row">
+                            <div class="col-sm-3">
+                                <label class="col-form-label">PPTK</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control-plaintext" value="{{ $kegiatan->toPptk->toUser->nama }}" readonly>
                             </div>
                         </div>
                     </form>
@@ -100,7 +108,7 @@
                 url: "{{ route('admin.paket.get_data_dt') }}",
                 type: "GET",
                 data: {
-                    id_kegiatan: $('#id_kegiatan').val()
+                    id_kegiatan: "{{ $kegiatan->id_kegiatan }}"
                 }
             },
             dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
@@ -113,13 +121,8 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Perusahaan',
-                    data: 'to_perusahaan.nama',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Kordinator Teknis Lapangan',
-                    data: 'to_teknislap.to_user.nama',
+                    title: 'Nama Paket',
+                    data: 'nma_paket',
                     class: 'text-center'
                 },
                 {
@@ -133,6 +136,31 @@
                     class: 'text-center'
                 },
                 {
+                    title: 'Penyedia',
+                    data: 'to_penyedia.nama',
+                    class: 'text-center'
+                },
+                {
+                    title: 'PJ Penyedia',
+                    data: 'pj_penyedia',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Konsultan',
+                    data: 'to_konsultan.nama',
+                    class: 'text-center'
+                },
+                {
+                    title: 'PJ Konsultan',
+                    data: 'pj_konsultan',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Nilai Pagu',
+                    data: 'nil_pagu',
+                    class: 'text-center'
+                },
+                {
                     title: 'Nilai Kontrak',
                     data: 'nil_kontrak',
                     class: 'text-center'
@@ -140,26 +168,6 @@
                 {
                     title: 'Waktu Kontrak',
                     data: 'waktu_kontrak',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Lokasi Pekerjaan',
-                    data: 'lokasi_pekerjaan',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Schedule',
-                    data: 'schedule',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Nilai Total Ruas',
-                    data: 'nilai_total_ruas',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Schedule',
-                    data: 'schedule',
                     class: 'text-center'
                 },
                 {

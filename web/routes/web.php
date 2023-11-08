@@ -7,13 +7,15 @@ use App\Http\Controllers\admin\MenuActionController;
 use App\Http\Controllers\admin\MenuBodyController;
 use App\Http\Controllers\admin\MenuHeadController;
 use App\Http\Controllers\admin\PaketController;
+use App\Http\Controllers\admin\PaketRuasController;
+use App\Http\Controllers\admin\PaketRuasItemController;
 use App\Http\Controllers\admin\PenyediaController;
 use App\Http\Controllers\admin\PptkController;
 use App\Http\Controllers\admin\ProfilController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\RoleMenuController;
 use App\Http\Controllers\admin\SatuanController;
-use App\Http\Controllers\admin\TeknislapAnggotaController;
+use App\Http\Controllers\admin\TeknislapAnggController;
 use App\Http\Controllers\admin\TeknislapController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\AuthController;
@@ -152,7 +154,7 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
                 Route::post('/del', 'del')->name('del');
             });
 
-            Route::controller(TeknislapAnggotaController::class)->prefix('anggota')->as('anggota.')->group(function () {
+            Route::controller(TeknislapAnggController::class)->prefix('anggota')->as('anggota.')->group(function () {
                 Route::get('/', 'index')->name('anggota');
                 Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
                 Route::post('/show', 'show')->name('show');
@@ -165,7 +167,7 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         // begin:: kegiatan
         Route::controller(KegiatanController::class)->prefix('kegiatan')->as('kegiatan.')->group(function () {
             Route::get('/', 'index')->name('kegiatan');
-            Route::get('/detail/{id}', 'detail')->name('detail');
+            Route::get('/det/{id}', 'det')->name('det');
             Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
             Route::post('/show', 'show')->name('show');
             Route::post('/save', 'save')->name('save');
@@ -175,12 +177,28 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
 
         // begin:: paket
         Route::controller(PaketController::class)->prefix('paket')->as('paket.')->group(function () {
-            Route::get('/', 'index')->name('paket');
+            Route::get('/', 'index')->name('index');
             Route::get('/add/{id}', 'add')->name('add');
+            Route::get('/det/{id}', 'det')->name('det');
             Route::get('/upd/{id}', 'upd')->name('upd');
             Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
             Route::post('/save', 'save')->name('save');
             Route::post('/del', 'del')->name('del');
+
+            Route::controller(PaketRuasController::class)->prefix('ruas')->as('ruas.')->group(function () {
+                Route::get('/{id}', 'index')->name('index');
+                // Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+                // Route::post('/show', 'show')->name('show');
+                // Route::post('/save', 'save')->name('save');
+                Route::post('/del', 'del')->name('del');
+                
+                Route::controller(PaketRuasItemController::class)->prefix('item')->as('item.')->group(function () {
+                    // Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+                    Route::post('/show', 'show')->name('show');
+                    Route::post('/save', 'save')->name('save');
+                    Route::post('/del', 'del')->name('del');
+                });
+            });
         });
         // end:: paket
     });

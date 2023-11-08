@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Libraries\Template;
 use App\Models\Role;
 use App\Models\Teknislap;
-use App\Models\TeknislapAnggota;
+use App\Models\TeknislapAngg;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -42,12 +42,12 @@ class TeknislapController extends Controller
 
     public function get_data_dt()
     {
-        $data = Teknislap::with(['toUser'])->orderBy('id_teknislap', 'desc')->get();
+        $data = Teknislap::orderBy('id_teknislap', 'desc')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
             ->addColumn('jumlah_anggota', function ($row) {
-                $count = TeknislapAnggota::whereIdTeknislap($row->id_teknislap)->count();
+                $count = TeknislapAngg::whereIdTeknislap($row->id_teknislap)->count();
 
                 return '<span class="badge bg-info">' . $count . '</span>';;
             })

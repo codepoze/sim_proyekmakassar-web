@@ -300,6 +300,8 @@
     let untukTambahData = function() {
         $(document).on('click', '#add', function(e) {
             e.preventDefault();
+            get_pptk();
+
             $('#judul-add-upd').text('Tambah');
 
             $('#id_kegiatan').removeAttr('value');
@@ -340,6 +342,8 @@
                     $('#form-loading').empty();
                     $('#form-show').removeAttr('style');
 
+                    get_pptk(response.id_pptk);
+
                     $.each(response, function(key, value) {
                         if (key) {
                             if (($('#' + key).prop('tagName') === 'INPUT' || $('#' + key).prop('tagName') === 'TEXTAREA')) {
@@ -349,7 +353,7 @@
                             }
                         }
                     });
-
+                    
                     ini.removeAttr('disabled');
                     ini.html('<i data-feather="edit"></i>&nbsp;<span>Ubah</span>');
                     feather.replace();
@@ -415,8 +419,10 @@
         });
     }();
 
-    let untukSelectPptk = function() {
-        $.get("{{ route('admin.pptk.get_all') }}", function(response) {
+    function get_pptk(id = null) {
+        $.get("{{ route('admin.pptk.get_all') }}", {
+            id: id
+        }, function(response) {
             $("#id_pptk").select2({
                 placeholder: "Pilih pptk",
                 width: '100%',
@@ -425,7 +431,7 @@
                 data: response,
             });
         }, 'json');
-    }();
+    }
 </script>
 @endsection
 <!-- end:: js local -->
