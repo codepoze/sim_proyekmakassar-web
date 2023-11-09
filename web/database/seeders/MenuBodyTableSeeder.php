@@ -16,14 +16,14 @@ class MenuBodyTableSeeder extends Seeder
     {
         $menu_bodies = [
             [
-                'id_menu_head' => 5,
+                'id_menu_head' => 6,
                 'nama'         => 'Kordinator',
                 'icon'         => 'list',
                 'path'         => '/kordinator',
                 'by_users'     => 1,
             ],
             [
-                'id_menu_head' => 5,
+                'id_menu_head' => 6,
                 'nama'         => 'Anggota',
                 'icon'         => 'list',
                 'path'         => '/anggota',

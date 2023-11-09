@@ -67,6 +67,20 @@ Breadcrumbs::for('admin.users', function (BreadcrumbTrail $trail) {
     $trail->push('Users', route('admin.users'));
 });
 
+// ========================================================================
+
+Breadcrumbs::for('admin.holiday.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Hari Libur', route('admin.holiday.index'));
+});
+
+Breadcrumbs::for('admin.satuan.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Satuan', route('admin.satuan.index'));
+});
+
 Breadcrumbs::for('admin.penyedia.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
@@ -85,101 +99,38 @@ Breadcrumbs::for('admin.pptk.index', function (BreadcrumbTrail $trail) {
     $trail->push('PPTK', route('admin.pptk.index'));
 });
 
-Breadcrumbs::for('admin.satuan.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.dashboard');
-
-    $trail->push('Satuan', route('admin.satuan.index'));
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 Breadcrumbs::for('admin.teknislap', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
     $trail->push('Teknis Lapangan', '#');
 });
 
-Breadcrumbs::for('admin.teknislap.kordinator.kordinator', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.teknislap.kordinator.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.teknislap');
 
-    $trail->push('Kordinator', route('admin.teknislap.kordinator.kordinator'));
+    $trail->push('Kordinator', route('admin.teknislap.kordinator.index'));
 });
 
 Breadcrumbs::for('admin.teknislap.kordinator.detail', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.teknislap.kordinator.kordinator');
+    $trail->parent('admin.teknislap.kordinator.index');
 
     $trail->push('Detail Kordinator');
 });
 
-Breadcrumbs::for('admin.teknislap.anggota.anggota', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.teknislap.kordinator.kordinator');
+Breadcrumbs::for('admin.teknislap.anggota.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.teknislap.kordinator.index');
 
-    $trail->push('Anggota', route('admin.teknislap.anggota.anggota'));
+    $trail->push('Anggota', route('admin.teknislap.anggota.index'));
 });
 
-Breadcrumbs::for('admin.kegiatan.kegiatan', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.kegiatan.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Kegiatan', route('admin.kegiatan.kegiatan'));
+    $trail->push('Kegiatan', route('admin.kegiatan.index'));
 });
 
 Breadcrumbs::for('admin.kegiatan.det', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.kegiatan.kegiatan');
+    $trail->parent('admin.kegiatan.index');
 
     $trail->push('Detail Kegiatan');
 });

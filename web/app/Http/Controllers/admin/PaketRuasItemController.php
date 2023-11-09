@@ -58,20 +58,17 @@ class PaketRuasItemController extends Controller
         $rule = [
             'id_satuan'     => 'required',
             'nama'          => 'required',
-            'volume'        => 'required|numeric',
-            'harga_hps'     => 'required|numeric',
-            'harga_kontrak' => 'required|numeric',
+            'volume'        => 'required',
+            'harga_hps'     => 'required',
+            'harga_kontrak' => 'required',
         ];
 
         $message = [
-            'id_satuan.required' => 'Satuan tidak boleh kosong!',
-            'nama.required'      => 'Nama tidak boleh kosong!',
-            'volume.required'    => 'Volume tidak boleh kosong!',
-            'volume.numeric'     => 'Volume harus berupa angka!',
-            'harga_hps.required' => 'Harga HPS tidak boleh kosong!',
-            'harga_hps.numeric'  => 'Harga HPS harus berupa angka!',
+            'id_satuan.required'     => 'Satuan tidak boleh kosong!',
+            'nama.required'          => 'Nama tidak boleh kosong!',
+            'volume.required'        => 'Volume tidak boleh kosong!',
+            'harga_hps.required'     => 'Harga HPS tidak boleh kosong!',
             'harga_kontrak.required' => 'Harga Kontrak tidak boleh kosong!',
-            'harga_kontrak.numeric'  => 'Harga Kontrak harus berupa angka!',
         ];
 
         $validator = Validator::make($request->all(), $rule, $message);

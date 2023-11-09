@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Holiday;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
@@ -423,21 +424,11 @@ if (!function_exists('count_day_excluding_weekends_holiday')) {
         $period = new DatePeriod($start, new DateInterval('P1D'), $end);
 
         // best stored as array, so you can add more than one
-        $holidays = [
-            '2023-01-01',
-            '2023-01-22',
-            '2023-02-18',
-            '2023-03-22',
-            '2023-04-07',
-            '2023-05-01',
-            '2023-05-18',
-            '2023-06-01',
-            '2023-06-04',
-            '2023-06-29',
-            '2023-07-19',
-            '2023-08-17',
-            '2023-12-25',
-        ];
+        $data = Holiday::latest()->get();
+        $holidays = [];
+        foreach ($data as $key => $value) {
+            $holidays[] = date('Y') . '-' . $value->month . '-' . $value->day;
+        }
 
         foreach ($period as $dt) {
             $curr = $dt->format('D');

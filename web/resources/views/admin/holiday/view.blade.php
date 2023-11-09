@@ -4,7 +4,6 @@
 
 <!-- begin:: css local -->
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/forms/select/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/pickers/pickadate/pickadate.css') }}">
@@ -37,7 +36,7 @@
                     </div>
                 </div>
                 <div class="card-datatable">
-                    <table class="table table-striped table-bordered" id="tabel-kegiatan-dt" style="width: 100%;">
+                    <table class="table table-striped table-bordered" id="tabel-satuan-dt" style="width: 100%;">
                     </table>
                 </div>
             </div>
@@ -47,13 +46,13 @@
 
 <!-- begin:: modal tambah & ubah -->
 <div id="modal-add-upd" class="modal fade text-start" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
             </div>
             <!-- begin:: untuk form -->
-            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.kegiatan.save') }}" method="POST">
+            <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.holiday.save') }}" method="POST">
                 <div class="modal-body">
                     <!-- begin:: untuk loading -->
                     <div id="form-loading"></div>
@@ -61,26 +60,15 @@
                     <div id="form-show">
                         <div class="row">
                             <!-- begin:: id -->
-                            <input type="hidden" name="id_kegiatan" id="id_kegiatan" />
+                            <input type="hidden" name="id_holiday" id="id_holiday" />
                             <!-- end:: id -->
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="nama">Nama Kegiatan&nbsp;*</label>
+                                        <label class="col-form-label" for="date">Tanggal&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Masukkan Nama" />
-                                        <div class="invalid-feedback"></div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="field-input mb-1 row">
-                                    <div class="col-sm-3">
-                                        <label class="col-form-label" for="role">Tanggal Kegiatan&nbsp;*</label>
-                                    </div>
-                                    <div class="col-sm-9">
-                                        <input type="text" id="tgl" class="form-control form-control-sm pickadate" name="tgl" placeholder="18 June, 2020" />
+                                        <input type="text" class="form-control form-control-sm pickadate" id="date" name="date" placeholder="18 June, 2020" />
                                         <div id="pickdate-container"></div>
                                         <div class="invalid-feedback"></div>
                                     </div>
@@ -89,12 +77,10 @@
                             <div class="col-12">
                                 <div class="field-input mb-1 row">
                                     <div class="col-sm-3">
-                                        <label class="col-form-label" for="">Pptk&nbsp;*</label>
+                                        <label class="col-form-label" for="note">Catatan&nbsp;*</label>
                                     </div>
-                                    <div class="col-sm-9 my-auto">
-                                        <select class="form-select select2" id="id_pptk" name="id_pptk">
-                                            <option value=""></option>
-                                        </select>
+                                    <div class="col-sm-9">
+                                        <textarea name="note" id="note" class="form-control form-control-sm" placeholder="Masukkan catatan"></textarea>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -136,10 +122,9 @@
 <script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.date.js') }}"></script>
 <script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.time.js') }}"></script>
 <script src="{{ asset_admin('vendors/js/pickers/pickadate/legacy.js') }}"></script>
-<script src="{{ asset_admin('vendors/js/forms/select/select2.full.min.js') }}"></script>
 
 <script>
-    let tgl = $('#tgl').pickadate({
+    $('#date').pickadate({
         container: '#pickdate-container',
         format: 'dd mmmm, yyyy',
         formatSubmit: 'yyyy-mm-dd',
@@ -149,10 +134,9 @@
         clear: 'Hapus',
         close: 'Tutup',
         today: 'Hari Ini',
-        selectYears: true,
         selectMonths: true,
-        min: true,
-        max: 365,
+        min: new Date(new Date().getFullYear(), 0, 1),
+        max: new Date(new Date().getFullYear(), 11, 31),
         closeOnSelect: true,
         closeOnClear: true,
         onSet: function(context) {
@@ -163,10 +147,9 @@
     });
 
     var table;
-    var picker = tgl.pickadate('picker');
 
     let untukTabel = function() {
-        table = $('#tabel-kegiatan-dt').DataTable({
+        table = $('#tabel-satuan-dt').DataTable({
             serverSide: true,
             responsive: true,
             processing: true,
@@ -176,7 +159,7 @@
                 emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                 processing: "Data sedang diproses...",
             },
-            ajax: "{{ route('admin.kegiatan.get_data_dt') }}",
+            ajax: "{{ route('admin.holiday.get_data_dt') }}",
             dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             drawCallback: function() {
                 feather.replace();
@@ -187,18 +170,13 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Nama Kegiatan',
-                    data: 'nama',
+                    title: 'Date',
+                    data: 'date',
                     class: 'text-center'
                 },
                 {
-                    title: 'Tanggal Kegiatan',
-                    data: 'tgl',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Pptk',
-                    data: 'to_pptk.to_user.nama',
+                    title: 'Catatan',
+                    data: 'note',
                     class: 'text-center'
                 },
                 {
@@ -287,7 +265,7 @@
             }
         });
 
-        $(document).on('change', '#form-add-upd select', function(e) {
+        $(document).on('keyup', '#form-add-upd textarea', function(e) {
             e.preventDefault();
 
             if ($(this).val() == '') {
@@ -297,7 +275,9 @@
             }
         });
 
-        tgl.on('change', function() {
+        $(document).on('change', '#form-add-upd select', function(e) {
+            e.preventDefault();
+
             if ($(this).val() == '') {
                 $(this).removeClass('is-valid').addClass('is-invalid');
             } else {
@@ -309,11 +289,9 @@
     let untukTambahData = function() {
         $(document).on('click', '#add', function(e) {
             e.preventDefault();
-            get_pptk();
-
             $('#judul-add-upd').text('Tambah');
 
-            $('#id_kegiatan').removeAttr('value');
+            $('#id_holiday').removeAttr('value');
 
             $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
             $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
@@ -331,7 +309,7 @@
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
-                url: "{{ route('admin.kegiatan.show') }}",
+                url: "{{ route('admin.holiday.show') }}",
                 data: {
                     id: ini.data('id')
                 },
@@ -350,8 +328,6 @@
                 success: function(response) {
                     $('#form-loading').empty();
                     $('#form-show').removeAttr('style');
-
-                    get_pptk(response.id_pptk);
 
                     $.each(response, function(key, value) {
                         if (key) {
@@ -396,7 +372,7 @@
                     }).then((result) => {
                         $.ajax({
                             type: "post",
-                            url: "{{ route('admin.kegiatan.del') }}",
+                            url: "{{ route('admin.holiday.del') }}",
                             dataType: 'json',
                             data: {
                                 id: ini.data('id'),
@@ -427,20 +403,6 @@
             });
         });
     }();
-
-    function get_pptk(id = null) {
-        $.get("{{ route('admin.pptk.get_all') }}", {
-            id: id
-        }, function(response) {
-            $("#id_pptk").select2({
-                placeholder: "Pilih pptk",
-                width: '100%',
-                allowClear: true,
-                containerCssClass: 'select-sm',
-                data: response,
-            });
-        }, 'json');
-    }
 </script>
 @endsection
 <!-- end:: js local -->

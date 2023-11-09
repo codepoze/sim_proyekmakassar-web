@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\HolidayController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KonsultanController;
 use App\Http\Controllers\admin\MenuActionController;
@@ -98,6 +99,16 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         });
         // end:: users
 
+        // begin:: holiday
+        Route::controller(HolidayController::class)->prefix('holiday')->as('holiday.')->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
+        });
+        // end:: holiday
+
         // begin:: satuan
         Route::controller(SatuanController::class)->prefix('satuan')->as('satuan.')->group(function () {
             Route::get('/', 'index')->name('index');
@@ -145,7 +156,7 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
         // begin:: teknis lapangan koordinator & anggota
         Route::group(['prefix' => 'teknislap', 'as' => 'teknislap.'], function () {
             Route::controller(TeknislapController::class)->prefix('kordinator')->as('kordinator.')->group(function () {
-                Route::get('/', 'index')->name('kordinator');
+                Route::get('/', 'index')->name('index');
                 Route::get('/detail/{any}', 'detail')->name('detail');
                 Route::get('/get_all', 'get_all')->name('get_all');
                 Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
@@ -155,7 +166,7 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
             });
 
             Route::controller(TeknislapAnggController::class)->prefix('anggota')->as('anggota.')->group(function () {
-                Route::get('/', 'index')->name('anggota');
+                Route::get('/', 'index')->name('index');
                 Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
                 Route::post('/show', 'show')->name('show');
                 Route::post('/save', 'save')->name('save');
@@ -166,7 +177,7 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
 
         // begin:: kegiatan
         Route::controller(KegiatanController::class)->prefix('kegiatan')->as('kegiatan.')->group(function () {
-            Route::get('/', 'index')->name('kegiatan');
+            Route::get('/', 'index')->name('index');
             Route::get('/det/{id}', 'det')->name('det');
             Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
             Route::post('/show', 'show')->name('show');

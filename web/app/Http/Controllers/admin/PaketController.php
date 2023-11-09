@@ -111,7 +111,7 @@ class PaketController extends Controller
                 return rupiah($row->nil_pagu);
             })
             ->addColumn('waktu_kontrak', function ($row) {
-                return count_day_excluding_weekends_holiday($row->tgl_kontrak_mulai, $row->tgl_kontrak_akhir) . ' Hari';
+                return count_day_excluding_weekends_holiday($row->tgl_kontrak_akhir, $row->tgl_kontrak_mulai) . ' Hari';
             })
             ->addColumn('action', function ($row) {
                 return '

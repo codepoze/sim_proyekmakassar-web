@@ -6,6 +6,13 @@
 @section('css')
 <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/forms/select/select2.min.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/pickers/pickadate/pickadate.css') }}">
+
+<style>
+    .picker {
+        z-index: 9999 !important;
+        position: relative !important;
+    }
+</style>
 @endsection
 <!-- end:: css local -->
 
@@ -112,11 +119,13 @@
                             <div class="col-sm-9 my-auto">
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <input type="date" class="form-control form-control-sm" id="tgl_kontrak_mulai" name="tgl_kontrak_mulai" placeholder="Masukkan tanggal mulai kontrak" />
+                                        <input type="text" class="form-control form-control-sm pickadate" id="tgl_kontrak_mulai" name="tgl_kontrak_mulai" placeholder="18 June, 2020" />
+                                        <div id="tgl_kontrak_mulai-container"></div>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="date" class="form-control form-control-sm" id="tgl_kontrak_akhir" name="tgl_kontrak_akhir" placeholder="Masukkan tanggal akhir kontrak" />
+                                        <input type="text" class="form-control form-control-sm pickadate" id="tgl_kontrak_akhir" name="tgl_kontrak_akhir" placeholder="18 June, 2020" />
+                                        <div id="tgl_kontrak_akhir-container"></div>
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -233,6 +242,52 @@
 <script src="{{ asset_admin('vendors/js/forms/select/select2.full.min.js') }}"></script>
 
 <script>
+    $('#tgl_kontrak_mulai').pickadate({
+        container: '#tgl_kontrak_mulai-container',
+        format: 'dd mmmm, yyyy',
+        formatSubmit: 'yyyy-mm-dd',
+        monthsFull: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+        weekdaysShort: ["Mn", "Sn", "Sl", "Rb", "Km", "Jm", "Sb"],
+        hiddenName: true,
+        clear: 'Hapus',
+        close: 'Tutup',
+        today: 'Hari Ini',
+        selectYears: true,
+        selectMonths: true,
+        min: true,
+        max: 365,
+        closeOnSelect: true,
+        closeOnClear: true,
+        onSet: function(context) {
+            if (context.select) {
+                this.close();
+            }
+        },
+    });
+
+    $('#tgl_kontrak_akhir').pickadate({
+        container: '#tgl_kontrak_akhir-container',
+        format: 'dd mmmm, yyyy',
+        formatSubmit: 'yyyy-mm-dd',
+        monthsFull: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+        weekdaysShort: ["Mn", "Sn", "Sl", "Rb", "Km", "Jm", "Sb"],
+        hiddenName: true,
+        clear: 'Hapus',
+        close: 'Tutup',
+        today: 'Hari Ini',
+        selectYears: true,
+        selectMonths: true,
+        min: true,
+        max: 365,
+        closeOnSelect: true,
+        closeOnClear: true,
+        onSet: function(context) {
+            if (context.select) {
+                this.close();
+            }
+        },
+    });
+
     let untukSimpanData = function() {
         $(document).on('submit', '#form-add-upd', function(e) {
             e.preventDefault();

@@ -94,7 +94,7 @@
                                 <label class="col-form-label">Waktu Kontrak&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday($paket->tgl_kontrak_mulai, $paket->tgl_kontrak_akhir) . ' Hari'; }}" />
+                                <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $paket->tgl_kontrak_akhir, $paket->tgl_kontrak_mulai) . ' Hari'; }}" />
                             </div>
                         </div>
                         <div class="field-input mb-1 row">

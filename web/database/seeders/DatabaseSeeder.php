@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             MenuHeadTableSeeder::class,
             MenuBodyTableSeeder::class,
+            HolidayTableSeeder::class,
         ]);
     }
 }
