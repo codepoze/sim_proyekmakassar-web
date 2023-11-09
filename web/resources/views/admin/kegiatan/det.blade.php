@@ -156,6 +156,11 @@
                     class: 'text-center'
                 },
                 {
+                    title: 'Kord. Teknis Lapangan',
+                    data: 'to_teknislap.to_user.nama',
+                    class: 'text-center'
+                },
+                {
                     title: 'Nilai Pagu',
                     data: 'nil_pagu',
                     class: 'text-center'

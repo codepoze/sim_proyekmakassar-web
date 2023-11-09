@@ -70,13 +70,8 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Perusahaan',
-                    data: 'to_perusahaan.nama',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Kordinator Teknis Lapangan',
-                    data: 'to_teknislap.to_user.nama',
+                    title: 'Nama Paket',
+                    data: 'nma_paket',
                     class: 'text-center'
                 },
                 {
@@ -90,6 +85,36 @@
                     class: 'text-center'
                 },
                 {
+                    title: 'Penyedia',
+                    data: 'to_penyedia.nama',
+                    class: 'text-center'
+                },
+                {
+                    title: 'PJ Penyedia',
+                    data: 'pj_penyedia',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Konsultan',
+                    data: 'to_konsultan.nama',
+                    class: 'text-center'
+                },
+                {
+                    title: 'PJ Konsultan',
+                    data: 'pj_konsultan',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Kord. Teknis Lapangan',
+                    data: 'to_teknislap.to_user.nama',
+                    class: 'text-center'
+                },
+                {
+                    title: 'Nilai Pagu',
+                    data: 'nil_pagu',
+                    class: 'text-center'
+                },
+                {
                     title: 'Nilai Kontrak',
                     data: 'nil_kontrak',
                     class: 'text-center'
@@ -100,26 +125,71 @@
                     class: 'text-center'
                 },
                 {
-                    title: 'Lokasi Pekerjaan',
-                    data: 'lokasi_pekerjaan',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Schedule',
-                    data: 'schedule',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Nilai Total Ruas',
-                    data: 'nilai_total_ruas',
-                    class: 'text-center'
-                },
-                {
-                    title: 'Schedule',
-                    data: 'schedule',
-                    class: 'text-center'
+                    title: 'Aksi',
+                    data: 'action',
+                    className: 'text-center',
+                    responsivePriority: -1,
+                    orderable: false,
+                    searchable: false,
                 },
             ],
+        });
+    }();
+
+    let untukHapusData = function() {
+        $(document).on('click', '#del', function() {
+            var ini = $(this);
+
+            Swal.fire({
+                title: "Apakah Anda yakin ingin menghapusnya?",
+                text: "Data yang telah dihapus tidak dapat dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: 'Iya, Hapus!',
+                customClass: {
+                    confirmButton: 'btn btn-sm btn-success',
+                    cancelButton: 'btn btn-sm btn-danger ms-1'
+                },
+                buttonsStyling: false
+            }).then(function(result) {
+                if (result.value) {
+                    Swal.fire({
+                        title: 'Masukkan password Anda!',
+                        input: 'password',
+                        inputLabel: 'Password Anda',
+                        inputPlaceholder: 'Masukkan password Anda',
+                    }).then((result) => {
+                        $.ajax({
+                            type: "post",
+                            url: "{{ route('admin.paket.del') }}",
+                            dataType: 'json',
+                            data: {
+                                id: ini.data('id'),
+                                password: result.value,
+                            },
+                            beforeSend: function() {
+                                ini.attr('disabled', 'disabled');
+                                ini.html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
+                                feather.replace();
+                            },
+                            success: function(response) {
+                                Swal.fire({
+                                    title: response.title,
+                                    text: response.text,
+                                    icon: response.type,
+                                    confirmButtonText: response.button,
+                                    customClass: {
+                                        confirmButton: `btn btn-sm btn-${response.class}`,
+                                    },
+                                    buttonsStyling: false,
+                                }).then((value) => {
+                                    table.ajax.reload();
+                                });
+                            }
+                        });
+                    })
+                }
+            });
         });
     }();
 </script>

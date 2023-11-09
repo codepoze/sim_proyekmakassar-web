@@ -92,8 +92,8 @@ class PaketRuasItemController extends Controller
                     'id_satuan'     => $request->id_satuan,
                     'nama'          => $request->nama,
                     'volume'        => $request->volume,
-                    'harga_hps'     => $request->harga_hps,
-                    'harga_kontrak' => $request->harga_kontrak,
+                    'harga_hps'     => remove_separator($request->harga_hps),
+                    'harga_kontrak' => remove_separator($request->harga_kontrak),
                     'by_users'      => $this->session['id_users'],
                 ]
             );

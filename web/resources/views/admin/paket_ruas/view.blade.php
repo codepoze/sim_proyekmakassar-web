@@ -76,10 +76,10 @@
                                 <td class="text-center">{{ $value->nama }}</td>
                                 <td class="text-center">{{ $value->toSatuan->nama }}</td>
                                 <td class="text-center">{{ $value->volume }}</td>
-                                <td class="text-center">{{ $value->harga_hps }}</td>
-                                <td class="text-center">{{ $value->harga_kontrak }}</td>
-                                <td class="text-center">{{ $jumlah_hps }}</td>
-                                <td class="text-center">{{ $jumlah_kontrak }}</td>
+                                <td class="text-center">{{ rupiah($value->harga_hps) }}</td>
+                                <td class="text-center">{{ rupiah($value->harga_kontrak) }}</td>
+                                <td class="text-center">{{ rupiah($jumlah_hps) }}</td>
+                                <td class="text-center">{{ rupiah($jumlah_kontrak) }}</td>
                                 <td class="text-center">{{ number_format($jumlah_bobot, 2) }}</td>
                             </tr>
                             @endforeach
@@ -87,8 +87,8 @@
                         <tfoot>
                             <tr>
                                 <th class="text-center" colspan="7">Total Nilai Per Ruas</th>
-                                <th class="text-center">{{ $total_hps }}</th>
-                                <th class="text-center">{{ $total_kontrak }}</th>
+                                <th class="text-center">{{ rupiah($total_hps) }}</th>
+                                <th class="text-center">{{ rupiah($total_kontrak) }}</th>
                                 <th class="text-center">{{ number_format($bobot, 2) }}</th>
                             </tr>
                         </tfoot>
@@ -160,7 +160,7 @@
                                         <label class="col-form-label" for="harga_hps">Harga HPS&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control form-control-sm" id="harga_hps" name="harga_hps" placeholder="Masukkan harga hps" />
+                                        <input type="text" class="form-control form-control-sm" id="harga_hps" name="harga_hps" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan harga hps" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>
@@ -171,7 +171,7 @@
                                         <label class="col-form-label" for="harga_kontrak">Harga Kontrak&nbsp;*</label>
                                     </div>
                                     <div class="col-sm-9">
-                                        <input type="text" class="form-control form-control-sm" id="harga_kontrak" name="harga_kontrak" placeholder="Masukkan kontrak" />
+                                        <input type="text" class="form-control form-control-sm" id="harga_kontrak" name="harga_kontrak" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan kontrak" />
                                         <div class="invalid-feedback"></div>
                                     </div>
                                 </div>

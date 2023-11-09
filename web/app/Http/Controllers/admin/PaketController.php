@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Libraries\Pdf;
 use App\Libraries\Template;
 use App\Models\Paket;
 use App\Models\PaketRuas;
@@ -47,12 +48,42 @@ class PaketController extends Controller
 
     public function det($id)
     {
-        dd($id);
-        // $data = [
-        //     'id_kegiatan' => $id,
-        // ];
+        $paket = Paket::findOrFail(my_decrypt($id));
 
-        return Template::load('admin', 'Detail Paket', 'paket', 'det');
+        $nil_kontrak = 0;
+        foreach ($paket->toPaketRuas as $key => $value) {
+            $nil_kontrak += $value->toPaketRuasItem->sum(function ($item) {
+                return $item->volume * $item->harga_kontrak;
+            });
+        }
+
+        $data = [
+            'id_paket'    => $id,
+            'paket'       => $paket,
+            'nil_kontrak' => $nil_kontrak
+        ];
+
+        return Template::load('admin', 'Detail Paket', 'paket', 'det', $data);
+    }
+
+    public function print($id)
+    {
+        $paket = Paket::findOrFail(my_decrypt($id));
+
+        $nil_kontrak = 0;
+        foreach ($paket->toPaketRuas as $key => $value) {
+            $nil_kontrak += $value->toPaketRuasItem->sum(function ($item) {
+                return $item->volume * $item->harga_kontrak;
+            });
+        }
+
+        $data = [
+            'id_paket'    => $id,
+            'paket'       => $paket,
+            'nil_kontrak' => $nil_kontrak
+        ];
+
+        Pdf::printPdf('Rencana Anggaran Biaya', 'admin.paket.print', 'legal', 'landscape', $data);
     }
 
     public function get_data_dt(Request $request)
@@ -74,7 +105,10 @@ class PaketController extends Controller
                         return $item->volume * $item->harga_kontrak;
                     });
                 }
-                return $result;
+                return rupiah($result);
+            })
+            ->addColumn('nil_pagu', function ($row) {
+                return rupiah($row->nil_pagu);
             })
             ->addColumn('waktu_kontrak', function ($row) {
                 return count_day_excluding_weekends_holiday($row->tgl_kontrak_mulai, $row->tgl_kontrak_akhir) . ' Hari';

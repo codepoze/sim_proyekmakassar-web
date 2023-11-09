@@ -181,6 +181,7 @@ Route::group(['middleware' => ['session.auth', 'prevent.back.history']], functio
             Route::get('/add/{id}', 'add')->name('add');
             Route::get('/det/{id}', 'det')->name('det');
             Route::get('/upd/{id}', 'upd')->name('upd');
+            Route::get('/print/{id}', 'print')->name('print');
             Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
             Route::post('/save', 'save')->name('save');
             Route::post('/del', 'del')->name('del');
