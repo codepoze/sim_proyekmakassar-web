@@ -156,7 +156,7 @@
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
-                        <!-- <div class="field-input mb-1 row">
+                        <div class="field-input mb-1 row">
                             <div class="col-sm-3">
                                 <label class="col-form-label" for="foto_lokasi">Foto Lokasi&nbsp;*</label>
                             </div>
@@ -200,7 +200,7 @@
                                 <p><small class="text-muted">File dengan tipe (*.pdf).</small></p>
                                 <div class="invalid-feedback"></div>
                             </div>
-                        </div> -->
+                        </div>
                         <!-- begin:: untuk ruas -->
                         <div class="mb-1 row">
                             <div class="col-sm-3">
@@ -275,6 +275,9 @@
                 cache: false,
                 dataType: 'json',
                 beforeSend: function() {
+                    $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
+                    $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
+
                     $('#save').attr('disabled', 'disabled');
                     $('#save').html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
                     feather.replace();

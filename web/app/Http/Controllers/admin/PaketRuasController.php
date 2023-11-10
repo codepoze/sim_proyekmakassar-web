@@ -20,9 +20,11 @@ class PaketRuasController extends Controller
 
     public function index($id)
     {
+        $id_paket = my_decrypt($id);
+        
         $data = [
-            'id_paket'   => $id,
-            'paket_ruas' => PaketRuas::with('toPaketRuasItem')->whereIdPaket($id)->get()
+            'id_paket'   => $id_paket,
+            'paket_ruas' => PaketRuas::with('toPaketRuasItem')->whereIdPaket($id_paket)->get()
         ];
 
         return Template::load('admin', 'Paket Ruas', 'paket_ruas', 'view', $data);

@@ -9,7 +9,6 @@ use App\Models\PaketRuasItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
-use Yajra\DataTables\Facades\DataTables;
 
 class PaketRuasItemController extends Controller
 {

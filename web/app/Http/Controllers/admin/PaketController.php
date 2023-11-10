@@ -149,9 +149,9 @@ class PaketController extends Controller
                 "nil_pagu"          => 'required',
                 "kd_rekening"       => 'required',
                 "sumber_dana"       => 'required',
-                // 'laporan'          => 'required|mimes:pdf',
-                // 'doc_kontrak'      => 'required|mimes:pdf',
-                // 'foto_lokasi'      => 'required|mimes:png,jpg,jpeg',
+                'laporan'           => 'required|mimes:pdf',
+                'doc_kontrak'       => 'required|mimes:pdf',
+                'foto_lokasi'       => 'required|mimes:png,jpg,jpeg',
             ];
 
             $messages = [
@@ -169,12 +169,12 @@ class PaketController extends Controller
                 'nil_pagu.required'          => 'Nilai Pagu tidak boleh kosong!',
                 'kd_rekening.required'       => 'Kode Rekening tidak boleh kosong!',
                 'sumber_dana.required'       => 'Sumber Dana tidak boleh kosong!',
-                // 'laporan.required'          => 'Laporan tidak boleh kosong!',
-                // 'laporan.mimes'             => 'Laporan harus berupa pdf!',
-                // 'doc_kontrak.required'      => 'Dokumen Kontrak tidak boleh kosong!',
-                // 'doc_kontrak.mimes'         => 'Dokumen Kontrak harus berupa pdf!',
-                // 'foto_lokasi.required'      => 'Foto Lokasi tidak boleh kosong!',
-                // 'foto_lokasi.mimes'         => 'Foto Lokasi harus berupa png, jpg, jpeg!',
+                'laporan.required'           => 'Laporan tidak boleh kosong!',
+                'laporan.mimes'              => 'Laporan harus berupa pdf!',
+                'doc_kontrak.required'       => 'Dokumen Kontrak tidak boleh kosong!',
+                'doc_kontrak.mimes'          => 'Dokumen Kontrak harus berupa pdf!',
+                'foto_lokasi.required'       => 'Foto Lokasi tidak boleh kosong!',
+                'foto_lokasi.mimes'          => 'Foto Lokasi harus berupa png, jpg, jpeg!',
             ];
 
             foreach ($data['nama_ruas'] as $key => $value) {
@@ -216,32 +216,32 @@ class PaketController extends Controller
                 'sumber_dana.required'       => 'Sumber Dana tidak boleh kosong!',
             ];
 
-            // if ($request->change_picture_lokasi === 'on') {
-            //     // untuk tambah rule
-            //     $rules['foto_lokasi'] = 'required|mimes:png,jpg,jpeg';
+            if ($request->change_picture_lokasi === 'on') {
+                // untuk tambah rule
+                $rules['foto_lokasi'] = 'required|mimes:png,jpg,jpeg';
 
-            //     // untuk tambah message
-            //     $messages['foto_lokasi.required'] = 'Gambar harus diisi!';
-            //     $messages['foto_lokasi.mimes']    = 'Gambar harus berupa file PNG, JPG, atau JPEG!';
-            // }
+                // untuk tambah message
+                $messages['foto_lokasi.required'] = 'Gambar harus diisi!';
+                $messages['foto_lokasi.mimes']    = 'Gambar harus berupa file PNG, JPG, atau JPEG!';
+            }
 
-            // if ($request->change_kontrak === 'on') {
-            //     // untuk tambah rule
-            //     $rules['doc_kontrak'] = 'required|mimes:pdf';
+            if ($request->change_kontrak === 'on') {
+                // untuk tambah rule
+                $rules['doc_kontrak'] = 'required|mimes:pdf';
 
-            //     // untuk tambah message
-            //     $messages['doc_kontrak.required'] = 'Dokumen Free harus diisi!';
-            //     $messages['doc_kontrak.mimes']    = 'Dokumen Free harus format pdf!';
-            // }
+                // untuk tambah message
+                $messages['doc_kontrak.required'] = 'Dokumen Free harus diisi!';
+                $messages['doc_kontrak.mimes']    = 'Dokumen Free harus format pdf!';
+            }
 
-            // if ($request->change_report === 'on') {
-            //     // untuk tambah rule
-            //     $rules['laporan'] = 'required|mimes:pdf';
+            if ($request->change_report === 'on') {
+                // untuk tambah rule
+                $rules['laporan'] = 'required|mimes:pdf';
 
-            //     // untuk tambah message
-            //     $messages['laporan.required'] = 'Dokumen Pro harus diisi!';
-            //     $messages['laporan.mimes']    = 'Dokumen Pro harus format pdf!';
-            // }
+                // untuk tambah message
+                $messages['laporan.required'] = 'Dokumen Pro harus diisi!';
+                $messages['laporan.mimes']    = 'Dokumen Pro harus format pdf!';
+            }
 
             foreach ($data['nama_ruas'] as $key => $value) {
                 $data['id_paket_ruas_' . $key]    = $data['id_paket_ruas'][$key];
@@ -268,9 +268,9 @@ class PaketController extends Controller
         try {
             if ($request->id_paket === null) {
                 // tambah
-                // $laporan     = add_pdf($request->laporan);
-                // $doc_kontrak = add_pdf($request->doc_kontrak);
-                // $foto_lokasi = add_picture($request->foto_lokasi);
+                $laporan     = add_pdf($request->laporan);
+                $doc_kontrak = add_pdf($request->doc_kontrak);
+                $foto_lokasi = add_picture($request->foto_lokasi);
 
                 $paket = Paket::create([
                     'id_kegiatan'       => my_decrypt($request->id_kegiatan),
@@ -288,10 +288,10 @@ class PaketController extends Controller
                     'nil_pagu'          => $request->nil_pagu,
                     'kd_rekening'       => $request->kd_rekening,
                     'sumber_dana'       => $request->sumber_dana,
-                    // 'laporan'           => $laporan,
-                    // 'doc_kontrak'       => $doc_kontrak,
-                    // 'foto_lokasi'       => $foto_lokasi,
-                    'by_users' => $this->session['id_users'],
+                    'laporan'           => $laporan,
+                    'doc_kontrak'       => $doc_kontrak,
+                    'foto_lokasi'       => $foto_lokasi,
+                    'by_users'          => $this->session['id_users'],
                 ]);
 
                 $id_paket = $paket->id_paket;
@@ -304,26 +304,26 @@ class PaketController extends Controller
                     ]);
                 }
 
-                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route('admin.paket.ruas.index', $id_paket)];
+                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route('admin.paket.ruas.index', my_encrypt($id_paket))];
             } else {
                 // ubah
                 $id_paket = my_decrypt($request->id_paket);
                 $paket    = Paket::find($id_paket);
 
-                // if ($request->change_picture_lokasi === 'on') {
-                //     $foto_lokasi        = add_picture($request->foto_lokasi);
-                //     $paket->foto_lokasi = $foto_lokasi;
-                // }
+                if ($request->change_picture_lokasi === 'on') {
+                    $foto_lokasi        = upd_picture($request->foto_lokasi, $paket->foto_lokasi);
+                    $paket->foto_lokasi = $foto_lokasi;
+                }
 
-                // if ($request->change_kontrak === 'on') {
-                //     $doc_kontrak        = add_pdf($request->doc_kontrak);
-                //     $paket->doc_kontrak = $doc_kontrak;
-                // }
+                if ($request->change_kontrak === 'on') {
+                    $doc_kontrak        = upd_pdf($request->doc_kontrak, $paket->doc_kontrak);
+                    $paket->doc_kontrak = $doc_kontrak;
+                }
 
-                // if ($request->change_report === 'on') {
-                //     $laporan        = add_pdf($request->laporan);
-                //     $paket->laporan = $laporan;
-                // }
+                if ($request->change_report === 'on') {
+                    $laporan        = upd_pdf($request->laporan, $paket->laporan);
+                    $paket->laporan = $laporan;
+                }
 
                 $paket->id_penyedia       = $request->id_penyedia;
                 $paket->id_konsultan      = $request->id_konsultan;
@@ -369,7 +369,7 @@ class PaketController extends Controller
                     PaketRuas::whereNotIn('id_ruas_paket', $data_ruas)->whereIdPaket($id_paket)->delete();
                 }
 
-                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route('admin.paket.ruas.index', $id_paket)];
+                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route('admin.paket.ruas.index', my_encrypt($id_paket))];
             }
         } catch (\Exception $e) {
             $response = ['title' => 'Gagal!', 'text' => 'Data Gagal di Proses!', 'type' => 'error', 'button' => 'Ok!', 'class' => 'danger'];

@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Libraries\Template;
 use App\Models\Pptk;
 use App\Models\Role;
-use App\Models\Teknislap;
-use App\Models\TeknislapAnggota;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;

@@ -5,8 +5,6 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
 use App\Models\Holiday;
-use App\Models\Konsultan;
-use App\Models\Satuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;

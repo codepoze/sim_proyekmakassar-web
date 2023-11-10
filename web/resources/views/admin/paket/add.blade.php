@@ -145,7 +145,7 @@
                                 <label class="col-form-label" for="nil_pagu">Nilai Pagu&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control form-control-sm" id="nil_pagu" name="nil_pagu" placeholder="Masukkan nilai pagu" />
+                                <input type="text" class="form-control form-control-sm" id="nil_pagu" name="nil_pagu" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan nilai pagu" />
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -167,12 +167,13 @@
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
-                        <!-- <div class="field-input mb-1 row">
+                        <div class="field-input mb-1 row">
                             <div class="col-sm-3">
                                 <label class="col-form-label" for="foto_lokasi">Foto Lokasi&nbsp;*</label>
                             </div>
                             <div class="col-sm-9 my-auto">
                                 <input type="file" class="form-control form-control-sm" id="foto_lokasi" name="foto_lokasi" />
+                                <p><small class="text-muted">File dengan tipe (*.png,*.jpg,*.jpeg).</small></p>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -182,6 +183,7 @@
                             </div>
                             <div class="col-sm-9 my-auto">
                                 <input type="file" class="form-control form-control-sm" id="doc_kontrak" name="doc_kontrak" />
+                                <p><small class="text-muted">File dengan tipe (*.pdf).</small></p>
                                 <div class="invalid-feedback"></div>
                             </div>
                         </div>
@@ -191,9 +193,10 @@
                             </div>
                             <div class="col-sm-9 my-auto">
                                 <input type="file" class="form-control form-control-sm" id="laporan" name="laporan" />
+                                <p><small class="text-muted">File dengan tipe (*.pdf).</small></p>
                                 <div class="invalid-feedback"></div>
                             </div>
-                        </div> -->
+                        </div>
                         <!-- begin:: untuk ruas -->
                         <div class="mb-1 row">
                             <div class="col-sm-3">
@@ -301,6 +304,9 @@
                 cache: false,
                 dataType: 'json',
                 beforeSend: function() {
+                    $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
+                    $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
+                    
                     $('#save').attr('disabled', 'disabled');
                     $('#save').html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
                     feather.replace();

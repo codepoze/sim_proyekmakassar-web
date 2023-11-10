@@ -4,11 +4,8 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
-use App\Models\Role;
 use App\Models\TeknislapAngg;
-use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;

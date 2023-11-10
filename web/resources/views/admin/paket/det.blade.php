@@ -24,120 +24,129 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form class="form form-horizontal mt-2">
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Penyedia&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->toPenyedia->nama }}" />
+                    <div class="row">
+                        <div class="col-lg-8">
+                            <form class="form form-horizontal mt-2">
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Penyedia&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->toPenyedia->nama }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">PJ Penyedia&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->pj_penyedia }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Konsultan&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->toKonsultan->nama }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">PJ Konsultan&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->pj_konsultan }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Kord Teknis Lapangan&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->toTeknislap->toUser->nama }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Nama Paket&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->nma_paket }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Nomor SPMK&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->no_spmk }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Nomor Kontrak&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->no_kontrak }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Waktu Kontrak&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $paket->tgl_kontrak_akhir, $paket->tgl_kontrak_mulai) . ' Hari'; }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Tahun Anggaran&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->thn_anggaran }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Nilai Pagu&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ rupiah($paket->nil_pagu) }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Nilai Kontrak&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_kontrak) }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Kode Rekening&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->kd_rekening }}" />
+                                    </div>
+                                </div>
+                                <div class="field-input mb-1 row">
+                                    <div class="col-sm-3">
+                                        <label class="col-form-label">Sumber Dana&nbsp;*</label>
+                                    </div>
+                                    <div class="col-sm-9 my-auto">
+                                        <input type="text" class="form-control-plaintext" value="{{ $paket->sumber_dana }}" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="mt-2">
+                                <img src="{{ asset_upload('picture/'.$paket->foto_lokasi)  }}" class="img-fluid mx-auto d-block" id="lihat-gambar" alt="{{ $paket->nma_paket }}" />
                             </div>
                         </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">PJ Penyedia&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->pj_penyedia }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Konsultan&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->toKonsultan->nama }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">PJ Konsultan&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->pj_konsultan }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Kord Teknis Lapangan&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->toTeknislap->toUser->nama }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Nama Paket&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->nma_paket }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Nomor SPMK&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->no_spmk }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Nomor Kontrak&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->no_kontrak }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Waktu Kontrak&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $paket->tgl_kontrak_akhir, $paket->tgl_kontrak_mulai) . ' Hari'; }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Tahun Anggaran&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->thn_anggaran }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Nilai Pagu&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ rupiah($paket->nil_pagu) }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Nilai Kontrak&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_kontrak) }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Kode Rekening&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->kd_rekening }}" />
-                            </div>
-                        </div>
-                        <div class="field-input mb-1 row">
-                            <div class="col-sm-3">
-                                <label class="col-form-label">Sumber Dana&nbsp;*</label>
-                            </div>
-                            <div class="col-sm-9 my-auto">
-                                <input type="text" class="form-control-plaintext" value="{{ $paket->sumber_dana }}" />
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

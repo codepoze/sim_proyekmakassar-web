@@ -97,6 +97,12 @@
             </div>
         </div>
         @endforeach
+
+        <div class="d-grid gap-2">
+            <a href="{{ route('admin.paket.det', my_encrypt($id_paket)) }}" class="btn btn-lg btn-relief-info">
+                <i data-feather='check'></i>&nbsp;<span>Selesai</span>
+            </a>
+        </div>
     </div>
 </section>
 
