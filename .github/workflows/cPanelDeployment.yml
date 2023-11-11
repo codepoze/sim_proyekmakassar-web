@@ -7,13 +7,13 @@ jobs:
   web-deploy:
     name: 🎉 Deploy
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./web
     steps:
     - name: 🚚 Get latest code
       uses: actions/checkout@v3
-    
+      with:
+        repository: codepoze/sim_proyekmakassar/web
+        path: web
+        
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.4
       with:
