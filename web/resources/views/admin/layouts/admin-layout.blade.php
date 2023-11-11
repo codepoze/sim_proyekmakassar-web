@@ -9,7 +9,7 @@
     <meta name="description" content="Dinas Pekerjaan Umum Makassar">
     <meta name="keywords" content="Dinas Pekerjaan Umum Makassar">
     <meta name="author" content="Dinas Pekerjaan Umum Makassar">
-    <title>MANPRO | {{ $title }}</title>
+    <title>{{ config('app.name') }} | {{ $title }}</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
@@ -24,7 +24,7 @@
     <!-- begin:: css local -->
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/vendors.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/extensions/sweetalert2.min.css') }}">
-    @yield('css')
+    @stack('css')
     <!-- end:: css local -->
 
     <!-- begin:: css global -->
@@ -38,7 +38,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/core/menu/menu-types/vertical-menu.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/plugins/forms/form-validation.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/plugins/forms/pickers/form-pickadate.min.css') }}">
-
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/style.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('my_assets/my_css.css') }}">
     <!-- end:: css global -->
@@ -48,11 +47,11 @@
 
 <body class="vertical-layout vertical-menu-modern navbar-sticky footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
     <!-- begin:: navbar -->
-    @include('admin.layouts.navbar')
+    <x-admin-navbar />
     <!-- end:: navbar -->
 
     <!-- begin:: sidebar -->
-    @include('admin.layouts.sidebar')
+    <x-admin-sidebar />
     <!-- end:: sidebar -->
 
     <div class="app-content content ">
@@ -75,18 +74,18 @@
             <!-- end:: content header -->
             <!-- begin:: content body -->
             <div class="content-body">
-                @yield('content')
+                {{ $slot }}
             </div>
             <!-- end:: content body -->
         </div>
     </div>
 
     <!-- begin:: footer -->
-    @include('admin.layouts.footer')
+    <x-admin-footer />
     <!-- end:: footer -->
 
     <!-- begin:: js local -->
-    @yield('js')
+    @stack('js')
     <!-- end:: js local -->
 
     <!-- begin:: js global -->
