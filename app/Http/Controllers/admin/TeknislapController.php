@@ -205,7 +205,7 @@ class TeknislapController extends Controller
             try {
                 $data = Teknislap::find(my_decrypt($request->id));
 
-                $anggota = TeknislapAnggota::whereIdTeknislap($data->id_teknislap)->get();
+                $anggota = TeknislapAngg::whereIdTeknislap($data->id_teknislap)->get();
                 foreach ($anggota as $key => $value) {
                     $users = User::find($value->id_users);
                     $users->delete();
