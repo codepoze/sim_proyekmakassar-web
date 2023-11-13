@@ -18,7 +18,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route('admin.role.menu.save') }}" method="POST">
+                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route_role('admin.role.menu.save') }}" method="POST">
                             <!-- begin:: id -->
                             <input type="hidden" id="param" name="param" value="upd" />
                             <input type="hidden" id="id_role" name="id_role" value="{{ $role->id_role }}" />
@@ -70,7 +70,7 @@
                                     @endforeach
                                 </div>
                                 <div class="d-grid col-sm-6">
-                                    <a href="{{ route('admin.role.menu') }}" class="btn btn-block btn-sm btn-relief-danger">
+                                    <a href="{{ route_role('admin.role.menu') }}" class="btn btn-block btn-sm btn-relief-danger">
                                         <i data-feather="x"></i>&nbsp;<span>Batal</span>
                                     </a>
                                 </div>
@@ -166,7 +166,7 @@
                                     buttonsStyling: false,
                                 }).then((value) => {
                                     if (value.isConfirmed) {
-                                        window.location.href = "{{ route('admin.role.menu') }}";
+                                        window.location.href = "{{ route_role('admin.role.menu') }}";
                                     }
                                 });
                             } else {

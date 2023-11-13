@@ -41,7 +41,7 @@
                     <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
                 </div>
                 <!-- begin:: untuk form -->
-                <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.menu.body.save') }}" method="POST">
+                <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.menu.body.save', session()->get('roles')) }}" method="POST">
                     <div class="modal-body">
                         <!-- begin:: untuk loading -->
                         <div id="form-loading"></div>
@@ -145,7 +145,7 @@
                     emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                     processing: "Data sedang diproses...",
                 },
-                ajax: "{{ route('admin.menu.body.get_data_dt') }}",
+                ajax: "{{ route('admin.menu.body.get_data_dt', session()->get('roles')) }}",
                 dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
                 drawCallback: function() {
                     feather.replace();
@@ -296,7 +296,7 @@
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: "{{ route('admin.menu.body.show') }}",
+                    url: "{{ route('admin.menu.body.show', session()->get('roles')) }}",
                     data: {
                         id: ini.data('id')
                     },
@@ -359,7 +359,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route('admin.menu.body.del') }}",
+                                url: "{{ route('admin.menu.body.del', session()->get('roles')) }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),
@@ -392,7 +392,7 @@
         }();
 
         let untukSelectMenuHead = function() {
-            $.get("{{ route('admin.menu.head.get_all') }}", {
+            $.get("{{ route('admin.menu.head.get_all', session()->get('roles')) }}", {
                 'jenis': 'multi'
             }, function(response) {
                 $("#id_menu_head").select2({

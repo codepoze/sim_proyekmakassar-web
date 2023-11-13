@@ -18,9 +18,9 @@ class PaketRuasController extends Controller
         detect_role_access($this->session);
     }
 
-    public function index($id)
+    public function index()
     {
-        $id_paket = my_decrypt($id);
+        $id_paket = my_decrypt(last(request()->segments()));
         
         $data = [
             'id_paket'   => $id_paket,

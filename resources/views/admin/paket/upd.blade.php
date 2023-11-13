@@ -16,7 +16,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route('admin.paket.save') }}" method="POST">
+                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route_role('admin.paket.save') }}" method="POST">
                             <!-- begin:: id -->
                             <input type="hidden" name="id_paket" id="id_paket" value="{{ $id_paket }}" />
                             <!-- end:: id -->
@@ -236,7 +236,7 @@
                             <!-- end:: untuk ruas -->
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a href="{{ route('admin.kegiatan.det', my_encrypt($paket->id_kegiatan)) }}" class="btn btn-sm btn-relief-danger">
+                                    <a href="{{ route_role('admin.kegiatan.det', ['id' => my_encrypt($paket->id_kegiatan)]) }}" class="btn btn-sm btn-relief-danger">
                                         <i data-feather="x"></i>&nbsp;<span>Batal</span>
                                     </a>&nbsp;
                                     <button type="submit" id="save" class="btn btn-sm btn-relief-primary">
@@ -396,7 +396,7 @@
                 var id = ini.data("id");
 
                 if (id !== undefined) {
-                    $.post("{{ route('admin.paket.ruas.del') }}", {
+                    $.post("{{ route_role('admin.paket.ruas.del') }}", {
                         id: id
                     }, function(response) {
                         if (response.status) {
@@ -443,7 +443,7 @@
         }();
 
         let untukSelectPenyedia = function() {
-            $.get("{{ route('admin.penyedia.get_all') }}", {
+            $.get("{{ route_role('admin.penyedia.get_all') }}", {
                 id: '{{ $paket->id_penyedia }}'
             }, function(response) {
                 $("#id_penyedia").select2({
@@ -457,7 +457,7 @@
         }();
 
         let untukSelectKonsultan = function() {
-            $.get("{{ route('admin.konsultan.get_all') }}", {
+            $.get("{{ route_role('admin.konsultan.get_all') }}", {
                 id: '{{ $paket->id_konsultan }}'
             }, function(response) {
                 $("#id_konsultan").select2({
@@ -471,7 +471,7 @@
         }();
 
         let untukSelectTeknisLapangan = function() {
-            $.get("{{ route('admin.teknislap.kordinator.get_all') }}", {
+            $.get("{{ route_role('admin.teknislap.kordinator.get_all') }}", {
                 id: '{{ $paket->id_teknislap }}'
             }, function(response) {
                 $("#id_teknislap").select2({

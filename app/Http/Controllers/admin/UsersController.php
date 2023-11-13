@@ -46,49 +46,6 @@ class UsersController extends Controller
             ->make(true);
     }
 
-    public function save(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'id_role' => 'required',
-            'nik'     => 'required|numeric|digits:16|unique:users,username',
-            'nama'    => 'required',
-            'email'   => 'required|email',
-        ]);
-
-        if ($validator->fails()) {
-            $response = [
-                'title'  => 'Gagal!',
-                'text'   => 'Data gagal ditambahkan!',
-                'type'   => 'error',
-                'button' => 'Ok!',
-                'class'  => 'danger',
-                'errors' => $validator->errors()
-            ];
-
-            return Response::json($response);
-        }
-
-        try {
-            $id_users = get_acak_id(User::class, 'id_users');
-
-            $users = new User();
-            $users->id_users = $id_users;
-            $users->id_role  = $request->id_role;
-            $users->username = $request->nik;
-            $users->nama     = $request->nama;
-            $users->email    = $request->email;
-            $users->active   = 'y';
-            $users->password = Hash::make('12345678');
-            $users->save();
-
-            $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
-        } catch (\Exception $e) {
-            $response = ['title' => 'Gagal!', 'text' => 'Data Gagal di Proses!', 'type' => 'error', 'button' => 'Ok!', 'class' => 'danger'];
-        }
-
-        return Response::json($response);
-    }
-
     public function active(Request $request)
     {
         $checking = is_valid_user($this->session['id_users'], $request->password);

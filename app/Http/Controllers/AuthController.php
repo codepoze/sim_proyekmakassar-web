@@ -48,7 +48,7 @@ class AuthController extends Controller
             // untuk check role
             $check = Role::whereRole($users->toRole->role)->first();
             if ($check !== null) {
-                return redirect()->intended('admin');
+                return redirect()->intended($users->toRole->role);
             } else {
                 return redirect()->intended('/');
             }

@@ -39,12 +39,6 @@ class RoleTableSeeder extends Seeder
                 'role'     => 'kord_teknislap',
                 'by_users' => 1,
             ],
-            [
-                'id_role'  => 5,
-                'nama'     => 'Anggota Teknis Lapangan',
-                'role'     => 'ang_teknislap',
-                'by_users' => 1,
-            ],
         ];
 
         foreach ($roles as $role) {

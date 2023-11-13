@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
 use App\Models\Kegiatan;
+use App\Models\Pptk;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -25,13 +27,13 @@ class KegiatanController extends Controller
         return Template::load('admin', 'Kegiatan', 'kegiatan', 'view');
     }
 
-    public function det($id)
+    public function det()
     {
-        $id_kegiatan = my_decrypt($id);
+        $id = last(request()->segments());
 
         $data = [
             'id'       => $id,
-            'kegiatan' => Kegiatan::find($id_kegiatan),
+            'kegiatan' => Kegiatan::find(my_decrypt($id)),
         ];
 
         return Template::load('admin', 'Detail Kegiatan', 'kegiatan', 'det', $data);
@@ -39,7 +41,15 @@ class KegiatanController extends Controller
 
     public function get_data_dt()
     {
-        $data = Kegiatan::orderBy('id_kegiatan', 'desc')->get();
+        $query = Kegiatan::query();
+
+        if ($this->session['roles'] == 'pptk') {
+            $pptk = User::with(['toPptk'])->find($this->session['id_users']);
+
+            $query->whereIdPptk($pptk->toPptk->id_pptk);
+        }
+
+        $data = $query->latest()->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
@@ -48,7 +58,7 @@ class KegiatanController extends Controller
             })
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="' . route('admin.kegiatan.det', my_encrypt($row->id_kegiatan)) . '" class="btn btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
+                    <a href="' . route_role('admin.kegiatan.det', ['id' => my_encrypt($row->id_kegiatan)]) . '" class="btn btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
                     <button type="button" id="upd" data-id="' . my_encrypt($row->id_kegiatan) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
                     <button type="button" id="del" data-id="' . my_encrypt($row->id_kegiatan) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';

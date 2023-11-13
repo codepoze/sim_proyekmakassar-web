@@ -16,13 +16,6 @@
                         <div class="head-label">
                             <h4 class="card-title">{{ $title }}</h4>
                         </div>
-                        <div class="dt-action-buttons text-end">
-                            <div class="dt-buttons d-inline-flex">
-                                <button type="button" id="add" class="btn btn-sm btn-relief-success" data-bs-toggle="modal" data-bs-target="#modal-add-upd">
-                                    <i data-feather='plus'></i>&nbsp;<span>Tambah</span>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                     <div class="card-datatable">
                         <table class="table table-striped table-bordered" id="tabel-users-dt" style="width: 100%;">
@@ -32,88 +25,6 @@
             </div>
         </div>
     </section>
-
-    <!-- begin:: modal tambah & ubah -->
-    <div id="modal-add-upd" class="modal fade text-start" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
-                </div>
-                <!-- begin:: untuk form -->
-                <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.users.save') }}" method="POST">
-                    <div class="modal-body">
-                        <!-- begin:: untuk loading -->
-                        <div id="form-loading"></div>
-                        <!-- end:: untuk loading -->
-                        <div id="form-show">
-                            <div class="row">
-                                <!-- begin:: id -->
-                                <input type="hidden" name="id_users" id="id_users" />
-                                <!-- end:: id -->
-                                <div class="col-12">
-                                    <div class="field-input mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="nik">NIK</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="nik" class="form-control form-control-sm" name="nik" placeholder="Masukkan NIK" />
-                                            <div class="invalid-feedback"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="field-input mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="nama">Nama</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="nama" class="form-control form-control-sm" name="nama" placeholder="Masukkan Nama" />
-                                            <div class="invalid-feedback"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="field-input mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="email">Email</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" id="email" class="form-control form-control-sm" name="email" placeholder="Masukkan Email" />
-                                            <div class="invalid-feedback"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="field-input mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="id_role">Role</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <select class="form-select select2" id="id_role" name="id_role">
-                                                <option value=""></option>
-                                            </select>
-                                            <div class="invalid-feedback"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="cancel" class="btn btn-sm btn-relief-danger" data-bs-dismiss="modal">
-                            <i data-feather="x"></i>&nbsp;<span>Batal</span>
-                        </button>
-                        <button type="submit" id="save" class="btn btn-sm btn-relief-primary">
-                            <i data-feather="save"></i>&nbsp;<span>Simpan</span>
-                        </button>
-                    </div>
-                </form>
-                <!-- end:: untuk form -->
-            </div>
-        </div>
-    </div>
-    <!-- end:: modal tambah & ubah -->
     <!-- end:: content -->
 
     <!-- begin:: js local -->
@@ -145,7 +56,7 @@
                     emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                     processing: "Data sedang diproses...",
                 },
-                ajax: "{{ route('admin.users.get_data_dt') }}",
+                ajax: "{{ route_role('admin.users.get_data_dt') }}",
                 dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
                 drawCallback: function() {
                     feather.replace();
@@ -192,115 +103,6 @@
             });
         }();
 
-        let untukSimpanData = function() {
-            $(document).on('submit', '#form-add-upd', function(e) {
-                e.preventDefault();
-
-                $.ajax({
-                    method: $(this).attr('method'),
-                    url: $(this).attr('action'),
-                    data: new FormData(this),
-                    contentType: false,
-                    processData: false,
-                    cache: false,
-                    dataType: 'json',
-                    beforeSend: function() {
-                        $('#save').attr('disabled', 'disabled');
-                        $('#save').html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
-                        feather.replace();
-                    },
-                    success: function(response) {
-                        if (response.type === 'success') {
-                            Swal.fire({
-                                title: response.title,
-                                text: response.text,
-                                icon: response.type,
-                                confirmButtonText: response.button,
-                                customClass: {
-                                    confirmButton: `btn btn-sm btn-${response.class}`,
-                                },
-                                buttonsStyling: false,
-                            }).then((value) => {
-                                $('#modal-add-upd').modal('hide');
-                                table.ajax.reload();
-                            });
-                        } else {
-                            $.each(response.errors, function(key, value) {
-                                if (key) {
-                                    if (($('#' + key).prop('tagName') === 'INPUT' || $('#' + key).prop('tagName') === 'TEXTAREA')) {
-                                        $('#' + key).addClass('is-invalid');
-                                        $('#' + key).parents('.field-input').find('.invalid-feedback').html(value);
-                                    } else if ($('#' + key).prop('tagName') === 'SELECT') {
-                                        $('#' + key).addClass('is-invalid');
-                                        $('#' + key).parents('.field-input').find('.invalid-feedback').html(value);
-                                    }
-                                }
-                            });
-
-                            Swal.fire({
-                                title: response.title,
-                                text: response.text,
-                                icon: response.type,
-                                confirmButtonText: response.button,
-                                customClass: {
-                                    confirmButton: `btn btn-sm btn-${response.class}`,
-                                },
-                                buttonsStyling: false,
-                            });
-                        }
-
-                        $('#save').removeAttr('disabled');
-                        $('#save').html('<i data-feather="save"></i>&nbsp;<span>Simpan</span>');
-                        feather.replace();
-                    }
-                });
-            });
-
-            $(document).on('keyup', '#form-add-upd input', function(e) {
-                e.preventDefault();
-
-                if ($(this).val() == '') {
-                    $(this).removeClass('is-valid').addClass('is-invalid');
-                } else {
-                    $(this).removeClass('is-invalid').addClass('is-valid');
-                }
-            });
-
-            $(document).on('keyup', '#form-add-upd textarea', function(e) {
-                e.preventDefault();
-
-                if ($(this).val() == '') {
-                    $(this).removeClass('is-valid').addClass('is-invalid');
-                } else {
-                    $(this).removeClass('is-invalid').addClass('is-valid');
-                }
-            });
-
-            $(document).on('change', '#form-add-upd select', function(e) {
-                e.preventDefault();
-
-                if ($(this).val() == '') {
-                    $(this).removeClass('is-valid').addClass('is-invalid');
-                } else {
-                    $(this).removeClass('is-invalid').addClass('is-valid');
-                }
-            });
-        }();
-
-        let untukSelectRole = function() {
-            $.get("{{ route('admin.role.role.get_all') }}", {
-                filter: 'web'
-            }, function(response) {
-                $("#id_role").select2({
-                    placeholder: "Pilih Role",
-                    width: '100%',
-                    allowClear: true,
-                    containerCssClass: 'select-sm',
-                    data: response,
-                });
-            }, 'json');
-        }();
-
         let untukStatus = function() {
             $(document).on('click', '#sts', function() {
                 var ini = $(this);
@@ -325,7 +127,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route('admin.users.active') }}",
+                                url: "{{ route('admin.users.active', session()->get('roles')) }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),
@@ -381,7 +183,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route('admin.users.reset_password') }}",
+                                url: "{{ route('admin.users.reset_password', session()->get('roles')) }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),

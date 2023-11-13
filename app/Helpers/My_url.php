@@ -1,5 +1,15 @@
 <?php
 
+// untuk route role dinamis
+if (!function_exists('route_role')) {
+    function route_role($name, $parameters = [], $absolute = true)
+    {
+        $parameters['role'] = session()->get('roles');
+
+        return route($name, $parameters, $absolute);
+    }
+}
+
 // untuk akses assets admin
 if (!function_exists('asset_admin')) {
     function asset_admin($path)

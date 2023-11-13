@@ -90,7 +90,7 @@
                     </span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user">
-                    <a class="dropdown-item" href="{{ route('admin.profil') }}">
+                    <a class="dropdown-item" href="{{ route('admin.profil', session()->get('roles')) }}">
                         <i class="me-50" data-feather="user"></i>Profile
                     </a>
                     <div class="dropdown-divider"></div>

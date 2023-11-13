@@ -31,4 +31,10 @@ class Kegiatan extends Model
     {
         return $this->belongsTo(Pptk::class, 'id_pptk', 'id_pptk');
     }
+
+    // untuk relasi ke tabel paket
+    public function toPaket()
+    {
+        return $this->hasMany(Paket::class, 'id_kegiatan', 'id_kegiatan');
+    }
 }

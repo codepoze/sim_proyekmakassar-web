@@ -55,4 +55,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Role::class, 'id_role', 'id_role');
     }
+
+    // untuk relasi ke tabel pptk
+    public function toPptk()
+    {
+        return $this->belongsTo(Pptk::class, 'id_users', 'id_users');
+    }
 }

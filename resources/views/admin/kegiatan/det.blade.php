@@ -54,7 +54,7 @@
                         </div>
                         <div class="dt-action-buttons text-end">
                             <div class="dt-buttons d-inline-flex">
-                                <a href="{{ route('admin.paket.add', $id) }}" class="btn btn-sm btn-relief-success">
+                                <a href="{{ route_role('admin.paket.add', ['id' => $id]) }}" class="btn btn-sm btn-relief-success">
                                     <i data-feather='plus'></i>&nbsp;<span>Tambah</span>
                                 </a>
                             </div>
@@ -98,7 +98,7 @@
                     processing: "Data sedang diproses...",
                 },
                 ajax: {
-                    url: "{{ route('admin.paket.get_data_dt') }}",
+                    url: "{{ route_role('admin.paket.get_data_dt') }}",
                     type: "GET",
                     data: {
                         id_kegiatan: "{{ $kegiatan->id_kegiatan }}"
@@ -205,7 +205,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route('admin.paket.del') }}",
+                                url: "{{ route_role('admin.paket.del') }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),

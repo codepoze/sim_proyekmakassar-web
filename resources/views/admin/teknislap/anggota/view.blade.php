@@ -54,7 +54,7 @@
                     emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                     processing: "Data sedang diproses...",
                 },
-                ajax: "{{ route('admin.teknislap.anggota.get_data_dt') }}",
+                ajax: "{{ route_role('admin.teknislap.anggota.get_data_dt') }}",
                 dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
                 drawCallback: function() {
                     feather.replace();

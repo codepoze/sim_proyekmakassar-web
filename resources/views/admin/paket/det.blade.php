@@ -15,7 +15,7 @@
                         </div>
                         <div class="dt-action-buttons text-end">
                             <div class="dt-buttons d-inline-flex">
-                                <a href="{{ route('admin.paket.print', my_encrypt($paket->id_paket)) }}" target="_blank" class="btn btn-action btn-sm btn-relief-info"><i data-feather="printer"></i>&nbsp;Cetak</a>&nbsp;
+                                <a href="{{ route_role('admin.paket.print', ['id' => my_encrypt($paket->id_paket)]) }}" target="_blank" class="btn btn-action btn-sm btn-relief-info"><i data-feather="printer"></i>&nbsp;Cetak</a>&nbsp;
                             </div>
                         </div>
                     </div>
@@ -28,7 +28,7 @@
                                             <label class="col-form-label">Penyedia</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->toPenyedia->nama }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->toPenyedia->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -36,7 +36,7 @@
                                             <label class="col-form-label">PJ Penyedia</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->pj_penyedia }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->pj_penyedia }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -44,7 +44,7 @@
                                             <label class="col-form-label">Konsultan</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->toKonsultan->nama }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->toKonsultan->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -52,7 +52,7 @@
                                             <label class="col-form-label">PJ Konsultan</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->pj_konsultan }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->pj_konsultan }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -60,7 +60,7 @@
                                             <label class="col-form-label">Kord Teknis Lapangan</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->toTeknislap->toUser->nama }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->toTeknislap->toUser->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -68,7 +68,7 @@
                                             <label class="col-form-label">Nama Paket</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->nma_paket }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->nma_paket }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -76,7 +76,7 @@
                                             <label class="col-form-label">Nomor SPMK</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->no_spmk }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->no_spmk }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -84,7 +84,7 @@
                                             <label class="col-form-label">Nomor Kontrak</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->no_kontrak }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->no_kontrak }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -92,7 +92,7 @@
                                             <label class="col-form-label">Waktu Kontrak</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $paket->tgl_kontrak_akhir, $paket->tgl_kontrak_mulai) . ' Hari'; }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $paket->tgl_kontrak_akhir, $paket->tgl_kontrak_mulai) . ' Hari'; }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -100,7 +100,7 @@
                                             <label class="col-form-label">Tahun Anggaran</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->thn_anggaran }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->thn_anggaran }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -108,7 +108,7 @@
                                             <label class="col-form-label">Nilai Pagu</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($paket->nil_pagu) }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($paket->nil_pagu) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -116,7 +116,7 @@
                                             <label class="col-form-label">Nilai Kontrak</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_kontrak) }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_kontrak) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -124,7 +124,7 @@
                                             <label class="col-form-label">Kode Rekening</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->kd_rekening }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->kd_rekening }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
@@ -132,7 +132,7 @@
                                             <label class="col-form-label">Sumber Dana</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->sumber_dana }}" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->sumber_dana }}" readonly="readonly" />
                                         </div>
                                     </div>
                                 </form>

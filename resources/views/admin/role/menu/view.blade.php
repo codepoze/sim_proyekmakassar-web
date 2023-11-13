@@ -18,7 +18,7 @@
                         </div>
                         <div class="dt-action-buttons text-end">
                             <div class="dt-buttons d-inline-flex">
-                                <a href="{{ route('admin.role.menu.create') }}" class="btn btn-sm btn-relief-success">
+                                <a href="{{ route_role('admin.role.menu.create') }}" class="btn btn-sm btn-relief-success">
                                     <i data-feather='plus'></i>&nbsp;<span>Tambah</span>
                                 </a>
                             </div>
@@ -62,7 +62,7 @@
                     emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                     processing: "Data sedang diproses...",
                 },
-                ajax: "{{ route('admin.role.menu.get_data_dt') }}",
+                ajax: "{{ route_role('admin.role.menu.get_data_dt') }}",
                 dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
                 drawCallback: function() {
                     feather.replace();
@@ -119,7 +119,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route('admin.role.menu.del') }}",
+                                url: "{{ route_role('admin.role.menu.del') }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),

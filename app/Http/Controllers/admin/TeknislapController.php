@@ -26,18 +26,18 @@ class TeknislapController extends Controller
 
     public function index()
     {
-        return Template::load('admin', 'Kordinator Teknis Lapangan', 'teknislap/kordinator', 'view');
+        return Template::load('admin', 'Kordinator', 'teknislap/kordinator', 'view');
     }
 
-    public function detail($id)
+    public function detail()
     {
-        $id_teknislap = my_decrypt($id);
+        $id_teknislap = my_decrypt(last(request()->segments()));
 
         $data = [
-            'teknislap' => Teknislap::with(['toUser'])->find($id_teknislap),
+            'teknislap' => Teknislap::findOrFail($id_teknislap),
         ];
 
-        return Template::load('admin', 'Detail Kordinator Teknis Lapangan', 'teknislap/kordinator', 'det', $data);
+        return Template::load('admin', 'Detail', 'teknislap/kordinator', 'det', $data);
     }
 
     public function get_data_dt()
@@ -53,7 +53,7 @@ class TeknislapController extends Controller
             })
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="' . route('admin.teknislap.kordinator.detail', my_encrypt($row->id_teknislap)) . '" class="btn btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
+                    <a href="' . route_role('admin.teknislap.kordinator.detail', ['any' => my_encrypt($row->id_teknislap)]) . '" class="btn btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
                     <button type="button" id="upd" data-id="' . my_encrypt($row->id_teknislap) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
                     <button type="button" id="del" data-id="' . my_encrypt($row->id_teknislap) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';

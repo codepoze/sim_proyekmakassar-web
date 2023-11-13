@@ -35,7 +35,7 @@
                         <div class="tab-content">
                             <!-- begin:: foto -->
                             <div role="tabpanel" class="tab-pane active" id="foto" aria-labelledby="foto-tab" aria-expanded="true">
-                                <form id="form-foto" action="{{ route('admin.profil.save_picture') }}" method="POST">
+                                <form id="form-foto" action="{{ route('admin.profil.save_picture', session()->get('roles')) }}" method="POST">
                                     <div class="row">
                                         <div class="col-lg-6 align-self-center">
                                             <input type="file" class="form-control" name="i_foto" id="i_foto" />
@@ -53,7 +53,7 @@
                             <!-- end:: foto -->
                             <!-- begin:: akun -->
                             <div class="tab-pane fade" id="akun" role="tabpanel" aria-labelledby="akun-tab" aria-expanded="false">
-                                <form id="form-akun" action="{{ route('admin.profil.save_account') }}" method="POST">
+                                <form id="form-akun" action="{{ route('admin.profil.save_account', session()->get('roles')) }}" method="POST">
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="field-input mb-1">
@@ -82,7 +82,7 @@
                             <!-- end:: akun -->
                             <!-- begin:: password -->
                             <div class="tab-pane fade" id="keamanan" role="tabpanel" aria-labelledby="keamanan-tab" aria-expanded="false">
-                                <form id="form-keamanan" action="{{ route('admin.profil.save_security') }}" method="POST">
+                                <form id="form-keamanan" action="{{ route('admin.profil.save_security', session()->get('roles')) }}" method="POST">
                                     <div class="row">
                                         <div class="col-12 col-sm-6">
                                             <div class="field-input mb-1">

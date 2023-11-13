@@ -42,9 +42,9 @@ class RoleMenuController extends Controller
         return Template::load('admin', 'Create Role Menu', 'role/menu', 'add', $data);
     }
 
-    public function update($id)
+    public function update()
     {
-        $id_role = my_decrypt($id);
+        $id_role = my_decrypt(last(request()->segments()));
 
         $data = [
             'role'        => Role::find($id_role),
@@ -68,7 +68,7 @@ class RoleMenuController extends Controller
             ->addIndexColumn()
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="' . route('admin.role.menu.update', my_encrypt($row->id_role)) . '" class="btn btn-sm btn-relief-primary"><i data-feather="edit"></i>&nbsp;Ubah</a>&nbsp;
+                    <a href="' . route_role('admin.role.menu.update', ['any' => my_encrypt($row->id_role)]) . '" class="btn btn-sm btn-relief-primary"><i data-feather="edit"></i>&nbsp;Ubah</a>&nbsp;
                     <button type="button" id="del" data-id="' . my_encrypt($row->id_role) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';
             })

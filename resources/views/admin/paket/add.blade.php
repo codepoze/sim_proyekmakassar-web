@@ -24,7 +24,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route('admin.paket.save') }}" method="POST">
+                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route_role('admin.paket.save') }}" method="POST">
                             <!-- begin:: id -->
                             <input type="hidden" name="id_kegiatan" id="id_kegiatan" value="{{ $id_kegiatan }}" />
                             <input type="hidden" name="id_paket" id="id_paket" />
@@ -215,7 +215,7 @@
                             <!-- end:: untuk ruas -->
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a href="{{ route('admin.kegiatan.det', $id_kegiatan) }}" class="btn btn-sm btn-relief-danger">
+                                    <a href="{{ route_role('admin.kegiatan.det', ['id' => my_encrypt($id_kegiatan)]) }}" class="btn btn-sm btn-relief-danger">
                                         <i data-feather="x"></i>&nbsp;<span>Batal</span>
                                     </a>&nbsp;
                                     <button type="submit" id="save" class="btn btn-sm btn-relief-primary">
@@ -437,7 +437,7 @@
         }();
 
         let untukSelectPenyedia = function() {
-            $.get("{{ route('admin.penyedia.get_all') }}", function(response) {
+            $.get("{{ route_role('admin.penyedia.get_all') }}", function(response) {
                 $("#id_penyedia").select2({
                     placeholder: "Pilih penyedia",
                     width: '100%',
@@ -449,7 +449,7 @@
         }();
 
         let untukSelectKonsultan = function() {
-            $.get("{{ route('admin.konsultan.get_all') }}", function(response) {
+            $.get("{{ route_role('admin.konsultan.get_all') }}", function(response) {
                 $("#id_konsultan").select2({
                     placeholder: "Pilih konsultan",
                     width: '100%',
@@ -461,7 +461,7 @@
         }();
 
         let untukSelectTeknisLapangan = function() {
-            $.get("{{ route('admin.teknislap.kordinator.get_all') }}", function(response) {
+            $.get("{{ route_role('admin.teknislap.kordinator.get_all') }}", function(response) {
                 $("#id_teknislap").select2({
                     placeholder: "Pilih Kordinator Teknis Lapangan",
                     width: '100%',

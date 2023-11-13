@@ -4,37 +4,13 @@ use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
 Breadcrumbs::for('admin.dashboard', function (BreadcrumbTrail $trail) {
-    $trail->push('Dashboard', route('admin.dashboard'));
+    $trail->push('Dashboard', route('admin.dashboard', session()->get('roles')));
 });
 
 Breadcrumbs::for('admin.profil', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Profil', route('admin.profil'));
-});
-
-Breadcrumbs::for('admin.role.role', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.dashboard');
-
-    $trail->push('Role', route('admin.role.role'));
-});
-
-Breadcrumbs::for('admin.role.menu', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.role.role');
-
-    $trail->push('Menu', route('admin.role.menu'));
-});
-
-Breadcrumbs::for('admin.role.menu.create', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.role.menu');
-
-    $trail->push('Create', route('admin.role.menu.create'));
-});
-
-Breadcrumbs::for('admin.role.menu.update', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.role.menu');
-
-    $trail->push('Update');
+    $trail->push('Profil', route('admin.profil', session()->get('roles')));
 });
 
 Breadcrumbs::for('admin.menu.menu', function (BreadcrumbTrail $trail) {
@@ -46,25 +22,49 @@ Breadcrumbs::for('admin.menu.menu', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.menu.head', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.menu.menu');
 
-    $trail->push('Head', route('admin.menu.head'));
+    $trail->push('Head', route('admin.menu.head', session()->get('roles')));
 });
 
 Breadcrumbs::for('admin.menu.body', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.menu.menu');
 
-    $trail->push('Body', route('admin.menu.body'));
+    $trail->push('Body', route('admin.menu.body', session()->get('roles')));
 });
 
 Breadcrumbs::for('admin.menu.action', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.menu.menu');
 
-    $trail->push('Action', route('admin.menu.action'));
+    $trail->push('Action', route('admin.menu.action', session()->get('roles')));
+});
+
+Breadcrumbs::for('admin.role.role', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Role', route('admin.role.role', session()->get('roles')));
+});
+
+Breadcrumbs::for('admin.role.menu', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.role.role');
+
+    $trail->push('Menu', route('admin.role.menu', session()->get('roles')));
+});
+
+Breadcrumbs::for('admin.role.menu.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.role.menu');
+
+    $trail->push('Create', route('admin.role.menu.create', session()->get('roles')));
+});
+
+Breadcrumbs::for('admin.role.menu.update', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.role.menu');
+
+    $trail->push('Update');
 });
 
 Breadcrumbs::for('admin.users', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Users', route('admin.users'));
+    $trail->push('Users', route('admin.users', session()->get('roles')));
 });
 
 // ========================================================================
@@ -72,31 +72,31 @@ Breadcrumbs::for('admin.users', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.holiday.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Hari Libur', route('admin.holiday.index'));
+    $trail->push('Hari Libur', route_role('admin.holiday.index'));
 });
 
 Breadcrumbs::for('admin.satuan.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Satuan', route('admin.satuan.index'));
+    $trail->push('Satuan', route_role('admin.satuan.index'));
 });
 
 Breadcrumbs::for('admin.penyedia.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Penyedia', route('admin.penyedia.index'));
+    $trail->push('Penyedia', route_role('admin.penyedia.index'));
 });
 
 Breadcrumbs::for('admin.konsultan.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Konsultan', route('admin.konsultan.index'));
+    $trail->push('Konsultan', route_role('admin.konsultan.index'));
 });
 
 Breadcrumbs::for('admin.pptk.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('PPTK', route('admin.pptk.index'));
+    $trail->push('PPTK', route_role('admin.pptk.index'));
 });
 
 Breadcrumbs::for('admin.teknislap', function (BreadcrumbTrail $trail) {
@@ -108,25 +108,25 @@ Breadcrumbs::for('admin.teknislap', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.teknislap.kordinator.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.teknislap');
 
-    $trail->push('Kordinator', route('admin.teknislap.kordinator.index'));
+    $trail->push('Kordinator', route_role('admin.teknislap.kordinator.index'));
 });
 
 Breadcrumbs::for('admin.teknislap.kordinator.detail', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.teknislap.kordinator.index');
 
-    $trail->push('Detail Kordinator');
+    $trail->push('Detail');
 });
 
 Breadcrumbs::for('admin.teknislap.anggota.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.teknislap.kordinator.index');
 
-    $trail->push('Anggota', route('admin.teknislap.anggota.index'));
+    $trail->push('Anggota', route_role('admin.teknislap.anggota.index'));
 });
 
 Breadcrumbs::for('admin.kegiatan.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Kegiatan', route('admin.kegiatan.index'));
+    $trail->push('Kegiatan', route_role('admin.kegiatan.index'));
 });
 
 Breadcrumbs::for('admin.kegiatan.det', function (BreadcrumbTrail $trail) {
@@ -138,7 +138,7 @@ Breadcrumbs::for('admin.kegiatan.det', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('admin.paket.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
-    $trail->push('Paket', route('admin.paket.index'));
+    $trail->push('Paket', route_role('admin.paket.index'));
 });
 
 Breadcrumbs::for('admin.paket.add', function (BreadcrumbTrail $trail) {

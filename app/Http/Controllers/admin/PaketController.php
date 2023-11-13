@@ -5,8 +5,10 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Libraries\Pdf;
 use App\Libraries\Template;
+use App\Models\Kegiatan;
 use App\Models\Paket;
 use App\Models\PaketRuas;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -27,8 +29,10 @@ class PaketController extends Controller
         return Template::load('admin', 'Paket', 'paket', 'view');
     }
 
-    public function add($id)
+    public function add()
     {
+        $id = my_decrypt(last(request()->segments()));
+
         $data = [
             'id_kegiatan' => $id,
         ];
@@ -36,8 +40,10 @@ class PaketController extends Controller
         return Template::load('admin', 'Tambah Paket', 'paket', 'add', $data);
     }
 
-    public function upd($id)
+    public function upd()
     {
+        $id = last(request()->segments());
+
         $data = [
             'id_paket' => $id,
             'paket'    => Paket::findOrFail(my_decrypt($id)),
@@ -46,8 +52,10 @@ class PaketController extends Controller
         return Template::load('admin', 'Ubah Paket', 'paket', 'upd', $data);
     }
 
-    public function det($id)
+    public function det()
     {
+        $id = last(request()->segments());
+
         $paket = Paket::findOrFail(my_decrypt($id));
 
         $nil_kontrak = 0;
@@ -66,8 +74,10 @@ class PaketController extends Controller
         return Template::load('admin', 'Detail Paket', 'paket', 'det', $data);
     }
 
-    public function print($id)
+    public function print()
     {
+        $id = last(request()->segments());
+
         $paket = Paket::findOrFail(my_decrypt($id));
 
         $nil_kontrak = 0;
@@ -94,7 +104,15 @@ class PaketController extends Controller
             $query->whereIdKegiatan($request->id_kegiatan);
         }
 
-        $data = $query->orderBy('id_paket', 'desc')->get();
+        if ($this->session['roles'] == 'pptk') {
+            $pptk = User::with(['toPptk'])->find($this->session['id_users']);
+
+            $query->whereHas('toKegiatan', function ($q) use ($pptk) {
+                $q->whereIdPptk($pptk->toPptk->id_pptk);
+            });
+        }
+
+        $data = $query->latest()->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
@@ -115,8 +133,8 @@ class PaketController extends Controller
             })
             ->addColumn('action', function ($row) {
                 return '
-                    <a href="' . route('admin.paket.det', my_encrypt($row->id_paket)) . '" class="btn btn-action btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
-                    <a href="' . route("admin.paket.upd", my_encrypt($row->id_paket)) . '" class="btn btn-action btn-sm btn-relief-primary"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></a>&nbsp;
+                    <a href="' . route_role('admin.paket.det', ['id' => my_encrypt($row->id_paket)]) . '" class="btn btn-action btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
+                    <a href="' . route_role("admin.paket.upd", ['id' => my_encrypt($row->id_paket)]) . '" class="btn btn-action btn-sm btn-relief-primary"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></a>&nbsp;
                     <button type="button" id="del" data-id="' . my_encrypt($row->id_paket) . '" class="btn btn-action btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';
             })
@@ -263,8 +281,6 @@ class PaketController extends Controller
             return Response::json($response);
         }
 
-        // dd($data);
-
         try {
             if ($request->id_paket === null) {
                 // tambah
@@ -273,7 +289,7 @@ class PaketController extends Controller
                 $foto_lokasi = add_picture($request->foto_lokasi);
 
                 $paket = Paket::create([
-                    'id_kegiatan'       => my_decrypt($request->id_kegiatan),
+                    'id_kegiatan'       => $request->id_kegiatan,
                     'id_penyedia'       => $request->id_penyedia,
                     'id_konsultan'      => $request->id_konsultan,
                     'id_teknislap'      => $request->id_teknislap,
@@ -304,7 +320,7 @@ class PaketController extends Controller
                     ]);
                 }
 
-                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route('admin.paket.ruas.index', my_encrypt($id_paket))];
+                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route_role('admin.paket.ruas.index', ['id' => my_encrypt($id_paket)])];
             } else {
                 // ubah
                 $id_paket = my_decrypt($request->id_paket);
@@ -369,7 +385,7 @@ class PaketController extends Controller
                     PaketRuas::whereNotIn('id_ruas_paket', $data_ruas)->whereIdPaket($id_paket)->delete();
                 }
 
-                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route('admin.paket.ruas.index', my_encrypt($id_paket))];
+                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route_role('admin.paket.ruas.index', ['id' => my_encrypt($id_paket)])];
             }
         } catch (\Exception $e) {
             $response = ['title' => 'Gagal!', 'text' => 'Data Gagal di Proses!', 'type' => 'error', 'button' => 'Ok!', 'class' => 'danger'];

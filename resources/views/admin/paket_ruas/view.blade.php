@@ -95,7 +95,7 @@
             @endforeach
 
             <div class="d-grid gap-2">
-                <a href="{{ route('admin.paket.det', my_encrypt($id_paket)) }}" class="btn btn-lg btn-relief-info">
+                <a href="{{ route_role('admin.paket.det', ['id' => my_encrypt($id_paket)]) }}" class="btn btn-lg btn-relief-info">
                     <i data-feather='check'></i>&nbsp;<span>Selesai</span>
                 </a>
             </div>
@@ -110,7 +110,7 @@
                     <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
                 </div>
                 <!-- begin:: untuk form -->
-                <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.paket.ruas.item.save') }}" method="POST">
+                <form id="form-add-upd" class="form form-horizontal" action="{{ route_role('admin.paket.ruas.item.save') }}" method="POST">
                     <div class="modal-body">
                         <!-- begin:: untuk loading -->
                         <div id="form-loading"></div>
@@ -348,7 +348,7 @@
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: "{{ route('admin.paket.ruas.item.show') }}",
+                    url: "{{ route_role('admin.paket.ruas.item.show') }}",
                     data: {
                         id: ini.data('id')
                     },
@@ -413,7 +413,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route('admin.paket.ruas.item.del') }}",
+                                url: "{{ route_role('admin.paket.ruas.item.del') }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),
@@ -446,7 +446,7 @@
         }();
 
         function get_satuan(id = null) {
-            $.get("{{ route('admin.satuan.get_all') }}", {
+            $.get("{{ route_role('admin.satuan.get_all') }}", {
                 id: id
             }, function(response) {
                 $("#id_satuan").select2({

@@ -22,7 +22,7 @@ class TeknislapAnggController extends Controller
 
     public function index()
     {
-        return Template::load('admin', 'Anggota Teknis Lapangan', 'teknislap/anggota', 'view');
+        return Template::load('admin', 'Anggota', 'teknislap/anggota', 'view');
     }
 
     public function get_data_dt(Request $request)

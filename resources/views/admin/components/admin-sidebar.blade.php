@@ -3,7 +3,7 @@
         <ul class="nav navbar-nav flex-row">
             <!-- begin:: brand -->
             <li class="nav-item me-auto">
-                <a class="navbar-brand" href="{{ route('admin.dashboard') }}">
+                <a class="navbar-brand" href="{{ route('admin.dashboard', session()->get('roles')) }}">
                     <span class="brand-logo">
                         <img src="{{ asset_admin('images/logo/logo.png') }}" alt="">
                     </span>
@@ -26,7 +26,7 @@
                 <span>Dashboard</span><i data-feather="more-horizontal"></i>
             </li>
             <li class="nav-item">
-                <a class="d-flex align-items-center" href="{{ route('admin.dashboard') }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.dashboard', session()->get('roles')) }}">
                     <i data-feather="home"></i><span class="menu-title text-truncate">Dashboard</span>
                 </a>
             </li>
@@ -40,17 +40,17 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center {{ (Request::segment(3) === 'head') ? 'active' : '' }}" href="{{ route('admin.menu.head') }}">
+                        <a class="d-flex align-items-center {{ (Request::segment(3) === 'head') ? 'active' : '' }}" href="{{ route('admin.menu.head', session()->get('roles')) }}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate">Menu</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-items-center {{ (Request::segment(3) === 'body') ? 'active' : '' }}" href="{{ route('admin.menu.body') }}">
+                        <a class="d-flex align-items-center {{ (Request::segment(3) === 'body') ? 'active' : '' }}" href="{{ route('admin.menu.body', session()->get('roles')) }}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate">Sub Menu</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-items-center {{ (Request::segment(3) === 'action') ? 'active' : '' }}" href="{{ route('admin.menu.action') }}">
+                        <a class="d-flex align-items-center {{ (Request::segment(3) === 'action') ? 'active' : '' }}" href="{{ route('admin.menu.action', session()->get('roles')) }}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate">Menu Action</span>
                         </a>
                     </li>
@@ -62,19 +62,19 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center {{ (Request::segment(2) === 'role' && Request::segment(3) === null ) ? 'active' : '' }}" href="{{ route('admin.role.role') }}">
+                        <a class="d-flex align-items-center {{ (Request::segment(2) === 'role' && Request::segment(3) === null ) ? 'active' : '' }}" href="{{ route('admin.role.role', session()->get('roles')) }}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate">Role</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-items-center {{ (Request::segment(3) === 'menu') ? 'active' : '' }}" href="{{ route('admin.role.menu') }}">
+                        <a class="d-flex align-items-center {{ (Request::segment(3) === 'menu') ? 'active' : '' }}" href="{{ route('admin.role.menu', session()->get('roles')) }}">
                             <i data-feather="circle"></i><span class="menu-item text-truncate">Role Menu</span>
                         </a>
                     </li>
                 </ul>
             </li>
             <li class="nav-item {{ (Request::segment(2) === 'users') ? 'active' : '' }}">
-                <a class="d-flex align-items-center" href="{{ route('admin.users') }}">
+                <a class="d-flex align-items-center" href="{{ route('admin.users', session()->get('roles')) }}">
                     <i data-feather="list"></i><span class="menu-title text-truncate">Users</span>
                 </a>
             </li>

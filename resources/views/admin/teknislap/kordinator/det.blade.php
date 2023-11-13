@@ -94,7 +94,7 @@
                     <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
                 </div>
                 <!-- begin:: untuk form -->
-                <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.teknislap.anggota.save') }}" method="POST">
+                <form id="form-add-upd" class="form form-horizontal" action="{{ route_role('admin.teknislap.anggota.save') }}" method="POST">
                     <div class="modal-body">
                         <!-- begin:: untuk loading -->
                         <div id="form-loading"></div>
@@ -201,7 +201,7 @@
                     processing: "Data sedang diproses...",
                 },
                 ajax: {
-                    url: "{{ route('admin.teknislap.anggota.get_data_dt') }}",
+                    url: "{{ route_role('admin.teknislap.anggota.get_data_dt') }}",
                     type: "GET",
                     data: {
                         id_teknislap: $('#id_teknislap').val()
@@ -366,7 +366,7 @@
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: "{{ route('admin.teknislap.anggota.show') }}",
+                    url: "{{ route_role('admin.teknislap.anggota.show') }}",
                     data: {
                         id: ini.data('id')
                     },
@@ -429,7 +429,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route('admin.teknislap.anggota.del') }}",
+                                url: "{{ route_role('admin.teknislap.anggota.del') }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),

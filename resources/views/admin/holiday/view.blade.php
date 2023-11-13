@@ -48,7 +48,7 @@
                     <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
                 </div>
                 <!-- begin:: untuk form -->
-                <form id="form-add-upd" class="form form-horizontal" action="{{ route('admin.holiday.save') }}" method="POST">
+                <form id="form-add-upd" class="form form-horizontal" action="{{ route_role('admin.holiday.save') }}" method="POST">
                     <div class="modal-body">
                         <!-- begin:: untuk loading -->
                         <div id="form-loading"></div>
@@ -154,7 +154,7 @@
                     emptyTable: "Tak ada data yang tersedia pada tabel ini.",
                     processing: "Data sedang diproses...",
                 },
-                ajax: "{{ route('admin.holiday.get_data_dt') }}",
+                ajax: "{{ route_role('admin.holiday.get_data_dt') }}",
                 dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
                 drawCallback: function() {
                     feather.replace();
@@ -304,7 +304,7 @@
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: "{{ route('admin.holiday.show') }}",
+                    url: "{{ route_role('admin.holiday.show') }}",
                     data: {
                         id: ini.data('id')
                     },
@@ -367,7 +367,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route('admin.holiday.del') }}",
+                                url: "{{ route_role('admin.holiday.del') }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),

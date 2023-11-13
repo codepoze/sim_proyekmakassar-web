@@ -84,7 +84,7 @@
                             <p class="mb-2">
                                 Oops! 😖 The requested URL was not found on this server.
                             </p>
-                            <a class="btn btn-primary mb-2 btn-sm-block" href="{{ route('admin.dashboard') }}">
+                            <a class="btn btn-primary mb-2 btn-sm-block" href="{{ route_role('admin.dashboard') }}">
                                 Back to home
                             </a>
                             <img class="img-fluid" src="{{ asset_admin('images/pages/error.svg') }}" alt="Error page" />
