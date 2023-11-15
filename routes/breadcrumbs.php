@@ -69,6 +69,12 @@ Breadcrumbs::for('admin.users', function (BreadcrumbTrail $trail) {
 
 // ========================================================================
 
+Breadcrumbs::for('admin.fund.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Sumber Dana', route_role('admin.fund.index'));
+});
+
 Breadcrumbs::for('admin.holiday.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 

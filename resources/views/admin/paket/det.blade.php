@@ -121,18 +121,18 @@
                                     </div>
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label">Kode Rekening</label>
+                                            <label class="col-form-label">Sumber Dana</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->kd_rekening }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->toFund->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label">Sumber Dana</label>
+                                            <label class="col-form-label">Kode Rekening</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $paket->sumber_dana }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ $paket->kd_rekening }}" readonly="readonly" />
                                         </div>
                                     </div>
                                 </form>

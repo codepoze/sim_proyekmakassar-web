@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\FundController;
 use App\Http\Controllers\admin\HolidayController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KonsultanController;
@@ -113,6 +114,17 @@ Route::group([
         Route::post('/del', 'del')->name('del');
     });
     // end:: holiday
+
+    // begin:: fund
+    Route::controller(FundController::class)->prefix('fund')->as('fund.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/get_all', 'get_all')->name('get_all');
+        Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+        Route::post('/show', 'show')->name('show');
+        Route::post('/save', 'save')->name('save');
+        Route::post('/del', 'del')->name('del');
+    });
+    // end:: fund
 
     // begin:: satuan
     Route::controller(SatuanController::class)->prefix('satuan')->as('satuan.')->group(function () {

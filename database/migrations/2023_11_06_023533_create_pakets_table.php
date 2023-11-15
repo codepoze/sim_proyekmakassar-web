@@ -20,6 +20,7 @@ class CreatePaketsTable extends Migration
             $table->integer('id_penyedia')->unsigned()->nullable();
             $table->integer('id_konsultan')->unsigned()->nullable();
             $table->integer('id_teknislap')->unsigned()->nullable();
+            $table->integer('id_fund')->unsigned()->nullable();
             $table->string('nma_paket', 50)->nullable();
             $table->string('pj_penyedia', 45)->nullable();
             $table->string('pj_konsultan', 45)->nullable();
@@ -31,7 +32,6 @@ class CreatePaketsTable extends Migration
             $table->string('thn_anggaran', 10)->nullable();
             $table->bigInteger('nil_pagu')->nullable();
             $table->string('kd_rekening', 50)->nullable();
-            $table->string('sumber_dana', 50)->nullable();
             $table->text('foto_lokasi')->nullable();
             $table->text('laporan')->nullable();
 
@@ -43,6 +43,7 @@ class CreatePaketsTable extends Migration
             $table->foreign('id_penyedia')->references('id_penyedia')->on('penyedia')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_konsultan')->references('id_konsultan')->on('konsultan')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_teknislap')->references('id_teknislap')->on('teknislap')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_fund')->references('id_fund')->on('fund')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

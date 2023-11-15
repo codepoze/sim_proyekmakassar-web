@@ -19,6 +19,7 @@ class Paket extends Model
         'id_penyedia',
         'id_konsultan',
         'id_teknislap',
+        'id_fund',
         'nma_paket',
         'pj_penyedia',
         'pj_konsultan',
@@ -30,7 +31,6 @@ class Paket extends Model
         'thn_anggaran',
         'nil_pagu',
         'kd_rekening',
-        'sumber_dana',
         'foto_lokasi',
         'laporan',
         'by_users'
@@ -42,6 +42,7 @@ class Paket extends Model
         'toPenyedia',
         'toKonsultan',
         'toTeknislap',
+        'toFund',
     ];
 
     // untuk relasi ke tabel kegiatan
@@ -66,6 +67,12 @@ class Paket extends Model
     public function toTeknislap()
     {
         return $this->belongsTo(Teknislap::class, 'id_teknislap', 'id_teknislap');
+    }
+
+    // untuk relasi ke tabel fund
+    public function toFund()
+    {
+        return $this->belongsTo(Fund::class, 'id_fund', 'id_fund');
     }
 
     // untuk relasi ke tabel ruas

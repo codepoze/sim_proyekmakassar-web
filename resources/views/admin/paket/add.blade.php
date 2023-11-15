@@ -147,19 +147,21 @@
                             </div>
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="kd_rekening">Kode Rekening&nbsp;*</label>
+                                    <label class="col-form-label" for="id_fund">Sumber Dana&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="kd_rekening" name="kd_rekening" placeholder="Masukkan kode rekening" />
+                                    <select class="form-select select2" id="id_fund" name="id_fund">
+                                        <option value=""></option>
+                                    </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="sumber_dana">Sumber Dana&nbsp;*</label>
+                                    <label class="col-form-label" for="kd_rekening">Kode Rekening&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="sumber_dana" name="sumber_dana" placeholder="Masukkan sumber dana" />
+                                    <input type="text" class="form-control form-control-sm" id="kd_rekening" name="kd_rekening" placeholder="Masukkan kode rekening" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -252,7 +254,6 @@
             today: 'Hari Ini',
             selectYears: true,
             selectMonths: true,
-            min: true,
             max: 365,
             closeOnSelect: true,
             closeOnClear: true,
@@ -275,7 +276,6 @@
             today: 'Hari Ini',
             selectYears: true,
             selectMonths: true,
-            min: true,
             max: 365,
             closeOnSelect: true,
             closeOnClear: true,
@@ -464,6 +464,18 @@
             $.get("{{ route_role('admin.teknislap.kordinator.get_all') }}", function(response) {
                 $("#id_teknislap").select2({
                     placeholder: "Pilih Kordinator Teknis Lapangan",
+                    width: '100%',
+                    allowClear: true,
+                    containerCssClass: 'select-sm',
+                    data: response,
+                });
+            }, 'json');
+        }();
+
+        let untukSelectSumberDana = function() {
+            $.get("{{ route_role('admin.fund.get_all') }}", function(response) {
+                $("#id_fund").select2({
+                    placeholder: "Pilih sumber dana",
                     width: '100%',
                     allowClear: true,
                     containerCssClass: 'select-sm',

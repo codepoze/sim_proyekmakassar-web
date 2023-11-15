@@ -166,7 +166,7 @@ class PaketController extends Controller
                 "thn_anggaran"      => 'required',
                 "nil_pagu"          => 'required',
                 "kd_rekening"       => 'required',
-                "sumber_dana"       => 'required',
+                "id_fund"           => 'required',
                 'laporan'           => 'required|mimes:pdf',
                 'doc_kontrak'       => 'required|mimes:pdf',
                 'foto_lokasi'       => 'required|mimes:png,jpg,jpeg',
@@ -186,7 +186,7 @@ class PaketController extends Controller
                 'thn_anggaran.required'      => 'Tahun Anggaran tidak boleh kosong!',
                 'nil_pagu.required'          => 'Nilai Pagu tidak boleh kosong!',
                 'kd_rekening.required'       => 'Kode Rekening tidak boleh kosong!',
-                'sumber_dana.required'       => 'Sumber Dana tidak boleh kosong!',
+                'id_fund.required'           => 'Sumber Dana tidak boleh kosong!',
                 'laporan.required'           => 'Laporan tidak boleh kosong!',
                 'laporan.mimes'              => 'Laporan harus berupa pdf!',
                 'doc_kontrak.required'       => 'Dokumen Kontrak tidak boleh kosong!',
@@ -214,7 +214,7 @@ class PaketController extends Controller
                 "thn_anggaran"      => 'required',
                 "nil_pagu"          => 'required',
                 "kd_rekening"       => 'required',
-                "sumber_dana"       => 'required',
+                "id_fund"           => 'required',
             ];
 
             $messages = [
@@ -231,7 +231,7 @@ class PaketController extends Controller
                 'thn_anggaran.required'      => 'Tahun Anggaran tidak boleh kosong!',
                 'nil_pagu.required'          => 'Nilai Pagu tidak boleh kosong!',
                 'kd_rekening.required'       => 'Kode Rekening tidak boleh kosong!',
-                'sumber_dana.required'       => 'Sumber Dana tidak boleh kosong!',
+                'id_fund.required'           => 'Sumber Dana tidak boleh kosong!',
             ];
 
             if ($request->change_picture_lokasi === 'on') {
@@ -293,6 +293,7 @@ class PaketController extends Controller
                     'id_penyedia'       => $request->id_penyedia,
                     'id_konsultan'      => $request->id_konsultan,
                     'id_teknislap'      => $request->id_teknislap,
+                    'id_fund'           => $request->id_fund,
                     'nma_paket'         => $request->nma_paket,
                     'pj_penyedia'       => $request->pj_penyedia,
                     'pj_konsultan'      => $request->pj_konsultan,
@@ -344,6 +345,7 @@ class PaketController extends Controller
                 $paket->id_penyedia       = $request->id_penyedia;
                 $paket->id_konsultan      = $request->id_konsultan;
                 $paket->id_teknislap      = $request->id_teknislap;
+                $paket->id_fund           = $request->id_fund;
                 $paket->nma_paket         = $request->nma_paket;
                 $paket->pj_penyedia       = $request->pj_penyedia;
                 $paket->pj_konsultan      = $request->pj_konsultan;
@@ -354,7 +356,6 @@ class PaketController extends Controller
                 $paket->thn_anggaran      = $request->thn_anggaran;
                 $paket->nil_pagu          = $request->nil_pagu;
                 $paket->kd_rekening       = $request->kd_rekening;
-                $paket->sumber_dana       = $request->sumber_dana;
                 $paket->by_users          = $this->session['id_users'];
                 $paket->save();
 

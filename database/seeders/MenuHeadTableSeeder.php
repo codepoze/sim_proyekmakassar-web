@@ -16,6 +16,14 @@ class MenuHeadTableSeeder extends Seeder
     {
         $menu_heads = [
             [
+                'nama'         => 'Sumber Dana',
+                'icon'         => 'list',
+                'path'         => '/fund',
+                'status'       => '1',
+                'jenis'        => 'single',
+                'by_users'     => 1,
+            ],
+            [
                 'nama'         => 'Hari Libur',
                 'icon'         => 'list',
                 'path'         => '/holiday',
