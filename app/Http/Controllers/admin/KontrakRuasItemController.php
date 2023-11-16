@@ -4,13 +4,12 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
-use App\Models\PaketRuas;
-use App\Models\PaketRuasItem;
+use App\Models\KontrakRuasItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
-class PaketRuasItemController extends Controller
+class KontrakRuasItemController extends Controller
 {
     public function __construct()
     {
@@ -30,24 +29,9 @@ class PaketRuasItemController extends Controller
         return Template::load('admin', 'Paket Ruas', 'paket_ruas', 'view', $data);
     }
 
-    // public function get_data_dt()
-    // {
-    //     $data = Penyedia::orderBy('id_penyedia', 'desc')->get();
-
-    //     return DataTables::of($data)
-    //         ->addIndexColumn()
-    //         ->addColumn('action', function ($row) {
-    //             return '
-    //                 <button type="button" id="upd" data-id="' . my_encrypt($row->id_penyedia) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
-    //                 <button type="button" id="del" data-id="' . my_encrypt($row->id_penyedia) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
-    //             ';
-    //         })
-    //         ->make(true);
-    // }
-
     public function show(Request $request)
     {
-        $response = PaketRuasItem::find(my_decrypt($request->id));
+        $response = KontrakRuasItem::find(my_decrypt($request->id));
 
         return Response::json($response);
     }
@@ -79,12 +63,12 @@ class PaketRuasItemController extends Controller
         }
 
         try {
-            PaketRuasItem::updateOrCreate(
+            KontrakRuasItem::updateOrCreate(
                 [
-                    'id_paket_ruas_item' => $request->id_paket_ruas_item,
+                    'id_kontrak_ruas_item' => $request->id_kontrak_ruas_item,
                 ],
                 [
-                    'id_paket_ruas' => $request->id_paket_ruas,
+                    'id_kontrak_ruas' => $request->id_kontrak_ruas,
                     'id_satuan'     => $request->id_satuan,
                     'nama'          => $request->nama,
                     'volume'        => $request->volume,
@@ -107,7 +91,7 @@ class PaketRuasItemController extends Controller
         $checking = is_valid_user($this->session['id_users'], $request->password);
         if ($checking) {
             try {
-                $data = PaketRuasItem::find(my_decrypt($request->id));
+                $data = KontrakRuasItem::find(my_decrypt($request->id));
 
                 $data->delete();
 

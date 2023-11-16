@@ -28,10 +28,4 @@ class TeknislapAngg extends Model
     {
         return $this->belongsTo(Teknislap::class, 'id_teknislap', 'id_teknislap');
     }
-
-    // untuk relasi ke tabel users
-    public function toUser()
-    {
-        return $this->belongsTo(User::class, 'id_users', 'id_users');
-    }
 }

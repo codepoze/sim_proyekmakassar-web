@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProgressTable extends Migration
+class CreateFh0sTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateProgressTable extends Migration
      */
     public function up()
     {
-        Schema::create('progress', function (Blueprint $table) {
-            $table->increments('id_progress');
-            $table->integer('id_paket_ruas_item')->unsigned()->nullable();
+        Schema::create('fh0', function (Blueprint $table) {
+            $table->increments('id_fh0');
+            $table->integer('id_kontrak_ruas_item')->unsigned()->nullable();
             $table->text('nma_pekerjaan')->nullable();
             $table->float('panjang')->nullable();
             $table->float('titik_core')->nullable();
@@ -46,6 +46,6 @@ class CreateProgressTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('progress');
+        Schema::dropIfExists('fh0');
     }
 }

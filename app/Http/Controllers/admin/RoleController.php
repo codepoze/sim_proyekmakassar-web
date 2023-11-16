@@ -106,9 +106,9 @@ class RoleController extends Controller
         $checking = is_valid_user($this->session['id_users'], $request->password);
         if ($checking) {
             try {
-                $role = Role::find(my_decrypt($request->id));
+                $data = Role::find(my_decrypt($request->id));
 
-                $role->delete();
+                $data->delete();
 
                 $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Hapus!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
             } catch (\Exception $e) {

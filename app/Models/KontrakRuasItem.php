@@ -5,17 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PaketRuasItem extends Model
+class KontrakRuasItem extends Model
 {
     use HasFactory;
     // untuk default tabel
-    protected $table = 'paket_ruas_item';
+    protected $table = 'kontrak_ruas_item';
     // untuk default primary key
-    protected $primaryKey = 'id_paket_ruas_item';
+    protected $primaryKey = 'id_kontrak_ruas_item';
     // untuk fillable
     protected $fillable = [
-        'id_paket_ruas_item',
-        'id_paket_ruas',
+        'id_kontrak_ruas_item',
+        'id_kontrak_ruas',
         'id_satuan',
         'nama',
         'volume',
@@ -26,14 +26,14 @@ class PaketRuasItem extends Model
 
     // untuk foreign key
     protected $with = [
-        'toPaketRuas',
+        'toKontrakRuas',
         'toSatuan'
     ];
 
     // untuk relasi ke tabel paket_ruas
-    public function toPaketRuas()
+    public function toKontrakRuas()
     {
-        return $this->belongsTo(PaketRuas::class, 'id_paket_ruas', 'id_paket_ruas');
+        return $this->belongsTo(KontrakRuas::class, 'id_kontrak_ruas', 'id_kontrak_ruas');
     }
 
     // untuk relasi ke tabel satuan

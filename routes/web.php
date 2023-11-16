@@ -5,12 +5,13 @@ use App\Http\Controllers\admin\FundController;
 use App\Http\Controllers\admin\HolidayController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\KonsultanController;
+use App\Http\Controllers\admin\KontrakController;
+use App\Http\Controllers\admin\KontrakRuasController;
+use App\Http\Controllers\admin\KontrakRuasItemController;
 use App\Http\Controllers\admin\MenuActionController;
 use App\Http\Controllers\admin\MenuBodyController;
 use App\Http\Controllers\admin\MenuHeadController;
 use App\Http\Controllers\admin\PaketController;
-use App\Http\Controllers\admin\PaketRuasController;
-use App\Http\Controllers\admin\PaketRuasItemController;
 use App\Http\Controllers\admin\PenyediaController;
 use App\Http\Controllers\admin\PptkController;
 use App\Http\Controllers\admin\ProfilController;
@@ -195,7 +196,7 @@ Route::group([
     // begin:: kegiatan
     Route::controller(KegiatanController::class)->prefix('kegiatan')->as('kegiatan.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/det/{id}', 'det')->name('det');
+        Route::get('/get_all', 'get_all')->name('get_all');
         Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
         Route::post('/show', 'show')->name('show');
         Route::post('/save', 'save')->name('save');
@@ -206,28 +207,36 @@ Route::group([
     // begin:: paket
     Route::controller(PaketController::class)->prefix('paket')->as('paket.')->group(function () {
         Route::get('/', 'index')->name('index');
-        Route::get('/add/{id}', 'add')->name('add');
         Route::get('/det/{id}', 'det')->name('det');
+        Route::get('/get_all', 'get_all')->name('get_all');
+        Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+        Route::post('/show', 'show')->name('show');
+        Route::post('/save', 'save')->name('save');
+        Route::post('/del', 'del')->name('del');
+    });
+    // end:: paket
+
+    // begin:: kontrak
+    Route::controller(KontrakController::class)->prefix('kontrak')->as('kontrak.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/add/{id}', 'add')->name('add');
         Route::get('/upd/{id}', 'upd')->name('upd');
+        Route::get('/det/{id}', 'det')->name('det');
         Route::get('/print/{id}', 'print')->name('print');
         Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
         Route::post('/save', 'save')->name('save');
         Route::post('/del', 'del')->name('del');
 
-        Route::controller(PaketRuasController::class)->prefix('ruas')->as('ruas.')->group(function () {
+        Route::controller(KontrakRuasController::class)->prefix('ruas')->as('ruas.')->group(function () {
             Route::get('/{id}', 'index')->name('index');
-            // Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
-            // Route::post('/show', 'show')->name('show');
-            // Route::post('/save', 'save')->name('save');
             Route::post('/del', 'del')->name('del');
 
-            Route::controller(PaketRuasItemController::class)->prefix('item')->as('item.')->group(function () {
-                // Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+            Route::controller(KontrakRuasItemController::class)->prefix('item')->as('item.')->group(function () {
                 Route::post('/show', 'show')->name('show');
                 Route::post('/save', 'save')->name('save');
                 Route::post('/del', 'del')->name('del');
             });
         });
     });
-    // end:: paket
+    // end:: kontrak
 });

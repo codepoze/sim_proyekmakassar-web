@@ -135,22 +135,10 @@ Breadcrumbs::for('admin.kegiatan.index', function (BreadcrumbTrail $trail) {
     $trail->push('Kegiatan', route_role('admin.kegiatan.index'));
 });
 
-Breadcrumbs::for('admin.kegiatan.det', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.kegiatan.index');
-
-    $trail->push('Detail Kegiatan');
-});
-
 Breadcrumbs::for('admin.paket.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
     $trail->push('Paket', route_role('admin.paket.index'));
-});
-
-Breadcrumbs::for('admin.paket.add', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.paket.index');
-
-    $trail->push('Tambah', '#');
 });
 
 Breadcrumbs::for('admin.paket.det', function (BreadcrumbTrail $trail) {
@@ -159,14 +147,32 @@ Breadcrumbs::for('admin.paket.det', function (BreadcrumbTrail $trail) {
     $trail->push('Detail', '#');
 });
 
-Breadcrumbs::for('admin.paket.upd', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.paket.index');
+Breadcrumbs::for('admin.kontrak.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Kontrak', route_role('admin.kontrak.index'));
+});
+
+Breadcrumbs::for('admin.kontrak.add', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Tambah', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.det', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Detail', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.upd', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
 
     $trail->push('Ubah', '#');
 });
 
-Breadcrumbs::for('admin.paket.ruas.index', function (BreadcrumbTrail $trail) {
-    $trail->parent('admin.paket.index');
+Breadcrumbs::for('admin.kontrak.ruas.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
 
-    $trail->push('Paket Ruas', '#');
+    $trail->push('Kontrak Ruas', '#');
 });

@@ -10,7 +10,7 @@
     <!-- begin:: content -->
     <section>
         <div class="row">
-            @foreach ($paket_ruas as $key => $row)
+            @foreach ($kontrak_ruas as $key => $row)
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom">
@@ -19,7 +19,7 @@
                         </div>
                         <div class="dt-action-buttons text-end">
                             <div class="dt-buttons d-inline-flex">
-                                <button type="button" id="add" data-id_paket_ruas="{{ $row->id_paket_ruas }}" class="btn btn-sm btn-relief-success" data-bs-toggle="modal" data-bs-target="#modal-add-upd">
+                                <button type="button" id="add" data-id_kontrak_ruas="{{ $row->id_kontrak_ruas }}" class="btn btn-sm btn-relief-success" data-bs-toggle="modal" data-bs-target="#modal-add-upd">
                                     <i data-feather='plus'></i>&nbsp;<span>Tambah</span>
                                 </button>
                             </div>
@@ -43,18 +43,18 @@
                             </thead>
                             <tbody>
                                 @php
-                                $total_hps = $row->toPaketRuasItem->sum(function ($item) {
+                                $total_hps = $row->toKontrakRuasItem->sum(function ($item) {
                                 return $item->volume * $item->harga_hps;
                                 });
 
-                                $total_kontrak = $row->toPaketRuasItem->sum(function ($item) {
+                                $total_kontrak = $row->toKontrakRuasItem->sum(function ($item) {
                                 return $item->volume * $item->harga_kontrak;
                                 });
 
                                 $bobot = 0;
                                 @endphp
 
-                                @foreach ($row->toPaketRuasItem as $key => $value)
+                                @foreach ($row->toKontrakRuasItem as $key => $value)
 
                                 @php
                                 $jumlah_hps = ($value->volume * $value->harga_hps);
@@ -65,8 +65,8 @@
 
                                 <tr>
                                     <td class="text-center">
-                                        <button type="button" id="upd" data-id="{{ my_encrypt($value->id_paket_ruas_item) }}" data-id_paket_ruas="{{ $value->id_paket_ruas }}" class="btn btn-sm btn-action btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
-                                        <button type="button" id="del" data-id="{{ my_encrypt($value->id_paket_ruas_item) }}" data-id_paket_ruas="{{ $value->id_paket_ruas }}" class="btn btn-sm btn-action btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
+                                        <button type="button" id="upd" data-id="{{ my_encrypt($value->id_kontrak_ruas_item) }}" data-id_kontrak_ruas="{{ $value->id_kontrak_ruas }}" class="btn btn-sm btn-action btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
+                                        <button type="button" id="del" data-id="{{ my_encrypt($value->id_kontrak_ruas_item) }}" data-id_kontrak_ruas="{{ $value->id_kontrak_ruas }}" class="btn btn-sm btn-action btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                                     </td>
                                     <td class="text-center">{{ $key+1 }}</td>
                                     <td class="text-center">{{ $value->nama }}</td>
@@ -95,7 +95,7 @@
             @endforeach
 
             <div class="d-grid gap-2">
-                <a href="{{ route_role('admin.paket.det', ['id' => my_encrypt($id_paket)]) }}" class="btn btn-lg btn-relief-info">
+                <a href="{{ route_role('admin.kontrak.det', ['id' => my_encrypt($id_kontrak)]) }}" class="btn btn-lg btn-relief-info">
                     <i data-feather='check'></i>&nbsp;<span>Selesai</span>
                 </a>
             </div>
@@ -110,7 +110,7 @@
                     <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
                 </div>
                 <!-- begin:: untuk form -->
-                <form id="form-add-upd" class="form form-horizontal" action="{{ route_role('admin.paket.ruas.item.save') }}" method="POST">
+                <form id="form-add-upd" class="form form-horizontal" action="{{ route_role('admin.kontrak.ruas.item.save') }}" method="POST">
                     <div class="modal-body">
                         <!-- begin:: untuk loading -->
                         <div id="form-loading"></div>
@@ -118,8 +118,8 @@
                         <div id="form-show">
                             <div class="row">
                                 <!-- begin:: id -->
-                                <input type="hidden" name="id_paket_ruas_item" id="id_paket_ruas_item" />
-                                <input type="hidden" name="id_paket_ruas" id="id_paket_ruas" />
+                                <input type="hidden" name="id_kontrak_ruas_item" id="id_kontrak_ruas_item" />
+                                <input type="hidden" name="id_kontrak_ruas" id="id_kontrak_ruas" />
                                 <!-- end:: id -->
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
@@ -326,9 +326,9 @@
                 var ini = $(this);
 
                 $('#judul-add-upd').text('Tambah');
-                $('#id_paket_ruas').val(ini.data('id_paket_ruas'));
+                $('#id_kontrak_ruas').val(ini.data('id_kontrak_ruas'));
 
-                $('#id_paket_ruas_item').removeAttr('value');
+                $('#id_kontrak_ruas_item').removeAttr('value');
 
                 $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
                 $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
@@ -341,6 +341,7 @@
             });
         }();
 
+
         let untukUbahData = function() {
             $(document).on('click', '#upd', function(e) {
                 var ini = $(this);
@@ -348,7 +349,7 @@
                 $.ajax({
                     type: 'POST',
                     dataType: 'json',
-                    url: "{{ route_role('admin.paket.ruas.item.show') }}",
+                    url: "{{ route_role('admin.kontrak.ruas.item.show') }}",
                     data: {
                         id: ini.data('id')
                     },
@@ -413,7 +414,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route_role('admin.paket.ruas.item.del') }}",
+                                url: "{{ route_role('admin.kontrak.ruas.item.del') }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),

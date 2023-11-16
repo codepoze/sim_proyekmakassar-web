@@ -72,27 +72,27 @@
         <tr>
             <td width="150">Pekerjaan</td>
             <td>:</td>
-            <td>{{ $paket->nma_paket }}</td>
+            <td>{{ $kontrak->toPaket->nama }}</td>
         </tr>
         <tr>
             <td>Tahun Anggaran</td>
             <td>:</td>
-            <td>{{ $paket->thn_anggaran }}</td>
+            <td>{{ $kontrak->thn_anggaran }}</td>
         </tr>
         <tr>
             <td>Kontraktor Pelaksana</td>
             <td>:</td>
-            <td>{{ $paket->toPenyedia->nama }}</td>
+            <td>{{ $kontrak->toPenyedia->nama }}</td>
         </tr>
         <tr>
             <td>Konsultan Pengawas</td>
             <td>:</td>
-            <td>{{ $paket->toKonsultan->nama }}</td>
+            <td>{{ $kontrak->toKonsultan->nama }}</td>
         </tr>
     </table>
 
     <ul type="1">
-        @foreach ($paket->toPaketRuas as $key => $row)
+        @foreach ($kontrak->toKontrakRuas as $key => $row)
         <li>
             <b>{{ $row->nama }}</b>
         </li>
@@ -115,18 +115,18 @@
             </thead>
             <tbody>
                 @php
-                $total_hps = $row->toPaketRuasItem->sum(function ($item) {
+                $total_hps = $row->toKontrakRuasItem->sum(function ($item) {
                 return $item->volume * $item->harga_hps;
                 });
 
-                $total_kontrak = $row->toPaketRuasItem->sum(function ($item) {
+                $total_kontrak = $row->toKontrakRuasItem->sum(function ($item) {
                 return $item->volume * $item->harga_kontrak;
                 });
 
                 $bobot = 0;
                 @endphp
 
-                @foreach ($row->toPaketRuasItem as $key => $value)
+                @foreach ($row->toKontrakRuasItem as $key => $value)
 
                 @php
                 $jumlah_hps = ($value->volume * $value->harga_hps);
@@ -161,4 +161,19 @@
         <br />
         @endforeach
     </ul>
+    <b>Totak Keseluruhan</b>
+    <table align="center" border="1">
+        <thead>
+            <tr align="center">
+                <td>JUMLAH HARGA HPS</td>
+                <td>JUMLAH HARGA KONTRAK</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr align="center">
+                <td>{{ rupiah($nil_hps) }}</td>
+                <td>{{ rupiah($nil_kontrak) }}</td>
+            </tr>
+        </tbody>
+    </table>
 </body>

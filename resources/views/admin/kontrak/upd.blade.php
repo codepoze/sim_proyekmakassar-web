@@ -16,9 +16,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route_role('admin.paket.save') }}" method="POST">
+                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route_role('admin.kontrak.save') }}" method="POST">
                             <!-- begin:: id -->
-                            <input type="hidden" name="id_paket" id="id_paket" value="{{ $id_paket }}" />
+                            <input type="hidden" name="id_kontrak" id="id_kontrak" value="{{ $id_kontrak }}" />
                             <!-- end:: id -->
 
                             <div class="field-input mb-1 row">
@@ -37,7 +37,7 @@
                                     <label class="col-form-label" for="pj_penyedia">PJ Penyedia&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="pj_penyedia" name="pj_penyedia" placeholder="Masukkan nama penanggung jawab penyedia" value="{{ $paket->pj_penyedia }}" />
+                                    <input type="text" class="form-control form-control-sm" id="pj_penyedia" name="pj_penyedia" placeholder="Masukkan nama penanggung jawab penyedia" value="{{ $kontrak->pj_penyedia }}" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@
                                     <label class="col-form-label" for="pj_konsultan">PJ Konsultan&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="pj_konsultan" name="pj_konsultan" placeholder="Masukkan nama penanggung jawab konsultan" value="{{ $paket->pj_konsultan }}" />
+                                    <input type="text" class="form-control form-control-sm" id="pj_konsultan" name="pj_konsultan" placeholder="Masukkan nama penanggung jawab konsultan" value="{{ $kontrak->pj_konsultan }}" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -74,19 +74,10 @@
                             </div>
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="nma_paket">Nama Paket&nbsp;*</label>
-                                </div>
-                                <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="nma_paket" name="nma_paket" placeholder="Masukkan nama paket" value="{{ $paket->nma_paket }}" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="field-input mb-1 row">
-                                <div class="col-sm-3">
                                     <label class="col-form-label" for="no_spmk">Nomor SPMK&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="no_spmk" name="no_spmk" placeholder="Masukkan nomor spmk" value="{{ $paket->no_spmk }}" />
+                                    <input type="text" class="form-control form-control-sm" id="no_spmk" name="no_spmk" placeholder="Masukkan nomor spmk" value="{{ $kontrak->no_spmk }}" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -95,7 +86,7 @@
                                     <label class="col-form-label" for="no_kontrak">Nomor Kontrak&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="no_kontrak" name="no_kontrak" placeholder="Masukkan nomor kontrak" value="{{ $paket->no_kontrak }}" />
+                                    <input type="text" class="form-control form-control-sm" id="no_kontrak" name="no_kontrak" placeholder="Masukkan nomor kontrak" value="{{ $kontrak->no_kontrak }}" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -106,11 +97,11 @@
                                 <div class="col-sm-9 my-auto">
                                     <div class="row">
                                         <div class="col-sm-6">
-                                            <input type="date" class="form-control form-control-sm" id="tgl_kontrak_mulai" name="tgl_kontrak_mulai" placeholder="Masukkan tanggal mulai kontrak" value="{{ $paket->tgl_kontrak_mulai }}" />
+                                            <input type="date" class="form-control form-control-sm" id="tgl_kontrak_mulai" name="tgl_kontrak_mulai" placeholder="Masukkan tanggal mulai kontrak" value="{{ $kontrak->tgl_kontrak_mulai }}" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                         <div class="col-sm-6">
-                                            <input type="date" class="form-control form-control-sm" id="tgl_kontrak_akhir" name="tgl_kontrak_akhir" placeholder="Masukkan tanggal akhir kontrak" value="{{ $paket->tgl_kontrak_akhir }}" />
+                                            <input type="date" class="form-control form-control-sm" id="tgl_kontrak_akhir" name="tgl_kontrak_akhir" placeholder="Masukkan tanggal akhir kontrak" value="{{ $kontrak->tgl_kontrak_akhir }}" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
@@ -121,7 +112,7 @@
                                     <label class="col-form-label" for="thn_anggaran">Tahun Anggaran&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="thn_anggaran" name="thn_anggaran" placeholder="Masukkan tahun anggaran" value="{{ $paket->thn_anggaran }}" />
+                                    <input type="text" class="form-control form-control-sm" id="thn_anggaran" name="thn_anggaran" placeholder="Masukkan tahun anggaran" value="{{ $kontrak->thn_anggaran }}" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -130,7 +121,7 @@
                                     <label class="col-form-label" for="nil_pagu">Nilai Pagu&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="nil_pagu" name="nil_pagu" placeholder="Masukkan nilai pagu" value="{{ $paket->nil_pagu }}" />
+                                    <input type="text" class="form-control form-control-sm" id="nil_pagu" name="nil_pagu" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan nilai pagu" value="{{ create_separator($kontrak->nil_pagu) }}" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -150,7 +141,20 @@
                                     <label class="col-form-label" for="kd_rekening">Kode Rekening&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="kd_rekening" name="kd_rekening" placeholder="Masukkan kode rekening" value="{{ $paket->kd_rekening }}" />
+                                    <input type="text" class="form-control form-control-sm" id="kd_rekening" name="kd_rekening" placeholder="Masukkan kode rekening" value="{{ $kontrak->kd_rekening }}" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="jns_kontrak">Jenis Kontrak&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <select class="form-control form-control-sm" id="jns_kontrak" name="jns_kontrak">
+                                        <option value="">Pilih jenis kontrak</option>
+                                        <option {{ $kontrak->jns_kontrak === 'utama' ? 'selected' : '' }} value="utama">Utama</option>
+                                        <option {{ $kontrak->jns_kontrak === 'adendium' ? 'selected' : '' }} value="adendium">Adendium</option>
+                                    </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -205,8 +209,8 @@
                                     <label class="col-form-label">Ruas&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    @foreach ($paket->toPaketRuas as $key => $row)
-                                    <input type="hidden" name="id_paket_ruas[]" value="{{ $row->id_paket_ruas }}" />
+                                    @foreach ($kontrak->toKontrakRuas as $key => $row)
+                                    <input type="hidden" name="id_kontrak_ruas[]" value="{{ $row->id_kontrak_ruas }}" />
                                     @if ($key === 0)
                                     <div class="row my-1 ruas">
                                         <div class="field-input col-9">
@@ -226,7 +230,7 @@
                                             <div class="invalid-feedback"></div>
                                         </div>
                                         <div class="col-3 d-flex justify-content-center">
-                                            <button type="button" id="del" data-id="{{ my_encrypt($row->id_paket_ruas) }}" class="btn btn-sm btn-relief-danger">
+                                            <button type="button" id="del" data-id="{{ my_encrypt($row->id_kontrak_ruas) }}" class="btn btn-sm btn-relief-danger">
                                                 <span>Hapus</span>
                                             </button>
                                         </div>
@@ -238,7 +242,7 @@
                             <!-- end:: untuk ruas -->
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a href="{{ route_role('admin.kegiatan.det', ['id' => my_encrypt($paket->id_kegiatan)]) }}" class="btn btn-sm btn-relief-danger">
+                                    <a href="{{ route_role('admin.paket.det', ['id' => my_encrypt($kontrak->id_paket)]) }}" class="btn btn-sm btn-relief-danger">
                                         <i data-feather="x"></i>&nbsp;<span>Batal</span>
                                     </a>&nbsp;
                                     <button type="submit" id="save" class="btn btn-sm btn-relief-primary">
@@ -373,7 +377,7 @@
                 i++;
 
                 var html = `
-                <input type="hidden" name="id_paket_ruas[]" value="0" />
+                <input type="hidden" name="id_kontrak_ruas[]" value="0" />
                 <div class="row my-1 ruas-ini">
                     <div class="field-input col-9">
                         <input type="text" id="nama_ruas_` + i + `" name="nama_ruas[]" class="form-control form-control-sm"
@@ -398,7 +402,7 @@
                 var id = ini.data("id");
 
                 if (id !== undefined) {
-                    $.post("{{ route_role('admin.paket.ruas.del') }}", {
+                    $.post("{{ route_role('admin.kontrak.ruas.del') }}", {
                         id: id
                     }, function(response) {
                         if (response.status) {
@@ -446,7 +450,7 @@
 
         let untukSelectPenyedia = function() {
             $.get("{{ route_role('admin.penyedia.get_all') }}", {
-                id: '{{ $paket->id_penyedia }}'
+                id: '{{ $kontrak->id_penyedia }}'
             }, function(response) {
                 $("#id_penyedia").select2({
                     placeholder: "Pilih penyedia",
@@ -460,7 +464,7 @@
 
         let untukSelectKonsultan = function() {
             $.get("{{ route_role('admin.konsultan.get_all') }}", {
-                id: '{{ $paket->id_konsultan }}'
+                id: '{{ $kontrak->id_konsultan }}'
             }, function(response) {
                 $("#id_konsultan").select2({
                     placeholder: "Pilih konsultan",
@@ -474,7 +478,7 @@
 
         let untukSelectTeknisLapangan = function() {
             $.get("{{ route_role('admin.teknislap.kordinator.get_all') }}", {
-                id: '{{ $paket->id_teknislap }}'
+                id: '{{ $kontrak->id_teknislap }}'
             }, function(response) {
                 $("#id_teknislap").select2({
                     placeholder: "Pilih Kordinator Teknis Lapangan",
@@ -488,7 +492,7 @@
 
         let untukSelectSumberDana = function() {
             $.get("{{ route_role('admin.fund.get_all') }}", {
-                id: '{{ $paket->id_fund }}'
+                id: '{{ $kontrak->id_fund }}'
             }, function(response) {
                 $("#id_fund").select2({
                     placeholder: "Pilih sumber dana",

@@ -117,9 +117,9 @@ class MenuHeadController extends Controller
         $checking = is_valid_user($this->session['id_users'], $request->password);
         if ($checking) {
             try {
-                $menu_head = MenuHead::find(my_decrypt($request->id));
+                $data = MenuHead::find(my_decrypt($request->id));
 
-                $menu_head->delete();
+                $data->delete();
 
                 $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Hapus!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
             } catch (\Exception $e) {

@@ -95,9 +95,9 @@ class MenuBodyController extends Controller
         $checking = is_valid_user($this->session['id_users'], $request->password);
         if ($checking) {
             try {
-                $menu_body = MenuBody::find(my_decrypt($request->id));
+                $data = MenuBody::find(my_decrypt($request->id));
 
-                $menu_body->delete();
+                $data->delete();
 
                 $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Hapus!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
             } catch (\Exception $e) {

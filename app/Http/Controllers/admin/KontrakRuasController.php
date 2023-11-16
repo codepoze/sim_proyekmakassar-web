@@ -4,11 +4,11 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
-use App\Models\PaketRuas;
+use App\Models\KontrakRuas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
-class PaketRuasController extends Controller
+class KontrakRuasController extends Controller
 {
     public function __construct()
     {
@@ -20,20 +20,20 @@ class PaketRuasController extends Controller
 
     public function index()
     {
-        $id_paket = my_decrypt(last(request()->segments()));
+        $id_kontrak = my_decrypt(last(request()->segments()));
         
         $data = [
-            'id_paket'   => $id_paket,
-            'paket_ruas' => PaketRuas::with('toPaketRuasItem')->whereIdPaket($id_paket)->get()
+            'id_kontrak'   => $id_kontrak,
+            'kontrak_ruas' => KontrakRuas::with('toKontrakRuasItem')->whereIdKontrak($id_kontrak)->get()
         ];
 
-        return Template::load('admin', 'Paket Ruas', 'paket_ruas', 'view', $data);
+        return Template::load('admin', 'Kontrak Ruas', 'kontrak/ruas', 'view', $data);
     }
 
     public function del(Request $request)
     {
         try {
-            $data = PaketRuas::find(my_decrypt($request->id));
+            $data = KontrakRuas::find(my_decrypt($request->id));
 
             $data->delete();
 

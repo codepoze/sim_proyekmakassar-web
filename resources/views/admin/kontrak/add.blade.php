@@ -24,10 +24,10 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route_role('admin.paket.save') }}" method="POST">
+                        <form id="form-add-upd" class="form form-horizontal mt-2" action="{{ route_role('admin.kontrak.save') }}" method="POST">
                             <!-- begin:: id -->
-                            <input type="hidden" name="id_kegiatan" id="id_kegiatan" value="{{ $id_kegiatan }}" />
-                            <input type="hidden" name="id_paket" id="id_paket" />
+                            <input type="hidden" name="id_paket" id="id_paket" value="{{ $id_paket }}" />
+                            <input type="hidden" name="id_kontrak" id="id_kontrak" />
                             <!-- end:: id -->
 
                             <div class="field-input mb-1 row">
@@ -78,15 +78,6 @@
                                     <select class="form-select select2" id="id_teknislap" name="id_teknislap">
                                         <option value=""></option>
                                     </select>
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="field-input mb-1 row">
-                                <div class="col-sm-3">
-                                    <label class="col-form-label" for="nma_paket">Nama Paket&nbsp;*</label>
-                                </div>
-                                <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="nma_paket" name="nma_paket" placeholder="Masukkan nama paket" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -167,6 +158,19 @@
                             </div>
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
+                                    <label class="col-form-label" for="jns_kontrak">Jenis Kontrak&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <select class="form-control form-control-sm" id="jns_kontrak" name="jns_kontrak">
+                                        <option value="">Pilih jenis kontrak</option>
+                                        <option value="utama">Utama</option>
+                                        <option value="adendium">Adendium</option>
+                                    </select>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="foto_lokasi">Foto Lokasi&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
@@ -217,7 +221,7 @@
                             <!-- end:: untuk ruas -->
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <a href="{{ route_role('admin.kegiatan.det', ['id' => my_encrypt($id_kegiatan)]) }}" class="btn btn-sm btn-relief-danger">
+                                    <a href="{{ route_role('admin.paket.det', ['id' => my_encrypt($id_paket)]) }}" class="btn btn-sm btn-relief-danger">
                                         <i data-feather="x"></i>&nbsp;<span>Batal</span>
                                     </a>&nbsp;
                                     <button type="submit" id="save" class="btn btn-sm btn-relief-primary">
