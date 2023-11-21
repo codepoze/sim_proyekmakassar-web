@@ -15,9 +15,10 @@
         "intervention/image": "^2.7",
         "itsgoingd/clockwork": "^5.1",
         "laravel/framework": "^8.75",
-        "laravel/sanctum": "^2.11",
+        "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
         "renatomarinho/laravel-page-speed": "^2.0",
+        "tymon/jwt-auth": "^1.0",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
