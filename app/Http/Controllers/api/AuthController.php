@@ -28,32 +28,38 @@ class AuthController extends Controller
      */
     public function login()
     {
-      $credentials = request(['username', 'password']);
+        $credentials = request(['username', 'password']);
 
-      // untuk check users
-      $checking = [
-        'username' => $credentials['username'],
-        'password' => $credentials['password'],
-        'active'   => 'y'
-      ];
+        // untuk check users
+        $checking = [
+            'username' => $credentials['username'],
+            'password' => $credentials['password'],
+            'active'   => 'y'
+        ];
 
-      if ($token = Auth::attempt($checking)) {
-          // untuk data users
-          $users = User::with(['toRole:id_role,nama,role'])->find(Auth::id());
+        if ($token = Auth::attempt($checking)) {
+            // untuk data users
+            $users = User::with(['toRole:id_role,nama,role'])->find(Auth::id());
 
-          // untuk check role
-          $check = Role::whereRole($users->toRole->role)->first();
-          if ($check !== null) {
+            // untuk check role
+            $check = Role::whereRole($users->toRole->role)->first();
+            if ($check !== null) {
+                if ($check->role === 'kord_teknislap') {
+                    return response([
+                        "message" => "Berhasil Login",
+                        "token"   => $this->respondWithToken($token)->original,
+                    ], Response::HTTP_OK);
+                } else {
+                    return response([
+                        "message" => "Username atau Password Anda Salah!"
+                    ], Response::HTTP_UNAUTHORIZED);
+                }
+            }
+        } else {
             return response([
-              "message" => "Berhasil Login",
-              "token" => $this->respondWithToken($token)->original,
-            ], Response::HTTP_OK);
-          } 
-      } else {
-        return response([
-          "message" => "Username atau Password Anda Salah!"
-        ], Response::HTTP_UNAUTHORIZED);
-      }
+                "message" => "Username atau Password Anda Salah!"
+            ], Response::HTTP_UNAUTHORIZED);
+        }
     }
 
     /**
@@ -85,8 +91,8 @@ class AuthController extends Controller
      */
     public function refresh()
     {
-      $token = JWTAuth::getToken();
-      return $this->respondWithToken(JWTAuth::refresh($token));
+        $token = JWTAuth::getToken();
+        return $this->respondWithToken(JWTAuth::refresh($token));
     }
 
     /**
