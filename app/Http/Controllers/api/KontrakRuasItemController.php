@@ -25,7 +25,7 @@ class KontrakRuasItemController extends Controller
 
   public function showKontrakRuasItemByIdKontrakRuas($id)
   {
-    $kontrakRuasItem = KontrakRuasItem::where('id_kontrak_ruas', $id)->get();
+    $kontrakRuasItem = KontrakRuasItem::whereIdKontrakRuas($id)->latest()->get();
 
     return KontrakRuasItemResource::collection($kontrakRuasItem);
   }
