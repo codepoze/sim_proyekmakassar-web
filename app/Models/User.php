@@ -63,6 +63,12 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Pptk::class, 'id_users', 'id_users');
     }
 
+    // untuk relasi ke tabel teknis lap
+    public function toTeknisLap()
+    {
+        return $this->belongsTo(Teknislap::class, 'id_users', 'id_users');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

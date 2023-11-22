@@ -45,20 +45,28 @@ class AuthController extends Controller
             $check = Role::whereRole($users->toRole->role)->first();
             if ($check !== null) {
                 if ($check->role === 'kord_teknislap') {
+                    $data = [
+                        'id'       => $users->id,
+                        'id_users' => $users->id_users,
+                        'token'    => $this->respondWithToken($token)->original
+                    ];
+
                     return response([
-                        "message" => "Berhasil Login",
-                        "token"   => $this->respondWithToken($token)->original,
+                        "status" => true,
+                        "data"   => $data
                     ], Response::HTTP_OK);
                 } else {
-                    return response([
-                        "message" => "Username atau Password Anda Salah!"
-                    ], Response::HTTP_UNAUTHORIZED);
+                    return response(
+                        ['status' => false, 'title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!'],
+                        Response::HTTP_UNAUTHORIZED
+                    );
                 }
             }
         } else {
-            return response([
-                "message" => "Username atau Password Anda Salah!"
-            ], Response::HTTP_UNAUTHORIZED);
+            return response(
+                ['status' => false, 'title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!'],
+                Response::HTTP_UNAUTHORIZED
+            );
         }
     }
 
