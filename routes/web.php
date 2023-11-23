@@ -223,6 +223,7 @@ Route::group([
         Route::get('/upd/{id}', 'upd')->name('upd');
         Route::get('/det/{id}', 'det')->name('det');
         Route::get('/print/{id}', 'print')->name('print');
+        Route::get('/progress/{id}', 'progress')->name('progress');
         Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
         Route::post('/save', 'save')->name('save');
         Route::post('/del', 'del')->name('del');

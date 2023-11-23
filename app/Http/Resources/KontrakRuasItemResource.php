@@ -16,15 +16,14 @@ class KontrakRuasItemResource extends JsonResource
     {
         return [
             "id_kontrak_ruas_item" => $this->id_kontrak_ruas_item,
-            "id_kontrak_ruas" => $this->id_kontrak_ruas,
-            "id_satuan" => $this->id_satuan,
-            "nama" => $this->nama,
-            "volume" => $this->volume,
-            "harga_hps" => $this->harga_hps,
-            "harga_kontrak" => $this->harga_kontrak,
-            "by_users" => $this->by_users,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
+            "id_kontrak_ruas"      => $this->id_kontrak_ruas,
+            "id_satuan"            => $this->id_satuan,
+            "nama"                 => $this->nama,
+            "harga_hps"            => $this->harga_hps,
+            "harga_kontrak"        => $this->harga_kontrak,
+            "by_users"             => $this->by_users,
+            "created_at"           => $this->created_at,
+            "updated_at"           => $this->updated_at,
         ];
     }
 }

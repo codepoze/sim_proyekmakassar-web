@@ -81,6 +81,22 @@ class KontrakController extends Controller
         return Template::load('admin', 'Detail Kontrak', 'kontrak', 'det', $data);
     }
 
+    public function progress() {
+        $id = last(request()->segments());
+
+        $kontrak = Kontrak::findOrFail(my_decrypt($id));
+
+        // dd($kontrak);
+
+        $data = [
+            'id_kontrak'  => $id,
+            'kontrak'     => $kontrak,
+        ];
+
+        // dd($kontrak);
+        return Template::load('admin', 'Progress Kontrak', 'kontrak', 'progress', $data);
+    }
+
     public function print()
     {
         $id = last(request()->segments());

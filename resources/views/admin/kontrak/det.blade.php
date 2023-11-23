@@ -17,7 +17,13 @@
                         </div>
                         <div class="dt-action-buttons text-end">
                             <div class="dt-buttons d-inline-flex">
-                                <a href="{{ route_role('admin.kontrak.print', ['id' => $id_kontrak]) }}" target="_blank" class="btn btn-action btn-sm btn-relief-info"><i data-feather="printer"></i>&nbsp;Cetak</a>&nbsp;
+                                <a href="{{ route_role('admin.kontrak.progress', ['id' => $id_kontrak]) }}" target="_blank" class="btn btn-sm btn-relief-success">
+                                    <i data-feather="bar-chart"></i>&nbsp;Progress
+                                </a>
+                                &nbsp;
+                                <a href="{{ route_role('admin.kontrak.print', ['id' => $id_kontrak]) }}" target="_blank" class="btn btn-sm btn-relief-info">
+                                    <i data-feather="printer"></i>&nbsp;Cetak
+                                </a>
                             </div>
                         </div>
                     </div>

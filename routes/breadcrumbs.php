@@ -165,6 +165,12 @@ Breadcrumbs::for('admin.kontrak.det', function (BreadcrumbTrail $trail) {
     $trail->push('Detail', '#');
 });
 
+Breadcrumbs::for('admin.kontrak.progress', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Progress', '#');
+});
+
 Breadcrumbs::for('admin.kontrak.upd', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.kontrak.index');
 

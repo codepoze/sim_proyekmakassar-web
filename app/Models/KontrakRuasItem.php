@@ -41,4 +41,10 @@ class KontrakRuasItem extends Model
     {
         return $this->belongsTo(Satuan::class, 'id_satuan', 'id_satuan');
     }
+
+    // untuk relasi ke tabel progress
+    public function toProgress()
+    {
+        return $this->hasMany(Progress::class, 'id_kontrak_ruas_item', 'id_kontrak_ruas_item');
+    }
 }

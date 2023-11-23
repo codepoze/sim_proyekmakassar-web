@@ -58,14 +58,14 @@ class AuthController extends Controller
                 } else {
                     return response(
                         ['status' => false, 'title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!'],
-                        Response::HTTP_UNAUTHORIZED
+                        Response::HTTP_OK
                     );
                 }
             }
         } else {
             return response(
                 ['status' => false, 'title' => 'Gagal!', 'text' => 'Username atau Password Anda salah!', 'type' => 'error', 'button' => 'Ok!'],
-                Response::HTTP_UNAUTHORIZED
+                Response::HTTP_OK
             );
         }
     }
