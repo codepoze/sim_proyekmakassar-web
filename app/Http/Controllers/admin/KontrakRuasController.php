@@ -35,6 +35,8 @@ class KontrakRuasController extends Controller
         try {
             $data = KontrakRuas::find(my_decrypt($request->id));
 
+            del_picture($data->foto);
+
             $data->delete();
 
             $response = ['status' => true,'title' => 'Berhasil!', 'text' => 'Data Sukses di Hapus!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];

@@ -16,6 +16,7 @@ class KontrakRuas extends Model
     protected $fillable = [
         'id_kontrak_ruas',
         'id_kontrak',
+        'foto',
         'nama',
         'by_users'
     ];

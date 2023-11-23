@@ -207,65 +207,74 @@
                             <h4 class="card-title">{{ $row->nama }}</h4>
                         </div>
                     </div>
-                    <div class="card-datatable">
-                        <table class="table table-striped table-bordered table-ruas-item" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th class="text-center">No</th>
-                                    <th class="text-center">Nama</th>
-                                    <th class="text-center">Satuan</th>
-                                    <th class="text-center">Volume</th>
-                                    <th class="text-center">Harga HPS</th>
-                                    <th class="text-center">Harga Kontrak</th>
-                                    <th class="text-center">Jumlah Harga HPS</th>
-                                    <th class="text-center">Jumlah Harga Kontrak</th>
-                                    <th class="text-center">Bobot (%)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @php
-                                $total_hps = $row->toKontrakRuasItem->sum(function ($item) {
-                                return $item->volume * $item->harga_hps;
-                                });
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="mt-2">
+                                    <img src="{{ asset_upload('picture/'.$row->foto)  }}" class="img-fluid mx-auto d-block" id="lihat-gambar" alt="{{ $kontrak->nma_paket }}" />
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <table class="table table-striped table-bordered table-ruas-item" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">No</th>
+                                            <th class="text-center">Nama</th>
+                                            <th class="text-center">Satuan</th>
+                                            <th class="text-center">Volume</th>
+                                            <th class="text-center">Harga HPS</th>
+                                            <th class="text-center">Harga Kontrak</th>
+                                            <th class="text-center">Jumlah Harga HPS</th>
+                                            <th class="text-center">Jumlah Harga Kontrak</th>
+                                            <th class="text-center">Bobot (%)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @php
+                                        $total_hps = $row->toKontrakRuasItem->sum(function ($item) {
+                                        return $item->volume * $item->harga_hps;
+                                        });
 
-                                $total_kontrak = $row->toKontrakRuasItem->sum(function ($item) {
-                                return $item->volume * $item->harga_kontrak;
-                                });
+                                        $total_kontrak = $row->toKontrakRuasItem->sum(function ($item) {
+                                        return $item->volume * $item->harga_kontrak;
+                                        });
 
-                                $bobot = 0;
-                                @endphp
+                                        $bobot = 0;
+                                        @endphp
 
-                                @foreach ($row->toKontrakRuasItem as $key => $value)
+                                        @foreach ($row->toKontrakRuasItem as $key => $value)
 
-                                @php
-                                $jumlah_hps = ($value->volume * $value->harga_hps);
-                                $jumlah_kontrak = ($value->volume * $value->harga_kontrak);
-                                $jumlah_bobot = (($jumlah_kontrak / $total_kontrak) * 100);
-                                $bobot += $jumlah_bobot;
-                                @endphp
+                                        @php
+                                        $jumlah_hps = ($value->volume * $value->harga_hps);
+                                        $jumlah_kontrak = ($value->volume * $value->harga_kontrak);
+                                        $jumlah_bobot = (($jumlah_kontrak / $total_kontrak) * 100);
+                                        $bobot += $jumlah_bobot;
+                                        @endphp
 
-                                <tr>
-                                    <td class="text-center">{{ $key+1 }}</td>
-                                    <td class="text-center">{{ $value->nama }}</td>
-                                    <td class="text-center">{{ $value->toSatuan->nama }}</td>
-                                    <td class="text-center">{{ $value->volume }}</td>
-                                    <td class="text-center">{{ rupiah($value->harga_hps) }}</td>
-                                    <td class="text-center">{{ rupiah($value->harga_kontrak) }}</td>
-                                    <td class="text-center">{{ rupiah($jumlah_hps) }}</td>
-                                    <td class="text-center">{{ rupiah($jumlah_kontrak) }}</td>
-                                    <td class="text-center">{{ number_format($jumlah_bobot, 2) }}</td>
-                                </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th class="text-center" colspan="6">Total Nilai Per Ruas</th>
-                                    <th class="text-center">{{ rupiah($total_hps) }}</th>
-                                    <th class="text-center">{{ rupiah($total_kontrak) }}</th>
-                                    <th class="text-center">{{ number_format($bobot, 2) }}</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                        <tr>
+                                            <td class="text-center">{{ $key+1 }}</td>
+                                            <td class="text-center">{{ $value->nama }}</td>
+                                            <td class="text-center">{{ $value->toSatuan->nama }}</td>
+                                            <td class="text-center">{{ $value->volume }}</td>
+                                            <td class="text-center">{{ rupiah($value->harga_hps) }}</td>
+                                            <td class="text-center">{{ rupiah($value->harga_kontrak) }}</td>
+                                            <td class="text-center">{{ rupiah($jumlah_hps) }}</td>
+                                            <td class="text-center">{{ rupiah($jumlah_kontrak) }}</td>
+                                            <td class="text-center">{{ number_format($jumlah_bobot, 2) }}</td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th class="text-center" colspan="6">Total Nilai Per Ruas</th>
+                                            <th class="text-center">{{ rupiah($total_hps) }}</th>
+                                            <th class="text-center">{{ rupiah($total_kontrak) }}</th>
+                                            <th class="text-center">{{ number_format($bobot, 2) }}</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

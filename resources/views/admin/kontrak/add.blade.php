@@ -206,11 +206,16 @@
                                 </div>
                                 <div class="col-sm-9">
                                     <div class="row my-1 ruas">
-                                        <div class="field-input col-9">
+                                        <div class="field-input col-5">
+                                            <input type="file" id="foto_0" name="foto[]" class="form-control form-control-sm" />
+                                            <p><small class="text-muted">File dengan tipe (*.png,*.jpg,*.jpeg).</small></p>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="field-input col-5">
                                             <input type="text" id="nama_ruas_0" name="nama_ruas[]" class="form-control form-control-sm" placeholder="Masukkan nama ruas" />
                                             <div class="invalid-feedback"></div>
                                         </div>
-                                        <div class="col-3 d-flex justify-content-center">
+                                        <div class="col-2 justify-content-center">
                                             <button type="button" id="add" class="btn btn-sm btn-relief-success">
                                                 <span>Tambah</span>
                                             </button>
@@ -405,12 +410,16 @@
 
                 var html = `
                 <div class="row my-1 ruas-ini">
-                    <div class="field-input col-9">
-                        <input type="text" id="nama_ruas_` + i + `" name="nama_ruas[]" class="form-control form-control-sm"
-                            placeholder="Masukkan nama ruas" />
+                    <div class="field-input col-5">
+                        <input type="file" id="foto_` + i + `" name="foto[]" class="form-control form-control-sm" />
+                        <p><small class="text-muted">File dengan tipe (*.png,*.jpg,*.jpeg).</small></p>
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="col-3 d-flex justify-content-center">
+                    <div class="field-input col-5">
+                        <input type="text" id="nama_ruas_` + i + `" name="nama_ruas[]" class="form-control form-control-sm" placeholder="Masukkan nama ruas" />
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="col-2 justify-content-center">
                         <button type="button" id="del" class="btn btn-sm btn-relief-danger">
                             <span>Hapus</span>
                         </button>

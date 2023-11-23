@@ -81,7 +81,8 @@ class KontrakController extends Controller
         return Template::load('admin', 'Detail Kontrak', 'kontrak', 'det', $data);
     }
 
-    public function progress() {
+    public function progress()
+    {
         $id = last(request()->segments());
 
         $kontrak = Kontrak::findOrFail(my_decrypt($id));
@@ -230,6 +231,16 @@ class KontrakController extends Controller
             ];
 
             foreach ($data['nama_ruas'] as $key => $value) {
+                $rules['foto_' . $key] = 'required|mimes:png,jpg,jpeg';
+                $rules['nama_ruas_' . $key] = 'required';
+
+                $messages['foto_' . $key . '.required'] = 'Gambar Ruas tidak boleh kosong!';
+                $messages['foto_' . $key . '.mimes'] = 'Gambar Ruas harus berupa file PNG, JPG, atau JPEG!';
+                $messages['nama_ruas_' . $key . '.required'] = 'Nilai Ruas tidak boleh kosong!';
+            }
+
+            foreach ($data['nama_ruas'] as $key => $value) {
+                $data['foto_' . $key] = $data['foto'][$key] ?? null;
                 $data['nama_ruas_' . $key] = $value;
             }
         } else {
@@ -295,16 +306,35 @@ class KontrakController extends Controller
                 $messages['laporan.mimes']    = 'Dokumen Pro harus format pdf!';
             }
 
-            foreach ($data['nama_ruas'] as $key => $value) {
-                $data['id_kontrak_ruas_' . $key]    = $data['id_kontrak_ruas'][$key];
-                $data['nama_ruas_' . $key] = $value;
+            $id_ruas_paket = $data['id_kontrak_ruas'];
+
+            rsort($id_ruas_paket);
+
+            foreach ($id_ruas_paket as $key => $value) {
+                // untuk data
+                $data['id_kontrak_ruas_' . $key] = $value;
+                $data['nama_ruas_' . $key] = $data['nama_ruas_' . $key];
+
+                // untuk validasi
+                $rules['nama_ruas_' . $key] = 'required';
+                $messages['nama_ruas_' . $key . '.required'] = 'Nilai Ruas tidak boleh kosong!';
+
+                if ((int) $value === 0) {
+                    // untuk validasi
+                    $rules['foto_' . $key] = 'required|mimes:png,jpg,jpeg';
+
+                    $messages['foto_' . $key . '.required'] = 'Gambar Ruas tidak boleh kosong!';
+                    $messages['foto_' . $key . '.mimes'] = 'Gambar Ruas harus berupa file PNG, JPG, atau JPEG!';
+                } else {
+                    if (isset($data['change_picture_ruas_' . $key]) && $data['change_picture_ruas_' . $key] === 'on') {
+                        // untuk validasi
+                        $rules['foto_' . $key] = 'required|mimes:png,jpg,jpeg';
+
+                        $messages['foto_' . $key . '.required'] = 'Gambar Ruas tidak boleh kosong!';
+                        $messages['foto_' . $key . '.mimes'] = 'Gambar Ruas harus berupa file PNG, JPG, atau JPEG!';
+                    }
+                }
             }
-        }
-
-        foreach ($data['nama_ruas'] as $key => $value) {
-            $rules['nama_ruas_' . $key] = 'required';
-
-            $messages['nama_ruas_' . $key . '.required'] = 'Nilai Ruas tidak boleh kosong!';
         }
 
         $validator = Validator::make($data, $rules, $messages);
@@ -348,8 +378,11 @@ class KontrakController extends Controller
                 $id_kontrak = $kontrak->id_kontrak;
 
                 foreach ($data['nama_ruas'] as $key => $value) {
+                    $foto = add_picture($data['foto_' . $key]);
+
                     KontrakRuas::create([
                         'id_kontrak' => $id_kontrak,
+                        'foto'       => $foto,
                         'nama'       => $value,
                         'by_users'   => $this->session['id_users'],
                     ]);
@@ -362,7 +395,7 @@ class KontrakController extends Controller
                 $kontrak    = Kontrak::find($id_kontrak);
 
                 if ($request->change_picture_lokasi === 'on') {
-                    $foto_lokasi          = upd_picture($request->foto_lokasi, $paket->foto_lokasi);
+                    $foto_lokasi          = upd_picture($request->foto_lokasi, $kontrak->foto_lokasi);
                     $kontrak->foto_lokasi = $foto_lokasi;
                 }
 
@@ -393,21 +426,32 @@ class KontrakController extends Controller
                 $kontrak->by_users          = $this->session['id_users'];
                 $kontrak->save();
 
-                foreach ($data['nama_ruas'] as $key => $value) {
-                    $id_ruas_paket = (int) $data['id_kontrak_ruas_' . $key];
-                    $nama          = $data['nama_ruas_' . $key];
+                $id_ruas_paket = $data['id_kontrak_ruas'];
 
-                    if ($id_ruas_paket !== 0) {
-                        $ruas = KontrakRuas::find($id_ruas_paket);
-                        $ruas->update([
-                            'nama'     => $nama,
-                            'by_users' => $this->session['id_users'],
-                        ]);
+                rsort($id_ruas_paket);
+
+                foreach ($id_ruas_paket as $key => $value) {
+                    $nama = $data['nama_ruas_' . $key];
+
+                    if ((int) $value !== 0) {
+                        $ruas = KontrakRuas::find($value);
+
+                        if (isset($data['change_picture_ruas_' . $key]) && $data['change_picture_ruas_' . $key] === 'on') {
+                            $foto       = upd_picture($data['foto_' . $key], $ruas->foto);
+                            $ruas->foto = $foto;
+                        }
+
+                        $ruas->nama = $nama;
+                        $ruas->by_users = $this->session['id_users'];
+                        $ruas->save();
                     } else {
+                        $foto = add_picture($data['foto_' . $key]);
+
                         KontrakRuas::create([
-                            'id_paket' => $id_paket,
-                            'nama'     => $nama,
-                            'by_users' => $this->session['id_users'],
+                            'id_kontrak' => $id_kontrak,
+                            'foto'       => $foto,
+                            'nama'       => $nama,
+                            'by_users'   => $this->session['id_users'],
                         ]);
                     }
                 }

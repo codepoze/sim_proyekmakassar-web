@@ -80,7 +80,7 @@ class PptkController extends Controller
         if ($request->id_pptk === null) {
             $rule = [
                 'nik'     => 'required|numeric|digits:16|unique:users,username',
-                'nip'     => 'required|numeric|digits:16',
+                'nip'     => 'required|numeric|digits:16|unique:pptk,nip',
                 'nama'    => 'required',
                 'email'   => 'required|email',
             ];

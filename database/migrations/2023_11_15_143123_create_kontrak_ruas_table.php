@@ -16,6 +16,7 @@ class CreateKontrakRuasTable extends Migration
         Schema::create('kontrak_ruas', function (Blueprint $table) {
             $table->increments('id_kontrak_ruas');
             $table->integer('id_kontrak')->unsigned()->nullable();
+            $table->binary('foto')->nullable();
             $table->text('nama')->nullable();
 
             $table->integer('by_users')->nullable();

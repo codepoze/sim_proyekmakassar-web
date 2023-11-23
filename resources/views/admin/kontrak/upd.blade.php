@@ -213,11 +213,21 @@
                                     <input type="hidden" name="id_kontrak_ruas[]" value="{{ $row->id_kontrak_ruas }}" />
                                     @if ($key === 0)
                                     <div class="row my-1 ruas">
-                                        <div class="field-input col-9">
-                                            <input type="text" id="nama_ruas_0" name="nama_ruas[]" class="form-control form-control-sm" placeholder="Masukkan nama ruas" value="{{ $row->nama }}" />
+                                        <div class="field-input col-5">
+                                            <input type="file" name="foto_0" class="form-control form-control-sm" disabled="disabled" />
+                                            <div style="padding-top: 10px">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="checkbox" class="form-check-input" name="change_picture_ruas_0" id="change_picture_ruas_0" onclick="change('change_picture_ruas_0', 'foto_0')"><label class="form-check-label">Ubah Gambar!</label>
+                                                </div>
+                                            </div>
+                                            <p><small class="text-muted">File dengan tipe (*.png,*.jpg,*.jpeg).</small></p>
                                             <div class="invalid-feedback"></div>
                                         </div>
-                                        <div class="col-3 d-flex justify-content-center">
+                                        <div class="field-input col-5">
+                                            <input type="text" id="nama_ruas_0" name="nama_ruas_0" class="form-control form-control-sm" placeholder="Masukkan nama ruas" value="{{ $row->nama }}" />
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-2 justify-content-center">
                                             <button type="button" id="add" class="btn btn-sm btn-relief-success">
                                                 <span>Tambah</span>
                                             </button>
@@ -225,11 +235,21 @@
                                     </div>
                                     @else
                                     <div class="row my-1 ruas-ini">
-                                        <div class="field-input col-9">
-                                            <input type="text" id="nama_ruas_{{ $key }}" name="nama_ruas[]" class="form-control form-control-sm" placeholder="Masukkan nama ruas" value="{{ $row->nama }}" />
+                                        <div class="field-input col-5">
+                                            <input type="file" name="foto_{{ $key }}" class="form-control form-control-sm" disabled="disabled" />
+                                            <div style="padding-top: 10px">
+                                                <div class="form-check form-check-inline">
+                                                    <input type="checkbox" class="form-check-input" name="change_picture_ruas_{{ $key }}" id="change_picture_ruas_{{ $key }}" onclick="change('change_picture_ruas_{{ $key }}', 'foto_{{ $key }}')"><label class="form-check-label">Ubah Gambar!</label>
+                                                </div>
+                                            </div>
+                                            <p><small class="text-muted">File dengan tipe (*.png,*.jpg,*.jpeg).</small></p>
                                             <div class="invalid-feedback"></div>
                                         </div>
-                                        <div class="col-3 d-flex justify-content-center">
+                                        <div class="field-input col-5">
+                                            <input type="text" id="nama_ruas_{{ $key }}" name="nama_ruas_{{ $key }}" class="form-control form-control-sm" placeholder="Masukkan nama ruas" value="{{ $row->nama }}" />
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-2 justify-content-center">
                                             <button type="button" id="del" data-id="{{ my_encrypt($row->id_kontrak_ruas) }}" class="btn btn-sm btn-relief-danger">
                                                 <span>Hapus</span>
                                             </button>
@@ -379,12 +399,17 @@
                 var html = `
                 <input type="hidden" name="id_kontrak_ruas[]" value="0" />
                 <div class="row my-1 ruas-ini">
-                    <div class="field-input col-9">
-                        <input type="text" id="nama_ruas_` + i + `" name="nama_ruas[]" class="form-control form-control-sm"
+                    <div class="field-input col-5">
+                        <input type="file" id="foto_` + i + `" name="foto_` + i + `" class="form-control form-control-sm" />
+                        <p><small class="text-muted">File dengan tipe (*.png,*.jpg,*.jpeg).</small></p>
+                        <div class="invalid-feedback"></div>
+                    </div>
+                    <div class="field-input col-5">
+                        <input type="text" id="nama_ruas_` + i + `" name="nama_ruas_` + i + `" class="form-control form-control-sm"
                             placeholder="Masukkan nama ruas" />
                         <div class="invalid-feedback"></div>
                     </div>
-                    <div class="col-3 d-flex justify-content-center">
+                    <div class="col-2 justify-content-center">
                         <button type="button" id="del" class="btn btn-sm btn-relief-danger">
                             <span>Hapus</span>
                         </button>
@@ -417,6 +442,7 @@
                                 buttonsStyling: false,
                             }).then((value) => {
                                 ini.parents(".ruas-ini").remove();
+                                location.reload();
                             });
                         } else {
                             Swal.fire({
@@ -443,6 +469,7 @@
                         buttonsStyling: false,
                     }).then((value) => {
                         ini.parents(".ruas-ini").remove();
+                        location.reload();
                     });
                 }
             });
