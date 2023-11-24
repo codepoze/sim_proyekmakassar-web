@@ -97,7 +97,7 @@
                                 $total_jumlah_harga += $jumlah_harga;
                                 $bobot_cco += $jumlah_bobot_cco;
 
-                                $selisih = ($jumlah_kontrak - $jumlah_harga);
+                                $selisih = abs($jumlah_kontrak - $jumlah_harga);
 
                                 $bertambah = ($jumlah_kontrak > $jumlah_harga ? $selisih : 0);
                                 $berkurang = ($jumlah_kontrak < $jumlah_harga ? $selisih : 0);

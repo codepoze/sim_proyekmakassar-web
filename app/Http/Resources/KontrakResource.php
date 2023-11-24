@@ -17,7 +17,7 @@ class KontrakResource extends JsonResource
         // return parent::toArray($request);
         return [
             "id_kontrak"        => $this->id_kontrak,
-            "id_paket"          => $this->id_paket,
+            "paket"             => $this->toPaket,
             "penyedia"          => $this->toPenyedia,
             "konsultan"         => $this->toKonsultan,
             "id_teknislap"      => $this->id_teknislap,
