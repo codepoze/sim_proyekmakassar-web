@@ -54,44 +54,24 @@ class TeknislapAnggController extends Controller
 
     public function save(Request $request)
     {
-        if ($request->id_teknislap_angg === null) {
-            $rule = [
-                'nik'     => 'required|numeric|digits:16|unique:teknislap_angg,nik',
-                'nama'    => 'required',
-                'telepon' => 'required|numeric|digits_between:10,13',
-                'alamat'  => 'required',
-            ];
+        $rule = [
+            'nik'     => 'required|numeric|digits:16|unique:teknislap_angg,nik',
+            'nama'    => 'required',
+            'telepon' => 'required|numeric|digits_between:10,13',
+            'alamat'  => 'required',
+        ];
 
-            $message = [
-                'nik.required'     => 'NIK tidak boleh kosong!',
-                'nik.numeric'      => 'NIK harus berupa angka!',
-                'nik.digits'       => 'NIK harus 16 digit!',
-                'nik.unique'       => 'NIK sudah terdaftar!',
-                'nama.required'    => 'Nama tidak boleh kosong!',
-                'telepon.required' => 'Telepon tidak boleh kosong!',
-                'telepon.numeric'  => 'Telepon harus berupa angka!',
-                'telepon.digits'   => 'Telepon harus 10-13 digit!',
-                'alamat.required'  => 'Alamat tidak boleh kosong!',
-            ];
-        } else {
-            $rule = [
-                'nik'     => 'required|numeric|digits:16',
-                'nama'    => 'required',
-                'telepon' => 'required|numeric|digits_between:10,13',
-                'alamat'  => 'required',
-            ];
-
-            $message = [
-                'nik.required'     => 'NIK tidak boleh kosong!',
-                'nik.numeric'      => 'NIK harus berupa angka!',
-                'nik.digits'       => 'NIK harus 16 digit!',
-                'nama.required'    => 'Nama tidak boleh kosong!',
-                'telepon.required' => 'Telepon tidak boleh kosong!',
-                'telepon.numeric'  => 'Telepon harus berupa angka!',
-                'telepon.digits'   => 'Telepon harus 10-13 digit!',
-                'alamat.required'  => 'Alamat tidak boleh kosong!',
-            ];
-        }
+        $message = [
+            'nik.required'     => 'NIK tidak boleh kosong!',
+            'nik.numeric'      => 'NIK harus berupa angka!',
+            'nik.digits'       => 'NIK harus 16 digit!',
+            'nik.unique'       => 'NIK sudah terdaftar!',
+            'nama.required'    => 'Nama tidak boleh kosong!',
+            'telepon.required' => 'Telepon tidak boleh kosong!',
+            'telepon.numeric'  => 'Telepon harus berupa angka!',
+            'telepon.digits'   => 'Telepon harus 10-13 digit!',
+            'alamat.required'  => 'Alamat tidak boleh kosong!',
+        ];
 
         $validator = Validator::make($request->all(), $rule, $message);
 
