@@ -77,25 +77,53 @@ class PptkController extends Controller
 
     public function save(Request $request)
     {
-        $rule = [
-            'nik'     => 'required|numeric|digits:16|unique:users,username',
-            'nip'     => 'required|numeric|digits:16|unique:pptk,nip',
-            'nama'    => 'required',
-            'email'   => 'required|email',
-        ];
+        if ($request->id_pptk === null) {
+            $rule = [
+                'nik'     => 'required|numeric|digits:16|unique:users,username',
+                'nip'     => 'required|numeric|digits:16|unique:pptk,nip',
+                'nama'    => 'required',
+                'email'   => 'required|email',
+            ];
 
-        $message = [
-            'nik.required'     => 'NIK tidak boleh kosong!',
-            'nik.numeric'      => 'NIK harus berupa angka!',
-            'nik.digits'       => 'NIK harus 16 digit!',
-            'nik.unique'       => 'NIK sudah terdaftar!',
-            'nip.required'     => 'NIP tidak boleh kosong!',
-            'nip.numeric'      => 'NIP harus berupa angka!',
-            'nip.digits'       => 'NIP harus 16 digit!',
-            'nama.required'    => 'Nama tidak boleh kosong!',
-            'email.required'   => 'Email tidak boleh kosong!',
-            'email.email'      => 'Email tidak valid!',
-        ];
+            $message = [
+                'nik.required'     => 'NIK tidak boleh kosong!',
+                'nik.numeric'      => 'NIK harus berupa angka!',
+                'nik.digits'       => 'NIK harus 16 digit!',
+                'nik.unique'       => 'NIK sudah terdaftar!',
+                'nip.required'     => 'NIP tidak boleh kosong!',
+                'nip.numeric'      => 'NIP harus berupa angka!',
+                'nip.unique'       => 'NIP sudah terdaftar!',
+                'nip.digits'       => 'NIP harus 16 digit!',
+                'nama.required'    => 'Nama tidak boleh kosong!',
+                'email.required'   => 'Email tidak boleh kosong!',
+                'email.email'      => 'Email tidak valid!',
+            ];
+        } else {
+            $id_pptk = $request->id_pptk;
+            $pptk    = Pptk::find($id_pptk);
+            $users   = User::find($pptk->id_users);
+
+            $rule = [
+                'nik'     => 'required|numeric|digits:16|unique:users,username,' . $users->id_users . ',id_users',
+                'nip'     => 'required|numeric|digits:16|unique:pptk,nip,' . $id_pptk . ',id_pptk',
+                'nama'    => 'required',
+                'email'   => 'required|email',
+            ];
+
+            $message = [
+                'nik.required'     => 'NIK tidak boleh kosong!',
+                'nik.numeric'      => 'NIK harus berupa angka!',
+                'nik.digits'       => 'NIK harus 16 digit!',
+                'nik.unique'       => 'NIK sudah terdaftar!',
+                'nip.required'     => 'NIP tidak boleh kosong!',
+                'nip.numeric'      => 'NIP harus berupa angka!',
+                'nip.unique'       => 'NIP sudah terdaftar!',
+                'nip.digits'       => 'NIP harus 16 digit!',
+                'nama.required'    => 'Nama tidak boleh kosong!',
+                'email.required'   => 'Email tidak boleh kosong!',
+                'email.email'      => 'Email tidak valid!',
+            ];
+        }
 
         $validator = Validator::make($request->all(), $rule, $message);
 
