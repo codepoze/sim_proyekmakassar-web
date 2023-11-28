@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Libraries\Pdf;
 use App\Libraries\Template;
 use App\Models\Kontrak;
+use App\Models\KontrakRencana;
 use App\Models\KontrakRuas;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\Facades\DataTables;
@@ -87,14 +89,11 @@ class KontrakController extends Controller
 
         $kontrak = Kontrak::findOrFail(my_decrypt($id));
 
-        // dd($kontrak);
-
         $data = [
             'id_kontrak'  => $id,
             'kontrak'     => $kontrak,
         ];
 
-        // dd($kontrak);
         return Template::load('admin', 'Progress Kontrak', 'kontrak', 'progress', $data);
     }
 
@@ -243,6 +242,24 @@ class KontrakController extends Controller
                 $data['foto_' . $key] = $data['foto'][$key] ?? null;
                 $data['nama_ruas_' . $key] = $value;
             }
+
+            if ($data['tgl_kontrak_mulai'] != '' || $data['tgl_kontrak_akhir'] != '') {
+                if (empty($data['bobot_rencana'])) {
+                    $response = ['title' => 'Gagal!', 'text'  => 'Bobot Rencana tidak boleh kosong!', 'type'  => 'error', 'button' => 'Ok!', 'class' => 'danger'];
+
+                    return Response::json($response);
+                } else {
+                    foreach ($data['bobot_rencana'] as $key => $value) {
+                        $rules['bobot_rencana_' . $key] = 'required';
+
+                        $messages['bobot_rencana_' . $key . '.required'] = 'Bobot Rencana tidak boleh kosong!';
+                    }
+
+                    foreach ($data['bobot_rencana'] as $key => $value) {
+                        $data['bobot_rencana_' . $key] = $value;
+                    }
+                }
+            }
         } else {
             // ubah
             $rules = [
@@ -335,6 +352,20 @@ class KontrakController extends Controller
                     }
                 }
             }
+
+            if ($data['tgl_kontrak_mulai'] != '' || $data['tgl_kontrak_akhir'] != '') {
+                if (isset($data['bobot_rencana'])) {
+                    foreach ($data['bobot_rencana'] as $key => $value) {
+                        $rules['bobot_rencana_' . $key] = 'required';
+
+                        $messages['bobot_rencana_' . $key . '.required'] = 'Bobot Rencana tidak boleh kosong!';
+                    }
+
+                    foreach ($data['bobot_rencana'] as $key => $value) {
+                        $data['bobot_rencana_' . $key] = $value;
+                    }
+                }
+            }
         }
 
         $validator = Validator::make($data, $rules, $messages);
@@ -345,6 +376,7 @@ class KontrakController extends Controller
             return Response::json($response);
         }
 
+        DB::beginTransaction();
         try {
             if ($request->id_kontrak === null) {
                 // tambah
@@ -385,6 +417,14 @@ class KontrakController extends Controller
                         'foto'       => $foto,
                         'nama'       => $value,
                         'by_users'   => $this->session['id_users'],
+                    ]);
+                }
+
+                foreach ($data['bobot_rencana'] as $key => $value) {
+                    KontrakRencana::create([
+                        'id_kontrak' => $id_kontrak,
+                        'minggu_ke'  => $key + 1,
+                        'bobot'      => $value,
                     ]);
                 }
 
@@ -456,9 +496,42 @@ class KontrakController extends Controller
                     }
                 }
 
+                if (isset($data['id_kontrak_rencana'])) {
+                    $id_kontrak_rencana = $data['id_kontrak_rencana'];
+
+                    $check_rencana = KontrakRencana::whereIdKontrak($id_kontrak)->get()->count();
+                    $data_rencana  = [];
+                    foreach ($id_kontrak_rencana as $key => $value) {
+                        $bobot = $data['bobot_rencana_' . $key];
+
+                        if ((int) $value !== 0) {
+                            $data_rencana[] = $value;
+
+                            $rencana = KontrakRencana::find($value);
+
+                            $rencana->minggu_ke = $key + 1;
+                            $rencana->bobot     = $bobot;
+                            $rencana->save();
+                        } else {
+                            KontrakRencana::create([
+                                'id_kontrak' => $id_kontrak,
+                                'minggu_ke'  => $key + 1,
+                                'bobot'      => $bobot,
+                            ]);
+                        }
+                    }
+
+                    if (count($id_kontrak_rencana) < $check_rencana) {
+                        KontrakRencana::whereNotIn('id_kontrak_rencana', $data_rencana)->whereIdKontrak($id_kontrak)->delete();
+                    }
+                }
+
                 $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route_role('admin.kontrak.ruas.index', ['id' => my_encrypt($id_kontrak)])];
             }
+            DB::commit();
         } catch (\Exception $e) {
+            DB::rollback();
+
             $response = ['title' => 'Gagal!', 'text' => 'Data Gagal di Proses!', 'type' => 'error', 'button' => 'Ok!', 'class' => 'danger'];
         }
 
@@ -486,5 +559,57 @@ class KontrakController extends Controller
             $response = ['title' => 'Maaf!', 'text' => 'Password Anda Salah!', 'type' => 'warning', 'button' => 'Ok!', 'class' => 'warning'];
         }
         return Response::json($response);
+    }
+
+    public function rencana(Request $request)
+    {
+        $tgl_kontrak_mulai = date("Y-m-d", strtotime($request->tgl_kontrak_mulai));
+        $tgl_kontrak_akhir = date("Y-m-d", strtotime($request->tgl_kontrak_akhir));
+        $count_weeks       = count_weeks($tgl_kontrak_akhir, $tgl_kontrak_mulai);
+
+        $html = '';
+        $ke = 1;
+
+        if (empty($request->id_kontrak)) {
+            for ($i = 0; $i < $count_weeks; $i++) {
+                $html .= '<div class="col-12">';
+                $html .= '<div class="field-input mb-1 row">';
+                $html .= '<div class="col-sm-3">';
+                $html .= '<label class="col-form-label" for="bobot_rencana_' . $i . '">Minggu ke-' . $ke . '&nbsp;*</label>';
+                $html .= '</div>';
+                $html .= '<div class="col-sm-9">';
+                $html .= '<input type="text" class="form-control form-control-sm" id="bobot_rencana_' . $i . '" name="bobot_rencana[]" placeholder="Masukkan bobot Minggu ke-' . $ke . '" />';
+                $html .= '<div class="invalid-feedback"></div>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '</div>';
+
+                $ke++;
+            }
+        } else {
+            $kontrak_rencana = KontrakRencana::where('id_kontrak', my_decrypt($request->id_kontrak))->get()->toArray();
+
+            for ($i = 0; $i < $count_weeks; $i++) {
+                $id_kontrak_rencana = $kontrak_rencana[$i]['id_kontrak_rencana'] ?? 0;
+                $bobot              = $kontrak_rencana[$i]['bobot'] ?? '';
+
+                $html .= '<input type="hidden" name="id_kontrak_rencana[]" value="' . $id_kontrak_rencana . '" />';
+                $html .= '<div class="col-12">';
+                $html .= '<div class="field-input mb-1 row">';
+                $html .= '<div class="col-sm-3">';
+                $html .= '<label class="col-form-label" for="bobot_rencana_' . $i . '">Minggu ke-' . $ke . '&nbsp;*</label>';
+                $html .= '</div>';
+                $html .= '<div class="col-sm-9">';
+                $html .= '<input type="text" class="form-control form-control-sm" id="bobot_rencana_' . $i . '" name="bobot_rencana[]" placeholder="Masukkan bobot Minggu ke-' . $ke . '" value="' . $bobot . '" />';
+                $html .= '<div class="invalid-feedback"></div>';
+                $html .= '</div>';
+                $html .= '</div>';
+                $html .= '</div>';
+
+                $ke++;
+            }
+        }
+
+        return $html;
     }
 }

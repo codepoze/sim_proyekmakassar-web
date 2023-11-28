@@ -96,13 +96,18 @@
                                 </div>
                                 <div class="col-sm-9 my-auto">
                                     <div class="row">
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-5">
                                             <input type="date" class="form-control form-control-sm" id="tgl_kontrak_mulai" name="tgl_kontrak_mulai" placeholder="Masukkan tanggal mulai kontrak" value="{{ $kontrak->tgl_kontrak_mulai }}" />
                                             <div class="invalid-feedback"></div>
                                         </div>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-5">
                                             <input type="date" class="form-control form-control-sm" id="tgl_kontrak_akhir" name="tgl_kontrak_akhir" placeholder="Masukkan tanggal akhir kontrak" value="{{ $kontrak->tgl_kontrak_akhir }}" />
                                             <div class="invalid-feedback"></div>
+                                        </div>
+                                        <div class="col-sm-2">
+                                            <button type="button" id="add-rencana" class="btn btn-sm btn-relief-success">
+                                                <span>Rencana</span>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -270,6 +275,29 @@
                                     </button>
                                 </div>
                             </div>
+
+                            <!-- begin:: modal rencana -->
+                            <div id="modal-kontrak-rencana" class="modal fade text-start" tabindex="-1" role="dialog" data-bs-backdrop="static" data-bs-keyboard="false">
+                                <div class="modal-dialog modal-lg modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title">Rencana Mingguan</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!-- begin:: untuk loading -->
+                                            <div id="form-loading"></div>
+                                            <!-- end:: untuk loading -->
+                                            <div id="form-show" class="html-kontrak-rencana"></div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-sm btn-relief-success" data-bs-dismiss="modal">
+                                                <i data-feather="save"></i>&nbsp;<span>Simpan</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end:: modal rencana -->
                         </form>
                     </div>
                 </div>
@@ -318,6 +346,8 @@
                                 location.href = response.url;
                             });
                         } else {
+                            let checkBobotRencana = [];
+
                             $.each(response.errors, function(key, value) {
                                 if (key) {
                                     if (($('#' + key).prop('tagName') === 'INPUT' || $('#' + key).prop('tagName') === 'TEXTAREA')) {
@@ -328,7 +358,19 @@
                                         $('#' + key).parents('.field-input').find('.invalid-feedback').html(value);
                                     }
                                 }
+
+                                if ($("input[name='bobot_rencana[]']").length > 0) {
+                                    for (let i = 0; i < $("input[name='bobot_rencana[]']").length; i++) {
+                                        if (key === 'bobot_rencana_' + i) {
+                                            checkBobotRencana.push(key);
+                                        }
+                                    }
+                                }
                             });
+
+                            if ($("input[name='bobot_rencana[]']").length > 0 && checkBobotRencana.length > 0) {
+                                $('#modal-kontrak-rencana').modal('show');
+                            }
 
                             Swal.fire({
                                 title: response.title,
@@ -386,6 +428,40 @@
                     $(this).removeClass('is-valid').addClass('is-invalid');
                 } else {
                     $(this).removeClass('is-invalid').addClass('is-valid');
+                }
+            });
+        }();
+
+        let untukKontrakRencana = function() {
+            $(document).on("click", "#add-rencana", function() {
+                let tglKontraMulai = $('#tgl_kontrak_mulai').val();
+                let tglKontrakAkhir = $('#tgl_kontrak_akhir').val();
+
+                if (tglKontraMulai == '' || tglKontrakAkhir == '') {
+                    alert('Silahkan isi schedule!');
+                } else {
+                    $.ajax({
+                        method: 'POST',
+                        url: "{{ route_role('admin.kontrak.rencana') }}",
+                        dataType: 'html',
+                        data: {
+                            id_kontrak: '{{ $id_kontrak }}',
+                            tgl_kontrak_mulai: tglKontraMulai,
+                            tgl_kontrak_akhir: tglKontrakAkhir
+                        },
+                        beforeSend: function() {
+                            $('#form-loading').html(`<div class="center"><div class="loader"></div></div>`);
+                            $('#form-show').attr('style', 'display: none');
+                        },
+                        success: function(response) {
+                            $('#modal-kontrak-rencana .html-kontrak-rencana').html(response);
+
+                            $('#form-loading').empty();
+                            $('#form-show').removeAttr('style');
+                        }
+                    });
+
+                    $('#modal-kontrak-rencana').modal('show');
                 }
             });
         }();

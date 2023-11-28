@@ -15,6 +15,7 @@ class Progress extends Model
     // untuk fillable
     protected $fillable = [
         "id_progress",
+        "id_kontrak_rencana",
         "id_kontrak_ruas_item",
         "nma_pekerjaan",
         "panjang",
@@ -39,6 +40,12 @@ class Progress extends Model
     protected $with = [
         'toKontrakRuasItem',
     ];
+
+    // untuk relasi ke tabel kontrak rencana
+    public function toKontrakRencana()
+    {
+        return $this->belongsTo(KontrakRencana::class, 'id_kontrak_rencana', 'id_kontrak_rencana');
+    }
 
     // untuk relasi ke tabel paket
     public function toKontrakRuasItem()

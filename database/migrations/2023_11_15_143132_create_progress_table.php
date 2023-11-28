@@ -15,6 +15,7 @@ class CreateProgressTable extends Migration
     {
         Schema::create('progress', function (Blueprint $table) {
             $table->increments('id_progress');
+            $table->integer('id_kontrak_rencana')->unsigned()->nullable();
             $table->integer('id_kontrak_ruas_item')->unsigned()->nullable();
             $table->text('nma_pekerjaan')->nullable();
             $table->float('panjang')->nullable();
@@ -37,6 +38,7 @@ class CreateProgressTable extends Migration
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
+            $table->foreign('id_kontrak_rencana')->references('id_kontrak_rencana')->on('kontrak_rencana')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_kontrak_ruas_item')->references('id_kontrak_ruas_item')->on('kontrak_ruas_item')->onDelete('cascade')->onUpdate('cascade');
         });
     }

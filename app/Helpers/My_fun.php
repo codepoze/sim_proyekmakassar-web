@@ -397,6 +397,16 @@ if (!function_exists('count_age')) {
     }
 }
 
+if (!function_exists('count_weeks')) {
+    function count_weeks($to, $from)
+    {
+        $date_to   = Carbon::parse($to);
+        $date_from = Carbon::parse($from);
+        $result    = $date_to->diffInWeeks($date_from) + 1;
+        return $result;
+    }
+}
+
 if (!function_exists('count_mounth')) {
     function count_mounth($to, $from)
     {

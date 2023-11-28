@@ -31,6 +31,7 @@
                         <div class="row">
                             <div class="col-lg-12">
                                 <form class="form form-horizontal mt-2">
+                                    <h3>Judul</h3>
                                     <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Nama Kegiatan</label>
@@ -64,11 +65,23 @@
                                         </div>
                                     </div>
                                     <hr />
+                                    <h3>Rencana</h3>
+                                    @foreach ($kontrak->toKontrakRencana as $key => $value)
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Minggu ke-{{ $key + 1 }}</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $value->bobot }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                    <hr />
                                 </form>
                             </div>
                             <div class="col-lg-8">
                                 <form class="form form-horizontal mt-2">
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Penyedia</label>
                                         </div>
@@ -76,7 +89,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->toPenyedia->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">PJ Penyedia</label>
                                         </div>
@@ -84,7 +97,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->pj_penyedia }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Konsultan</label>
                                         </div>
@@ -92,7 +105,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->toKonsultan->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">PJ Konsultan</label>
                                         </div>
@@ -100,7 +113,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->pj_konsultan }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Kord Teknis Lapangan</label>
                                         </div>
@@ -108,7 +121,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->toTeknislap->toUser->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Nomor SPMK</label>
                                         </div>
@@ -116,7 +129,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_spmk }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Nomor Kontrak</label>
                                         </div>
@@ -124,7 +137,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_kontrak }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Waktu Kontrak</label>
                                         </div>
@@ -132,7 +145,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $kontrak->tgl_kontrak_akhir, $kontrak->tgl_kontrak_mulai) . ' Hari'; }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Tahun Anggaran</label>
                                         </div>
@@ -140,7 +153,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->thn_anggaran }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Nilai Pagu</label>
                                         </div>
@@ -148,7 +161,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ rupiah($kontrak->nil_pagu) }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Nilai Kontrak</label>
                                         </div>
@@ -156,7 +169,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_kontrak) }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Nilai HPS</label>
                                         </div>
@@ -164,7 +177,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_hps) }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Sumber Dana</label>
                                         </div>
@@ -172,7 +185,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->toFund->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Kode Rekening</label>
                                         </div>
@@ -180,7 +193,7 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->kd_rekening }}" readonly="readonly" />
                                         </div>
                                     </div>
-                                    <div class="field-input mb-1 row">
+                                    <div class="mb-1 row">
                                         <div class="col-sm-3">
                                             <label class="col-form-label">Jenis Kontrak</label>
                                         </div>

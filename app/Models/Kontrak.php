@@ -80,4 +80,10 @@ class Kontrak extends Model
     {
         return $this->hasMany(KontrakRuas::class, 'id_kontrak', 'id_kontrak');
     }
+
+    // untuk relasi ke tabel kontrak rencana
+    public function toKontrakRencana()
+    {
+        return $this->hasMany(KontrakRencana::class, 'id_kontrak', 'id_kontrak');
+    }
 }
