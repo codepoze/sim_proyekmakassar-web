@@ -33,6 +33,7 @@ class Ph0 extends Model
         "tka_2",
         "tka_3",
         "berat_bersih",
+        "by_users"
     ];
 
     // untuk foreign key

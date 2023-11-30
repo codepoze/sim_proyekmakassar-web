@@ -89,9 +89,29 @@ class KontrakController extends Controller
 
         $kontrak = Kontrak::findOrFail(my_decrypt($id));
 
+        $kontrak_rencana = KontrakRencana::whereIdKontrak(my_decrypt($id))->get();
+
+        $get_kontrak_rencana = [];
+        $rencana_komulatif = 0;
+        $realisasi_komulatif = 0;
+        foreach ($kontrak_rencana as $key => $value) {
+            $rencana_komulatif += $value->bobot;
+            $realisasi_komulatif += $this->_count_progress(my_decrypt($id), $value->id_kontrak_rencana);
+
+            $get_kontrak_rencana[] = [
+                'minggu_ke'           => "Minggu ke-" . $value->minggu_ke,
+                'rencana'             => $value->bobot,
+                'rencana_komulatif'   => $rencana_komulatif,
+                'realisasi'           => $this->_count_progress(my_decrypt($id), $value->id_kontrak_rencana),
+                'realisasi_komulatif' => $realisasi_komulatif,
+                'devisiasi'           => ($realisasi_komulatif - $rencana_komulatif)
+            ];
+        }
+
         $data = [
-            'id_kontrak'  => $id,
-            'kontrak'     => $kontrak,
+            'id_kontrak'      => $id,
+            'kontrak'         => $kontrak,
+            'kontrak_rencana' => $get_kontrak_rencana
         ];
 
         return Template::load('admin', 'Progress Kontrak', 'kontrak', 'progress', $data);
@@ -173,6 +193,23 @@ class KontrakController extends Controller
                 ';
             })
             ->make(true);
+    }
+
+    public function get_chart_progress(Request $request)
+    {
+        $id_kontrak = my_decrypt($request->id);
+
+        $get = KontrakRencana::whereIdKontrak($id_kontrak)->get();
+
+        foreach ($get as $key => $value) {
+            $response[] = [
+                'category' => "Minggu ke-" . $value->minggu_ke,
+                'value1'   => $value->bobot,
+                'value2'   => $this->_count_progress($id_kontrak, $value->id_kontrak_rencana),
+            ];
+        }
+
+        return Response::json($response);
     }
 
     public function save(Request $request)
@@ -611,5 +648,25 @@ class KontrakController extends Controller
         }
 
         return $html;
+    }
+
+    public function _count_progress($id_kontrak, $id_kontrak_rencana)
+    {
+        $get = DB::select("SELECT k.id_kontrak, kr.id_kontrak_ruas, kri.id_kontrak_ruas_item, p.id_progress, p.id_kontrak_rencana, p.panjang, p.titik_core, p.l_1, p.l_2, p.l_3, p.l_4, p.tki_1, p.tki_2, p.tki_3, p.tte_1, p.tte_2, p.tte_3, p.tka_1, p.tka_2, p.tka_3, p.berat_bersih FROM kontrak AS k LEFT JOIN kontrak_ruas AS kr ON kr.id_kontrak = k.id_kontrak LEFT JOIN kontrak_ruas_item AS kri ON kri.id_kontrak_ruas = kr.id_kontrak_ruas LEFT JOIN progress AS p ON p.id_kontrak_ruas_item = kri.id_kontrak_ruas_item WHERE k.id_kontrak = '$id_kontrak' AND p.id_kontrak_rencana = '$id_kontrak_rencana'");
+
+        $volume = 0;
+        foreach ($get as $key => $value) {
+            $lebar = (($value->l_1 + $value->l_2 + $value->l_3 + $value->l_4) / 3) / 100;
+
+            $tebal_kiri = (($value->tki_1 + $value->tki_2 + $value->tki_3) / 3) / 100;
+            $tebal_tengah = (($value->tte_1 + $value->tte_2 + $value->tte_3) / 3) / 100;
+            $tebal_kanan = (($value->tka_1 + $value->tka_2 + $value->tka_3) / 3) / 100;
+            $sum_tebal = (($tebal_kiri + $tebal_tengah + $tebal_kanan) / 3);
+
+            $count = ($value->panjang * $lebar * $sum_tebal * $value->berat_bersih);
+            $volume += round($count, 2);
+        }
+
+        return $volume;
     }
 }

@@ -8,6 +8,11 @@
             text-align: center;
             font-size: 10px !important;
         }
+
+        #chartdiv {
+            width: 100%;
+            height: 500px;
+        }
     </style>
     @endpush
     <!-- end:: css local -->
@@ -15,6 +20,71 @@
     <!-- begin:: content -->
     <section>
         <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header border-bottom">
+                        <div class="head-label">
+                            <h4 class="card-title">Kurva Progress</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div id="chartdiv"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header border-bottom">
+                        <div class="head-label">
+                            <h4 class="card-title">Keterangan</h4>
+                        </div>
+                    </div>
+                    <div class="card-datatable">
+                        <table class="table table-striped table-bordered table-ruas-item" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Keterangan</th>
+                                    @foreach ($kontrak_rencana as $key => $row)
+                                    <th>{{ $row['minggu_ke'] }}</th>
+                                    @endforeach
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Realisasi</td>
+                                    @foreach ($kontrak_rencana as $key => $row)
+                                    <td>{{ $row['realisasi'] }}</td>
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    <td>Komulatif Realisasi</td>
+                                    @foreach ($kontrak_rencana as $key => $row)
+                                    <td>{{ $row['realisasi_komulatif'] }}</td>
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    <td>Rencana</td>
+                                    @foreach ($kontrak_rencana as $key => $row)
+                                    <td>{{ $row['rencana'] }}</td>
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    <td>Komulatif Rencana</td>
+                                    @foreach ($kontrak_rencana as $key => $row)
+                                    <td>{{ $row['rencana_komulatif'] }}</td>
+                                    @endforeach
+                                </tr>
+                                <tr>
+                                    <td>Devisiasi</td>
+                                    @foreach ($kontrak_rencana as $key => $row)
+                                    <td>{{ $row['devisiasi'] }}</td>
+                                    @endforeach
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
             @foreach ($kontrak->toKontrakRuas as $key => $row)
             <div class="col-12">
                 <div class="card">
@@ -100,13 +170,7 @@
                                 $selisih = abs($jumlah_kontrak - $jumlah_harga);
 
                                 $bertambah = ($jumlah_kontrak > $jumlah_harga ? $selisih : 0);
-                                $berkurang = ($jumlah_kontrak < $jumlah_harga ? $selisih : 0);
-
-                                $total_bertambah += $bertambah;
-                                $total_berkurang += $berkurang;
-                                @endphp
-
-                                <tr>
+                                $berkurang = ($jumlah_kontrak < $jumlah_harga ? $selisih : 0); $total_bertambah +=$bertambah; $total_berkurang +=$berkurang; @endphp <tr>
                                     <td>{{ $value->nama }}</td>
                                     <td>{{ $value->toSatuan->nama }}</td>
                                     <td>{{ $value->volume }}</td>
@@ -123,8 +187,8 @@
 
                                     <td>{{ create_separator($bertambah)  }}</td>
                                     <td>{{ create_separator($berkurang)  }}</td>
-                                </tr>
-                                @endforeach
+                                    </tr>
+                                    @endforeach
                             </tbody>
                             <tfoot>
                                 <tr>
@@ -150,6 +214,52 @@
 
     <!-- begin:: js local -->
     @push('js')
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <script>
+        $.get("{{ route_role('admin.kontrak.get_chart_progress') }}", {
+            id: "{{ $id_kontrak }}"
+        }, function(response) {
+            chartKurva(response);
+        });
+
+        function chartKurva(response) {
+            // Create chart instance
+            var chart = am4core.create("chartdiv", am4charts.XYChart);
+
+            // Add data
+            chart.data = response;
+
+            // Create axes
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "category";
+            categoryAxis.title.text = "Categories";
+
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            valueAxis.title.text = "Values";
+
+            // Create series
+            var series1 = chart.series.push(new am4charts.LineSeries());
+            series1.dataFields.valueY = "value1";
+            series1.dataFields.categoryX = "category";
+            series1.name = "Rencana";
+            series1.strokeWidth = 3;
+
+            var series2 = chart.series.push(new am4charts.LineSeries());
+            series2.dataFields.valueY = "value2";
+            series2.dataFields.categoryX = "category";
+            series2.name = "Realisasi";
+            series2.strokeWidth = 3;
+
+            // Add legend
+            chart.legend = new am4charts.Legend();
+
+            // Add cursor
+            chart.cursor = new am4charts.XYCursor();
+        }
+    </script>
     @endpush
     <!-- end:: js local -->
 </x-admin-layout>

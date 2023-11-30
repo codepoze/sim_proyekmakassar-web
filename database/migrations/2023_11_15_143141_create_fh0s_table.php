@@ -34,6 +34,7 @@ class CreateFh0sTable extends Migration
             $table->float('tka_3')->nullable();
             $table->float('berat_bersih')->nullable();
 
+            $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 

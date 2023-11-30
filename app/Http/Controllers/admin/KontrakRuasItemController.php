@@ -31,7 +31,18 @@ class KontrakRuasItemController extends Controller
 
     public function show(Request $request)
     {
-        $response = KontrakRuasItem::find(my_decrypt($request->id));
+        $data = KontrakRuasItem::find(my_decrypt($request->id));
+
+        $response = [
+            'id_kontrak_ruas_item' => $data->id_kontrak_ruas_item,
+            'id_kontrak_ruas'      => $data->id_kontrak_ruas,
+            'id_satuan'            => $data->id_satuan,
+            'nama'                 => $data->nama,
+            'volume'               => $data->volume,
+            'harga_hps'            => create_separator($data->harga_hps),
+            'harga_kontrak'        => create_separator($data->harga_kontrak),
+            'by_users'             => $data->by_users,
+        ];
 
         return Response::json($response);
     }

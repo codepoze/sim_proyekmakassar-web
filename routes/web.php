@@ -225,6 +225,7 @@ Route::group([
         Route::get('/print/{id}', 'print')->name('print');
         Route::get('/progress/{id}', 'progress')->name('progress');
         Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+        Route::get('/get_chart_progress', 'get_chart_progress')->name('get_chart_progress');
         Route::post('/rencana', 'rencana')->name('rencana');
         Route::post('/save', 'save')->name('save');
         Route::post('/del', 'del')->name('del');
