@@ -39,6 +39,7 @@ class Progress extends Model
 
     // untuk foreign key
     protected $with = [
+        'toKontrakRencana',
         'toKontrakRuasItem',
     ];
 

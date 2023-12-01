@@ -17,8 +17,8 @@
                         </div>
                         <div class="dt-action-buttons text-end">
                             <div class="dt-buttons d-inline-flex">
-                                <a href="{{ route_role('admin.kontrak.progress', ['id' => $id_kontrak]) }}" target="_blank" class="btn btn-sm btn-relief-success">
-                                    <i data-feather="bar-chart"></i>&nbsp;Progress
+                                <a href="{{ route_role('admin.kontrak.rincian', ['id' => $id_kontrak]) }}" target="_blank" class="btn btn-sm btn-relief-success">
+                                    <i data-feather="bar-chart"></i>&nbsp;Rincian
                                 </a>
                                 &nbsp;
                                 <a href="{{ route_role('admin.kontrak.print', ['id' => $id_kontrak]) }}" target="_blank" class="btn btn-sm btn-relief-info">
@@ -231,6 +231,7 @@
                                 <table class="table table-striped table-bordered table-ruas-item" style="width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th class="text-center">Aksi</th>
                                             <th class="text-center">No</th>
                                             <th class="text-center">Nama</th>
                                             <th class="text-center">Satuan</th>
@@ -265,6 +266,17 @@
                                         @endphp
 
                                         <tr>
+                                            <td class="text-center">
+                                                <a href="{{ route_role('admin.kontrak.progress.index', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}" class="btn btn-sm btn-action btn-relief-success">
+                                                    <span>Progress</span>
+                                                </a>&nbsp;
+                                                <a href="{{ route_role('admin.kontrak.ph0.index', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}" class="btn btn-sm btn-action btn-relief-primary">
+                                                    <span>PHO</span>
+                                                </a>&nbsp;
+                                                <a href="{{ route_role('admin.kontrak.fh0.index', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}" class="btn btn-sm btn-action btn-relief-info">
+                                                    <span>FHO</span>
+                                                </a>
+                                            </td>
                                             <td class="text-center">{{ $key+1 }}</td>
                                             <td class="text-center">{{ $value->nama }}</td>
                                             <td class="text-center">{{ $value->toSatuan->nama }}</td>
@@ -279,7 +291,7 @@
                                     </tbody>
                                     <tfoot>
                                         <tr>
-                                            <th class="text-center" colspan="6">Total Nilai Per Ruas</th>
+                                            <th class="text-center" colspan="7">Total Nilai Per Ruas</th>
                                             <th class="text-center">{{ rupiah($total_hps) }}</th>
                                             <th class="text-center">{{ rupiah($total_kontrak) }}</th>
                                             <th class="text-center">{{ number_format($bobot, 2) }}</th>

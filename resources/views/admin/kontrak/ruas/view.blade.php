@@ -341,7 +341,6 @@
             });
         }();
 
-
         let untukUbahData = function() {
             $(document).on('click', '#upd', function(e) {
                 var ini = $(this);

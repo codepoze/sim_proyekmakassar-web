@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\DashboardController;
+use App\Http\Controllers\admin\Fh0Controller;
 use App\Http\Controllers\admin\FundController;
 use App\Http\Controllers\admin\HolidayController;
 use App\Http\Controllers\admin\KegiatanController;
@@ -13,8 +14,10 @@ use App\Http\Controllers\admin\MenuBodyController;
 use App\Http\Controllers\admin\MenuHeadController;
 use App\Http\Controllers\admin\PaketController;
 use App\Http\Controllers\admin\PenyediaController;
+use App\Http\Controllers\admin\Ph0Controller;
 use App\Http\Controllers\admin\PptkController;
 use App\Http\Controllers\admin\ProfilController;
+use App\Http\Controllers\admin\ProgressController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\RoleMenuController;
 use App\Http\Controllers\admin\SatuanController;
@@ -223,7 +226,7 @@ Route::group([
         Route::get('/upd/{id}', 'upd')->name('upd');
         Route::get('/det/{id}', 'det')->name('det');
         Route::get('/print/{id}', 'print')->name('print');
-        Route::get('/progress/{id}', 'progress')->name('progress');
+        Route::get('/rincian/{id}', 'rincian')->name('rincian');
         Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
         Route::get('/get_chart_progress', 'get_chart_progress')->name('get_chart_progress');
         Route::post('/rencana', 'rencana')->name('rencana');
@@ -239,6 +242,18 @@ Route::group([
                 Route::post('/save', 'save')->name('save');
                 Route::post('/del', 'del')->name('del');
             });
+        });
+
+        Route::controller(ProgressController::class)->prefix('progress')->as('progress.')->group(function () {
+            Route::get('/{id}', 'index')->name('index');
+        });
+
+        Route::controller(Ph0Controller::class)->prefix('ph0')->as('ph0.')->group(function () {
+            Route::get('/{id}', 'index')->name('index');
+        });
+
+        Route::controller(Fh0Controller::class)->prefix('fh0')->as('fh0.')->group(function () {
+            Route::get('/{id}', 'index')->name('index');
         });
     });
     // end:: kontrak

@@ -83,7 +83,7 @@ class KontrakController extends Controller
         return Template::load('admin', 'Detail Kontrak', 'kontrak', 'det', $data);
     }
 
-    public function progress()
+    public function rincian()
     {
         $id = last(request()->segments());
 
@@ -114,7 +114,7 @@ class KontrakController extends Controller
             'kontrak_rencana' => $get_kontrak_rencana
         ];
 
-        return Template::load('admin', 'Progress Kontrak', 'kontrak', 'progress', $data);
+        return Template::load('admin', 'Rincian Kontrak', 'kontrak', 'rincian', $data);
     }
 
     public function print()

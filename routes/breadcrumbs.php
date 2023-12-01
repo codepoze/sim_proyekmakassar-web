@@ -165,10 +165,10 @@ Breadcrumbs::for('admin.kontrak.det', function (BreadcrumbTrail $trail) {
     $trail->push('Detail', '#');
 });
 
-Breadcrumbs::for('admin.kontrak.progress', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.kontrak.rincian', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.kontrak.index');
 
-    $trail->push('Progress', '#');
+    $trail->push('Rincian', '#');
 });
 
 Breadcrumbs::for('admin.kontrak.upd', function (BreadcrumbTrail $trail) {
@@ -181,4 +181,10 @@ Breadcrumbs::for('admin.kontrak.ruas.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.kontrak.index');
 
     $trail->push('Kontrak Ruas', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.progress.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Progress Ruas', '#');
 });
