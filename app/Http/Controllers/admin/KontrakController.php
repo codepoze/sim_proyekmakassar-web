@@ -658,10 +658,10 @@ class KontrakController extends Controller
         foreach ($get as $key => $value) {
             $lebar = (($value->l_1 + $value->l_2 + $value->l_3 + $value->l_4) / 3) / 100;
 
-            $tebal_kiri = (($value->tki_1 + $value->tki_2 + $value->tki_3) / 3) / 100;
+            $tebal_kiri   = (($value->tki_1 + $value->tki_2 + $value->tki_3) / 3) / 100;
             $tebal_tengah = (($value->tte_1 + $value->tte_2 + $value->tte_3) / 3) / 100;
-            $tebal_kanan = (($value->tka_1 + $value->tka_2 + $value->tka_3) / 3) / 100;
-            $sum_tebal = (($tebal_kiri + $tebal_tengah + $tebal_kanan) / 3);
+            $tebal_kanan  = (($value->tka_1 + $value->tka_2 + $value->tka_3) / 3) / 100;
+            $sum_tebal    = (($tebal_kiri + $tebal_tengah + $tebal_kanan) / 3);
 
             $count = ($value->panjang * $lebar * $sum_tebal * $value->berat_bersih);
             $volume += round($count, 2);

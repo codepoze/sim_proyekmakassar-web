@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 // auth
 Route::group([
     'middleware' => 'api',
-    'prefix' => 'auth'
+    'prefix'     => 'auth'
 ], function ($router) {
     Route::post('/login', [AuthController::class, 'login']);
     Route::post('/logout', [AuthController::class, 'logout']);
@@ -50,5 +50,5 @@ Route::group([
     Route::post('/ph0', [Ph0Controller::class, 'saveData']);
     Route::patch('/ph0/{id}', [Ph0Controller::class, 'saveData']);
     Route::delete('/ph0/{id}', [Ph0Controller::class, 'delete']);
-// ph0 end
+    // ph0 end
 });
