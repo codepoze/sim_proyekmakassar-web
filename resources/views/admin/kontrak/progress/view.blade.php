@@ -18,7 +18,6 @@
                         <table class="table table-striped table-bordered" style="width: 100%;">
                             <thead>
                                 <tr>
-                                    <th class="text-center" rowspan="2">Ruas</th>
                                     <th class="text-center" rowspan="2">Minggu Ke-</th>
                                     <th class="text-center" rowspan="2">Nama Pekerjaan</th>
                                     <th class="text-center" rowspan="2">Panjang</th>
@@ -68,7 +67,6 @@
                                 @endphp
 
                                 <tr>
-                                    <td class="text-center">{{ $value->toKontrakRuasItem->nama }}</td>
                                     <td class="text-center">{{ $value->toKontrakRencana->minggu_ke }}</td>
                                     <td class="text-center">{{ $value->nma_pekerjaan }}</td>
                                     <td class="text-center">{{ $value->panjang }}</td>
