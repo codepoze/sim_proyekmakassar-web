@@ -8,6 +8,7 @@ use App\Http\Resources\Fh0Resource;
 use App\Models\Fh0Foto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,6 +27,7 @@ class Fh0Controller extends Controller
 
     public function saveData(Request $request, $id_fh0 = null)
     {
+        DB::beginTransaction();
         try {
             // Validasi input dari request
             $validator = Validator::make($request->all(), [
@@ -96,6 +98,7 @@ class Fh0Controller extends Controller
                 );
 
                 if($fh0_foto) {
+                    DB::commit();
                     return response(
                         ['title' => 'Berhasil!', 'text' => 'Berhasil menyimpan data!', 'type' => 'success', 'button' => 'Ok!'],
                         Response::HTTP_CREATED
@@ -109,6 +112,7 @@ class Fh0Controller extends Controller
                 Response::HTTP_OK
             ); // Kode status 500 untuk Internal Server Error
         } catch (\Exception $e) {
+            DB::rollback();
             return response(
                 ['title' => 'Gagal!', 'text' => 'Terjadi kesalahan saat menyimpan data!', 'type' => 'error', 'button' => 'Ok!'],
                 Response::HTTP_INTERNAL_SERVER_ERROR

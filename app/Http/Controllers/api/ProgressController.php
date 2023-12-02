@@ -8,6 +8,7 @@ use App\Http\Resources\ProgressResource;
 use App\Models\ProgressFoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -26,6 +27,7 @@ class ProgressController extends Controller
 
     public function saveData(Request $request, $id_progress = null)
     {
+        DB::beginTransaction();
         try {
             // Validasi input dari request
             $validator = Validator::make($request->all(), [
@@ -98,6 +100,7 @@ class ProgressController extends Controller
                 );
 
                 if($progress_foto) {
+                    DB::commit();
                     return response(
                         ['title' => 'Berhasil!', 'text' => 'Berhasil menyimpan data!', 'type' => 'success', 'button' => 'Ok!'],
                         Response::HTTP_CREATED
@@ -111,6 +114,7 @@ class ProgressController extends Controller
                 Response::HTTP_OK
             ); // Kode status 500 untuk Internal Server Error
         } catch (\Exception $e) {
+            DB::rollback();
             return response(
                 ['title' => 'Gagal!', 'text' => 'Terjadi kesalahan saat menyimpan data!', 'type' => 'error', 'button' => 'Ok!'],
                 Response::HTTP_INTERNAL_SERVER_ERROR
