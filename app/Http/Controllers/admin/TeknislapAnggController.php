@@ -32,7 +32,7 @@ class TeknislapAnggController extends Controller
             $query->whereIdTeknislap($request->id_teknislap);
         }
 
-        $data = $query->with(['toTeknislap.toUser', 'toUser'])->orderBy('id_teknislap_angg', 'desc')->get();
+        $data = $query->with(['toTeknislap'])->orderBy('id_teknislap_angg', 'desc')->get();
 
         return DataTables::of($data)
             ->addIndexColumn()
