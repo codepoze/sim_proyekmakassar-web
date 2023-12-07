@@ -67,7 +67,7 @@
                                             <label class="col-form-label" for="telepon">Telepon Perusahaan&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" id="telepon" class="form-control form-control-sm" name="telepon" placeholder="Masukkan Telepon Perusahaan" />
+                                            <input type="text" id="telepon" class="form-control form-control-sm" name="telepon" onkeydown="return justAngka(event)" placeholder="Masukkan Telepon Perusahaan" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>

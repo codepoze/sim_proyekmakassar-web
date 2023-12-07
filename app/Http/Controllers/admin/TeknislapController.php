@@ -107,17 +107,17 @@ class TeknislapController extends Controller
             ];
 
             $message = [
-                'nik.required'     => 'NIK tidak boleh kosong!',
-                'nik.numeric'      => 'NIK harus berupa angka!',
-                'nik.digits'       => 'NIK harus 16 digit!',
-                'nik.unique'       => 'NIK sudah terdaftar!',
-                'nama.required'    => 'Nama tidak boleh kosong!',
-                'email.required'   => 'Email tidak boleh kosong!',
-                'email.email'      => 'Email tidak valid!',
-                'telepon.required' => 'Telepon tidak boleh kosong!',
-                'telepon.numeric'  => 'Telepon harus berupa angka!',
-                'telepon.digits'   => 'Telepon harus 10-13 digit!',
-                'alamat.required'  => 'Alamat tidak boleh kosong!',
+                'nik.required'           => 'NIK tidak boleh kosong!',
+                'nik.numeric'            => 'NIK harus berupa angka!',
+                'nik.digits'             => 'NIK harus 16 digit!',
+                'nik.unique'             => 'NIK sudah terdaftar!',
+                'nama.required'          => 'Nama tidak boleh kosong!',
+                'email.required'         => 'Email tidak boleh kosong!',
+                'email.email'            => 'Email tidak valid!',
+                'telepon.required'       => 'Telepon tidak boleh kosong!',
+                'telepon.numeric'        => 'Telepon harus berupa angka!',
+                'telepon.digits_between' => 'Telepon harus 10-13 digit!',
+                'alamat.required'        => 'Alamat tidak boleh kosong!',
             ];
         } else {
             $teknislap = Teknislap::find($request->id_teknislap);

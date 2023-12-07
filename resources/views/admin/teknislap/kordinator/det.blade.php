@@ -133,7 +133,7 @@
                                             <label class="col-form-label" for="telepon">Telepon&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" id="telepon" class="form-control form-control-sm" name="telepon" placeholder="Masukkan Telepon" />
+                                            <input type="text" id="telepon" class="form-control form-control-sm" name="telepon" onkeydown="return justAngka(event)" placeholder="Masukkan Telepon" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
