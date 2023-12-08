@@ -80,7 +80,7 @@ class PptkController extends Controller
         if ($request->id_pptk === null) {
             $rule = [
                 'nik'     => 'required|numeric|digits:16|unique:users,username',
-                'nip'     => 'required|numeric|digits:16|unique:pptk,nip',
+                'nip'     => 'required|numeric|digits:18|unique:pptk,nip',
                 'nama'    => 'required',
                 'email'   => 'required|email',
             ];
@@ -93,7 +93,7 @@ class PptkController extends Controller
                 'nip.required'     => 'NIP tidak boleh kosong!',
                 'nip.numeric'      => 'NIP harus berupa angka!',
                 'nip.unique'       => 'NIP sudah terdaftar!',
-                'nip.digits'       => 'NIP harus 16 digit!',
+                'nip.digits'       => 'NIP harus 18 digit!',
                 'nama.required'    => 'Nama tidak boleh kosong!',
                 'email.required'   => 'Email tidak boleh kosong!',
                 'email.email'      => 'Email tidak valid!',
