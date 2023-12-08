@@ -29,7 +29,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/themes/bordered-layout.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/themes/semi-dark-layout.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/core/menu/menu-types/vertical-menu.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/plugins/forms/form-validation.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/pages/page-auth.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('css/style.css') }}">
     <!-- end:: css global -->
@@ -106,7 +105,6 @@
     <script src="{{ asset_admin('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
     <script src="{{ asset_admin('js/core/app-menu.min.js') }}"></script>
     <script src="{{ asset_admin('js/core/app.min.js') }}"></script>
-    <script src="{{ asset_admin('js/scripts/pages/page-auth-login.js') }}"></script>
 
     <script>
         $(window).on('load', function() {
