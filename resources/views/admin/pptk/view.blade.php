@@ -56,7 +56,7 @@
                                             <label class="col-form-label" for="nik">NIK&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm" id="nik" name="nik" placeholder="Masukkan NIK" />
+                                            <input type="text" class="form-control form-control-sm" id="nik" name="nik" onkeydown="return justAngka(event)" placeholder="Masukkan NIK" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
@@ -67,7 +67,7 @@
                                             <label class="col-form-label" for="nip">NIP&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm" id="nip" name="nip" placeholder="Masukkan NIP" />
+                                            <input type="text" class="form-control form-control-sm" id="nip" name="nip" onkeydown="return justAngka(event)" placeholder="Masukkan NIP" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
