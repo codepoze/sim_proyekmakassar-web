@@ -56,7 +56,7 @@ class ProgressController extends Controller
             if ($validator->fails()) {
                 return response([
                     'message' => 'Gagal menyimpan data, validasi tidak sesuai',
-                    'errors' => $validator->errors(),
+                    'errors'  => $validator->errors(),
                 ], Response::HTTP_BAD_REQUEST); // Kode status 400 untuk Bad Request
             }
 
@@ -65,22 +65,22 @@ class ProgressController extends Controller
                 "id_kontrak_rencana"   => $request->input('id_kontrak_rencana'),
                 "id_kontrak_ruas_item" => $request->input('id_kontrak_ruas_item'),
                 "nma_pekerjaan"        => $request->input('nma_pekerjaan'),
-                "panjang"              => $request->input('panjang'),
-                "titik_core"           => $request->input('titik_core'),
-                "l_1"                  => $request->input('l_1'),
-                "l_2"                  => $request->input('l_2'),
-                "l_3"                  => $request->input('l_3'),
-                "l_4"                  => $request->input('l_4'),
-                "tki_1"                => $request->input('tki_1'),
-                "tki_2"                => $request->input('tki_2'),
-                "tki_3"                => $request->input('tki_3'),
-                "tte_1"                => $request->input('tte_1'),
-                "tte_2"                => $request->input('tte_2'),
-                "tte_3"                => $request->input('tte_3'),
-                "tka_1"                => $request->input('tka_1'),
-                "tka_2"                => $request->input('tka_2'),
-                "tka_3"                => $request->input('tka_3'),
-                "berat_bersih"         => $request->input('berat_bersih'),
+                "panjang"              => trim($request->input('panjang')),
+                "titik_core"           => trim($request->input('titik_core')),
+                "l_1"                  => trim($request->input('l_1')),
+                "l_2"                  => trim($request->input('l_2')),
+                "l_3"                  => trim($request->input('l_3')),
+                "l_4"                  => trim($request->input('l_4')),
+                "tki_1"                => trim($request->input('tki_1')),
+                "tki_2"                => trim($request->input('tki_2')),
+                "tki_3"                => trim($request->input('tki_3')),
+                "tte_1"                => trim($request->input('tte_1')),
+                "tte_2"                => trim($request->input('tte_2')),
+                "tte_3"                => trim($request->input('tte_3')),
+                "tka_1"                => trim($request->input('tka_1')),
+                "tka_2"                => trim($request->input('tka_2')),
+                "tka_3"                => trim($request->input('tka_3')),
+                "berat_bersih"         => trim($request->input('berat_bersih')),
                 "by_users"             => Auth::id()
             ];
 
@@ -91,28 +91,31 @@ class ProgressController extends Controller
             );
 
             if ($progress) {
-                $id_progress = Progress::orderBy('created_at', 'desc')->value('id_progress');
-                $progress_foto = ProgressFoto::updateOrCreate(
-                    [
-                        "id_progress" => $id_progress,
-                        "foto"        => add_picture($request->file('foto'))
-                    ]
-                );
+                $images = $request->image;
 
-                if($progress_foto) {
-                    DB::commit();
-                    return response(
-                        ['title' => 'Berhasil!', 'text' => 'Berhasil menyimpan data!', 'type' => 'success', 'button' => 'Ok!'],
-                        Response::HTTP_CREATED
-                    ); // Kode status 201 untuk Created
+                if ($images) {
+                    $id_progress = $progress->id_progress;
+
+                    for ($i = 0; $i < count($images); $i++) {
+                        $parseImage  = base64_decode($request->image_loc[$i]);
+
+                        file_put_contents(upload_path('picture') . '/' . $request->image[$i], $parseImage);
+
+                        ProgressFoto::updateOrCreate(
+                            [
+                                "id_progress" => $id_progress,
+                                "foto"        => $request->image[$i]
+                            ]
+                        );
+                    }
                 }
             }
 
-            // Jika gagal menyimpan data
+            DB::commit();
             return response(
-                ['title' => 'Gagal!', 'text' => 'Gagal menyimpan data!', 'type' => 'error', 'button' => 'Ok!'],
-                Response::HTTP_OK
-            ); // Kode status 500 untuk Internal Server Error
+                ['title' => 'Berhasil!', 'text' => 'Berhasil menyimpan data!', 'type' => 'success', 'button' => 'Ok!'],
+                Response::HTTP_CREATED
+            ); // Kod
         } catch (\Exception $e) {
             DB::rollback();
             return response(
