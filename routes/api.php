@@ -6,6 +6,7 @@ use App\Http\Controllers\api\KontrakRuasController;
 use App\Http\Controllers\api\KontrakRuasItemController;
 use App\Http\Controllers\api\ProgressController;
 use App\Http\Controllers\api\Fh0Controller;
+use App\Http\Controllers\api\KontrakRencanaController;
 use App\Http\Controllers\api\Ph0Controller;
 use Illuminate\Support\Facades\Route;
 
@@ -22,10 +23,11 @@ Route::group([
 
 Route::group([
     'middleware' => 'auth',
-], function (){
+], function () {
     // kontrak
     Route::get('/kontrak', [KontrakController::class, 'index']);
     Route::get('/kontrak/{id}', [KontrakController::class, 'show']);
+    Route::get('/kontrak-rencana/{id}', [KontrakRencanaController::class, 'show']);
     Route::get('/kontrak-ruas/{id}', [KontrakRuasController::class, 'showKontrakRuasByIdKontrak']);
     Route::get('/kontrak-ruas-item/{id}', [KontrakRuasItemController::class, 'showKontrakRuasItemByIdKontrakRuas']);
     // kontrak end
