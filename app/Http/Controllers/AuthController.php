@@ -62,8 +62,6 @@ class AuthController extends Controller
     {
         session()->flush();
 
-        auth()->logout();
-        
         return redirect()->intended('/');
     }
 }
