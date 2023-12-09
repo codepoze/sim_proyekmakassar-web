@@ -111,7 +111,7 @@
                                             <label class="col-form-label" for="nik">NIK&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" id="nik" class="form-control form-control-sm" name="nik" placeholder="Masukkan NIK" />
+                                            <input type="text" id="nik" class="form-control form-control-sm" name="nik" onkeydown="return justAngka(event)" placeholder="Masukkan NIK" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>

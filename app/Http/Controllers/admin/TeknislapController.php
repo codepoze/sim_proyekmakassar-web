@@ -37,7 +37,7 @@ class TeknislapController extends Controller
             'teknislap' => Teknislap::findOrFail($id_teknislap),
         ];
 
-        return Template::load('admin', 'Detail', 'teknislap/kordinator', 'det', $data);
+        return Template::load('admin', 'Anggota', 'teknislap/kordinator', 'det', $data);
     }
 
     public function get_data_dt()

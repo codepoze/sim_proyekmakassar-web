@@ -115,7 +115,7 @@ class ProgressController extends Controller
             return response(
                 ['title' => 'Berhasil!', 'text' => 'Berhasil menyimpan data!', 'type' => 'success', 'button' => 'Ok!'],
                 Response::HTTP_CREATED
-            ); // Kod
+            );
         } catch (\Exception $e) {
             DB::rollback();
             return response(

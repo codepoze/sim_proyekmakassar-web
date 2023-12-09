@@ -4,9 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
-use App\Models\KontrakRuas;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Response;
+use App\Models\Fh0;
 
 class Fh0Controller extends Controller
 {
@@ -20,14 +18,12 @@ class Fh0Controller extends Controller
 
     public function index()
     {
-        dd('fh0');
-        $id_kontrak = my_decrypt(last(request()->segments()));
+        $id_kontrak_ruas_item = my_decrypt(last(request()->segments()));
         
         $data = [
-            'id_kontrak'   => $id_kontrak,
-            'kontrak_ruas' => KontrakRuas::with('toKontrakRuasItem')->whereIdKontrak($id_kontrak)->get()
+            'fh0' => Fh0::whereIdKontrakRuasItem($id_kontrak_ruas_item)->get(),
         ];
 
-        return Template::load('admin', 'Kontrak Ruas', 'kontrak/ruas', 'view', $data);
+        return Template::load('admin', 'Fh0 Ruas', 'kontrak/fh0', 'view', $data);
     }
 }

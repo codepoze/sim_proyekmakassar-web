@@ -188,3 +188,15 @@ Breadcrumbs::for('admin.kontrak.progress.index', function (BreadcrumbTrail $trai
 
     $trail->push('Progress Ruas', '#');
 });
+
+Breadcrumbs::for('admin.kontrak.ph0.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Ph0 Ruas', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.fh0.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Fh0 Ruas', '#');
+});

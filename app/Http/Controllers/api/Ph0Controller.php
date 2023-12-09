@@ -89,28 +89,31 @@ class Ph0Controller extends Controller
             );
 
             if ($ph0) {
-                $id_ph0 = Ph0::orderBy('created_at', 'desc')->value('id_ph0');
-                $ph0_foto = Ph0Foto::updateOrCreate(
-                    [
-                        "id_ph0"      => $id_ph0,
-                        "foto"        => add_picture($request->file('foto'))
-                    ]
-                );
+                $images = $request->image;
 
-                if($ph0_foto) {
-                    DB::commit();
-                    return response(
-                        ['title' => 'Berhasil!', 'text' => 'Berhasil menyimpan data!', 'type' => 'success', 'button' => 'Ok!'],
-                        Response::HTTP_CREATED
-                    ); // Kode status 201 untuk Created
+                if ($images) {
+                    $id_ph0 = $ph0->id_ph0;
+
+                    for ($i = 0; $i < count($images); $i++) {
+                        $parseImage  = base64_decode($request->image_loc[$i]);
+
+                        file_put_contents(upload_path('picture') . '/' . $request->image[$i], $parseImage);
+
+                        Ph0Foto::updateOrCreate(
+                            [
+                                "id_ph0" => $id_ph0,
+                                "foto"   => $request->image[$i]
+                            ]
+                        );
+                    }
                 }
             }
 
-            // Jika gagal menyimpan data
-             return response(
-                ['title' => 'Gagal!', 'text' => 'Gagal menyimpan data!', 'type' => 'error', 'button' => 'Ok!'],
-                Response::HTTP_OK
-            ); // Kode status 500 untuk Internal Server Error
+            DB::commit();
+            return response(
+                ['title' => 'Berhasil!', 'text' => 'Berhasil menyimpan data!', 'type' => 'success', 'button' => 'Ok!'],
+                Response::HTTP_CREATED
+            );
         } catch (\Exception $e) {
             DB::rollback();
             return response(
