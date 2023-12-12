@@ -7,31 +7,73 @@
     <!-- begin:: content -->
     <section>
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
-                            <div class="col-10">
-                                <h4 class="">0</h4>
-                                <h6 class="text-muted m-b-0">Total SKPP Terbit</h6>
-                            </div>
-                            <div class="col-2 text-center">
-                                <i data-feather="save"></i>
+                            <div class="col-12">
+                                <h4 class="">{{ $count_kegiatan }}</h4>
+                                <h6 class="text-muted m-b-0">Total Kegiatan</h6>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-6">
+            <div class="col-4">
                 <div class="card">
                     <div class="card-body">
                         <div class="row align-items-center">
-                            <div class="col-10">
-                                <h4 class="">0</h4>
-                                <h6 class="text-muted m-b-0">Total SKPP Terbit</h6>
+                            <div class="col-12">
+                                <h4 class="">{{ $count_paket }}</h4>
+                                <h6 class="text-muted m-b-0">Total Paket</h6>
                             </div>
-                            <div class="col-2 text-center">
-                                <i data-feather="save"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <h4 class="">{{ $count_kontrak }}</h4>
+                                <h6 class="text-muted m-b-0">Total Kontrak</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <h4 class="">{{ $count_pptk }}</h4>
+                                <h6 class="text-muted m-b-0">Total PPTK</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <h4 class="">{{ $count_kord_teknis_lapangan }}</h4>
+                                <h6 class="text-muted m-b-0">Total Kord Teknis Lapangan</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <h4 class="">{{ $count_angg_teknis_lapangan }}</h4>
+                                <h6 class="text-muted m-b-0">Total Angg Teknis Lapangan</h6>
                             </div>
                         </div>
                     </div>
