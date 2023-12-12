@@ -144,15 +144,26 @@
 
                                 @foreach ($value->toProgress as $key => $item)
                                 @php
-                                $lebar = (($item->l_1 + $item->l_2 + $item->l_3 + $item->l_4) / 3) / 100;
+                                $pembagi_1 = ($item->l_1 != 0 ? 1 : 0);
+                                $pembagi_2 = ($item->l_2 != 0 ? 1 : 0);
+                                $pembagi_3 = ($item->l_3 != 0 ? 1 : 0);
+                                $pembagi_4 = ($item->l_4 != 0 ? 1 : 0);
 
-                                $tebal_kiri = (($item->tki_1 + $item->tki_2 + $item->tki_3) / 3) / 100;
-                                $tebal_tengah = (($item->tte_1 + $item->tte_2 + $item->tte_3) / 3) / 100;
-                                $tebal_kanan = (($item->tka_1 + $item->tka_2 + $item->tka_3) / 3) / 100;
-                                $sum_tebal = (($tebal_kiri + $tebal_tengah + $tebal_kanan) / 3);
+                                $total_pembagi = ($pembagi_1 + $pembagi_2 + $pembagi_3 + $pembagi_4);
+
+                                $lebar = ((($item->l_1 + $item->l_2 + $item->l_3 + $item->l_4) / $total_pembagi));
+                                $tebal_kiri = ((($item->tki_1 + $item->tki_2 + $item->tki_3) / 3) / 100);
+                                $tebal_tengah = ((($item->tte_1 + $item->tte_2 + $item->tte_3) / 3) / 100);
+                                $tebal_kanan = ((($item->tka_1 + $item->tka_2 + $item->tka_3) / 3) / 100);
+
+                                $conversi_tebal_kiri = ($tebal_kiri >= 0) ? 1 : $tebal_kiri;
+                                $conversi_tebal_tengah = ($tebal_tengah >= 0) ? 1 : $tebal_tengah;
+                                $conversi_tebal_kanan = ($tebal_kanan >= 0) ? 1 : $tebal_kanan;
+
+                                $sum_tebal = (($conversi_tebal_kiri + $conversi_tebal_tengah + $conversi_tebal_kanan) / 3);
 
                                 $count = ($item->panjang * $lebar * $sum_tebal * $item->berat_bersih);
-                                $volume += round($count, 2);
+                                $volume += $count;
                                 @endphp
                                 @endforeach
 

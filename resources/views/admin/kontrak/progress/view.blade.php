@@ -20,6 +20,7 @@
                                 <tr>
                                     <th class="text-center" rowspan="2">Minggu Ke-</th>
                                     <th class="text-center" rowspan="2">Nama Pekerjaan</th>
+                                    <th class="text-center" colspan="2">STA</th>
                                     <th class="text-center" rowspan="2">Panjang</th>
                                     <th class="text-center" rowspan="2">Titik Core</th>
                                     <th class="text-center" colspan="5">Lebar</th>
@@ -30,6 +31,9 @@
                                     <th class="text-center" rowspan="2">Vol Terpasang</th>
                                 </tr>
                                 <tr>
+                                    <th class="text-center">A</th>
+                                    <th class="text-center">B</th>
+
                                     <th class="text-center">L1</th>
                                     <th class="text-center">L2</th>
                                     <th class="text-center">L3</th>
@@ -53,14 +57,31 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                $panjang_prev = 0;
+                                $panjang_next = 0;
+                                @endphp
                                 @foreach ($progress as $key => $value)
                                 @php
-                                $lebar = round((($value->l_1 + $value->l_2 + $value->l_3 + $value->l_4) / 3) / 100,2);
-                                $tebal_kiri = round((($value->tki_1 + $value->tki_2 + $value->tki_3) / 3) / 100,2);
-                                $tebal_tengah = round((($value->tte_1 + $value->tte_2 + $value->tte_3) / 3) / 100,2);
-                                $tebal_kanan = round((($value->tka_1 + $value->tka_2 + $value->tka_3) / 3) / 100,2);
+                                $panjang_next += $value->panjang;
+                                $panjang_prev = $key == 0 ? 0 : $progress[$key - 1]->panjang + $panjang_prev;
+                                $pembagi_1 = ($value->l_1 != 0 ? 1 : 0);
+                                $pembagi_2 = ($value->l_2 != 0 ? 1 : 0);
+                                $pembagi_3 = ($value->l_3 != 0 ? 1 : 0);
+                                $pembagi_4 = ($value->l_4 != 0 ? 1 : 0);
 
-                                $sum_tebal = round((($tebal_kiri + $tebal_tengah + $tebal_kanan) / 3), 2);
+                                $total_pembagi = ($pembagi_1 + $pembagi_2 + $pembagi_3 + $pembagi_4);
+
+                                $lebar = ((($value->l_1 + $value->l_2 + $value->l_3 + $value->l_4) / $total_pembagi));
+                                $tebal_kiri = ((($value->tki_1 + $value->tki_2 + $value->tki_3) / 3) / 100);
+                                $tebal_tengah = ((($value->tte_1 + $value->tte_2 + $value->tte_3) / 3) / 100);
+                                $tebal_kanan = ((($value->tka_1 + $value->tka_2 + $value->tka_3) / 3) / 100);
+
+                                $conversi_tebal_kiri = ($tebal_kiri >= 0) ? 1 : $tebal_kiri;
+                                $conversi_tebal_tengah = ($tebal_tengah >= 0) ? 1 : $tebal_tengah;
+                                $conversi_tebal_kanan = ($tebal_kanan >= 0) ? 1 : $tebal_kanan;
+
+                                $sum_tebal = (($conversi_tebal_kiri + $conversi_tebal_tengah + $conversi_tebal_kanan) / 3);
 
                                 $count = ($value->panjang * $lebar * $sum_tebal * $value->berat_bersih);
                                 $volume = round($count, 2);
@@ -69,6 +90,8 @@
                                 <tr>
                                     <td class="text-center">{{ $value->toKontrakRencana->minggu_ke }}</td>
                                     <td class="text-center">{{ $value->nma_pekerjaan }}</td>
+                                    <td class="text-center">{{ $panjang_prev }}</td>
+                                    <td class="text-center">{{ $panjang_next }}</td>
                                     <td class="text-center">{{ $value->panjang }}</td>
                                     <td class="text-center">{{ $value->titik_core }}</td>
                                     <td class="text-center">{{ $value->l_1 }}</td>
