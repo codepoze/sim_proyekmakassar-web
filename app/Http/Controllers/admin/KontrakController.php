@@ -103,13 +103,13 @@ class KontrakController extends Controller
         $realisasi_komulatif = 0;
         foreach ($kontrak_rencana as $key => $value) {
             $rencana_komulatif += $value->bobot;
-            $realisasi_komulatif += $this->_count_progress(my_decrypt($id), $value->id_kontrak_rencana, $total_kontrak);
+            $realisasi_komulatif += count_progress(my_decrypt($id), $value->id_kontrak_rencana, $total_kontrak);
 
             $get_kontrak_rencana[] = [
                 'minggu_ke'           => "Minggu ke-" . $value->minggu_ke,
                 'rencana'             => $value->bobot,
                 'rencana_komulatif'   => $rencana_komulatif,
-                'realisasi'           => $this->_count_progress(my_decrypt($id), $value->id_kontrak_rencana, $total_kontrak),
+                'realisasi'           => count_progress(my_decrypt($id), $value->id_kontrak_rencana, $total_kontrak),
                 'realisasi_komulatif' => $realisasi_komulatif,
                 'devisiasi'           => ($realisasi_komulatif - $rencana_komulatif)
             ];
@@ -221,7 +221,7 @@ class KontrakController extends Controller
             $response[] = [
                 'category' => "Minggu ke-" . $value->minggu_ke,
                 'value1'   => $value->bobot,
-                'value2'   => $this->_count_progress($id_kontrak, $value->id_kontrak_rencana, $total_kontrak),
+                'value2'   => count_progress($id_kontrak, $value->id_kontrak_rencana, $total_kontrak),
             ];
         }
 
@@ -664,51 +664,5 @@ class KontrakController extends Controller
         }
 
         return $html;
-    }
-
-    public function _count_progress($id_kontrak, $id_kontrak_rencana, $total_kontrak)
-    {
-        $kontrak = Kontrak::findOrFail($id_kontrak);
-
-        $result = 0;
-        foreach ($kontrak->toKontrakRuas as $key => $value) {
-            foreach ($value->toKontrakRuasItem as $key => $row) {
-                $get_kontrak_rencana = DB::select("SELECT k.id_kontrak, kr.id_kontrak_ruas, kri.id_kontrak_ruas_item, p.id_progress, p.id_kontrak_rencana, p.panjang, p.titik_core, p.l_1, p.l_2, p.l_3, p.l_4, p.tki_1, p.tki_2, p.tki_3, p.tte_1, p.tte_2, p.tte_3, p.tka_1, p.tka_2, p.tka_3, p.berat_bersih FROM kontrak AS k LEFT JOIN kontrak_ruas AS kr ON kr.id_kontrak = k.id_kontrak LEFT JOIN kontrak_ruas_item AS kri ON kri.id_kontrak_ruas = kr.id_kontrak_ruas LEFT JOIN progress AS p ON p.id_kontrak_ruas_item = kri.id_kontrak_ruas_item WHERE kri.id_kontrak_ruas_item = '$row->id_kontrak_ruas_item' AND p.id_kontrak_rencana = '$id_kontrak_rencana'");
-                $harga_satuan = $row->harga_kontrak;
-                $volume = 0;
-
-                foreach ($get_kontrak_rencana as $key => $value) {
-                    $pembagi_1 = ($value->l_1 != 0 ? 1 : 0);
-                    $pembagi_2 = ($value->l_2 != 0 ? 1 : 0);
-                    $pembagi_3 = ($value->l_3 != 0 ? 1 : 0);
-                    $pembagi_4 = ($value->l_4 != 0 ? 1 : 0);
-
-                    $total_pembagi = ($pembagi_1 + $pembagi_2 + $pembagi_3 + $pembagi_4);
-
-                    $lebar        = ((($value->l_1 + $value->l_2 + $value->l_3 + $value->l_4) / $total_pembagi));
-                    $tebal_kiri   = ((($value->tki_1 + $value->tki_2 + $value->tki_3) / 3) / 100);
-                    $tebal_tengah = ((($value->tte_1 + $value->tte_2 + $value->tte_3) / 3) / 100);
-                    $tebal_kanan  = ((($value->tka_1 + $value->tka_2 + $value->tka_3) / 3) / 100);
-
-                    $conversi_tebal_kiri   = ($tebal_kiri >= 0) ? 1 : $tebal_kiri;
-                    $conversi_tebal_tengah = ($tebal_tengah >= 0) ? 1 : $tebal_tengah;
-                    $conversi_tebal_kanan  = ($tebal_kanan >= 0) ? 1 : $tebal_kanan;
-
-                    $sum_tebal = (($conversi_tebal_kiri + $conversi_tebal_tengah + $conversi_tebal_kanan) / 3);
-
-                    $count = ($value->panjang * $lebar * $sum_tebal * $value->berat_bersih);
-                    $volume += $count;
-                }
-
-                $total_volume = round($volume, 2);
-                $count_volume = ((($total_volume * $harga_satuan) / $total_kontrak) * 100);
-
-                if ($total_volume > 0) {
-                    $result += $count_volume;
-                }
-            }
-        }
-
-        return round($result, 2);
     }
 }
