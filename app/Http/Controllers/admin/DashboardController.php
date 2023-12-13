@@ -23,16 +23,14 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $get_kontrak = [];
-
-        // $kontrak = DB::select("SELECT k.id_kontrak, k.no_kontrak FROM kontrak AS k ");
-
         if ($this->session['roles'] == 'pptk') {
             $pptk    = Pptk::whereIdUsers($this->session['id_users'])->first();
             $kontrak = DB::select("SELECT k.id_kegiatan, p.id_paket, ko.id_kontrak, ko.no_kontrak FROM kegiatan AS k LEFT JOIN paket AS p ON p.id_kegiatan = k.id_kegiatan LEFT JOIN kontrak AS ko ON ko.id_paket = p.id_paket WHERE k.id_pptk = '$pptk->id_pptk'");
         } else {
             $kontrak = DB::select("SELECT k.id_kontrak, k.no_kontrak FROM kontrak AS k ");
         }
+
+        $get_kontrak = [];
 
         foreach ($kontrak as $key => $value_satu) {
             $kontrak_ruas_item = DB::select("SELECT k.id_kontrak, kr.id_kontrak_ruas, kri.id_kontrak_ruas_item, kri.volume, kri.harga_hps, kri.harga_kontrak FROM kontrak AS k LEFT JOIN kontrak_ruas AS kr ON kr.id_kontrak = k.id_kontrak LEFT JOIN kontrak_ruas_item AS kri ON kri.id_kontrak_ruas = kr.id_kontrak_ruas WHERE k.id_kontrak = '$value_satu->id_kontrak'");
