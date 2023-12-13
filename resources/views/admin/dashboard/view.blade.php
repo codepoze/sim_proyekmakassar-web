@@ -85,7 +85,16 @@
                 @foreach ($get_kontrak as $key => $val)
                 <div class="card">
                     <div class="card-header">
-                        <h4 class="card-title">Progress {{ $val['no_kontrak'] }}</h4>
+                        <div class="head-label">
+                            <h4 class="card-title">Progress Kontrak {{ $val['no_kontrak'] }}</h4>
+                        </div>
+                        <div class="dt-action-buttons text-end">
+                            <div class="dt-buttons d-inline-flex">
+                                <a href="{{ route_role('admin.kontrak.rincian', ['id' => $val['id_kontrak']]) }}" class="btn btn-sm btn-relief-info">
+                                    <i data-feather='info'></i>&nbsp;<span>Detail</span>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="progress">

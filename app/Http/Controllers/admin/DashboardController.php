@@ -25,28 +25,26 @@ class DashboardController extends Controller
     {
         $get_kontrak = [];
 
-        $kontrak = Kontrak::get();
-        foreach ($kontrak as $key => $val_satu) {
-            $total_kontrak  = 0;
-            foreach ($val_satu->toKontrakRuas as $key => $val_dua) {
-                $total_kontrak += $val_dua->toKontrakRuasItem->sum(function ($item) {
-                    return $item->volume * $item->harga_kontrak;
-                });
-            }
-            
-            $total_progress = 0;
-            foreach ($val_satu->toKontrakRencana as $key => $val_tiga) {
-                $total_progress += count_progress($val_satu->id_kontrak, $val_tiga->id_kontrak_rencana, $total_kontrak);
+        $kontrak = DB::select("SELECT k.id_kontrak, k.no_kontrak FROM kontrak AS k");
+        foreach ($kontrak as $key => $value_satu) {
+            $kontrak_ruas_item = DB::select("SELECT k.id_kontrak, kr.id_kontrak_ruas, kri.id_kontrak_ruas_item, kri.volume, kri.harga_hps, kri.harga_kontrak FROM kontrak AS k LEFT JOIN kontrak_ruas AS kr ON kr.id_kontrak = k.id_kontrak LEFT JOIN kontrak_ruas_item AS kri ON kri.id_kontrak_ruas = kr.id_kontrak_ruas WHERE k.id_kontrak = '$value_satu->id_kontrak'");
+            $total_kontrak = 0;
+            foreach ($kontrak_ruas_item as $key => $value_dua) {
+                $total_kontrak += $value_dua->volume * $value_dua->harga_kontrak;
             }
 
-            if ($total_progress <= 100) {
-                $get_kontrak[] = [
-                    'id_kontrak'     => $val_satu->id_kontrak,
-                    'no_kontrak'     => $val_satu->no_kontrak,
-                    'total_kontrak'  => $total_kontrak,
-                    'total_progress' => (int) $total_progress
-                ];
+            $kontrak_rencana = DB::select("SELECT k.id_kontrak, kr.id_kontrak_rencana FROM kontrak AS k LEFT JOIN kontrak_rencana AS kr ON kr.id_kontrak = k.id_kontrak WHERE k.id_kontrak = '$value_satu->id_kontrak'");
+            $total_progress = 0;
+            foreach ($kontrak_rencana as $key => $value_tiga) {
+                $total_progress += count_progress($value_satu->id_kontrak, $value_tiga->id_kontrak_rencana, $total_kontrak);
             }
+
+            $get_kontrak[] = [
+                'id_kontrak'     => my_encrypt($value_satu->id_kontrak),
+                'no_kontrak'     => $value_satu->no_kontrak,
+                'total_kontrak'  => $total_kontrak,
+                'total_progress' => (int) $total_progress
+            ];
         }
 
         $data = [
