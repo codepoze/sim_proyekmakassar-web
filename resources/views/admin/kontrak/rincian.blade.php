@@ -249,7 +249,7 @@
             categoryAxis.title.text = "Categories";
 
             var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
-            valueAxis.title.text = "Values";
+            valueAxis.title.text = "Progress";
 
             // Create series
             var series1 = chart.series.push(new am4charts.LineSeries());
@@ -257,12 +257,14 @@
             series1.dataFields.categoryX = "category";
             series1.name = "Rencana";
             series1.strokeWidth = 3;
+            series1.stroke = am4core.color("#0000FF");
 
             var series2 = chart.series.push(new am4charts.LineSeries());
             series2.dataFields.valueY = "value2";
             series2.dataFields.categoryX = "category";
             series2.name = "Realisasi";
             series2.strokeWidth = 3;
+            series2.stroke = am4core.color("#26AD82");
 
             // Add legend
             chart.legend = new am4charts.Legend();

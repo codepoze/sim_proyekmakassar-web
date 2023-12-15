@@ -507,25 +507,39 @@ if (!function_exists('count_progress')) {
             $volume          = 0;
 
             foreach ($kontrak_rencana as $key => $value_dua) {
-                $pembagi_1 = ($value_dua->l_1 != 0 ? 1 : 0);
-                $pembagi_2 = ($value_dua->l_2 != 0 ? 1 : 0);
-                $pembagi_3 = ($value_dua->l_3 != 0 ? 1 : 0);
-                $pembagi_4 = ($value_dua->l_4 != 0 ? 1 : 0);
+                $pembagi_l_1 = ($value_dua->l_1 != 0 ? 1 : 0);
+                $pembagi_l_2 = ($value_dua->l_2 != 0 ? 1 : 0);
+                $pembagi_l_3 = ($value_dua->l_3 != 0 ? 1 : 0);
+                $pembagi_l_4 = ($value_dua->l_4 != 0 ? 1 : 0);
+                $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
 
-                $total_pembagi = ($pembagi_1 + $pembagi_2 + $pembagi_3 + $pembagi_4);
+                $pembagi_tki_1 = ($value_dua->tki_1 != 0 ? 1 : 0);
+                $pembagi_tki_2 = ($value_dua->tki_2 != 0 ? 1 : 0);
+                $pembagi_tki_3 = ($value_dua->tki_3 != 0 ? 1 : 0);
+                $total_pembagi_tki = ($pembagi_tki_1 + $pembagi_tki_2 + $pembagi_tki_3);
 
-                $lebar        = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi));
-                $tebal_kiri   = ((($value_dua->tki_1 + $value_dua->tki_2 + $value_dua->tki_3) / 3) / 100);
-                $tebal_tengah = ((($value_dua->tte_1 + $value_dua->tte_2 + $value_dua->tte_3) / 3) / 100);
-                $tebal_kanan  = ((($value_dua->tka_1 + $value_dua->tka_2 + $value_dua->tka_3) / 3) / 100);
+                $pembagi_tte_1 = ($value_dua->tte_1 != 0 ? 1 : 0);
+                $pembagi_tte_2 = ($value_dua->tte_2 != 0 ? 1 : 0);
+                $pembagi_tte_3 = ($value_dua->tte_3 != 0 ? 1 : 0);
+                $total_pembagi_tte = ($pembagi_tte_1 + $pembagi_tte_2 + $pembagi_tte_3);
 
-                $conversi_tebal_kiri   = ($tebal_kiri >= 0) ? 1 : $tebal_kiri;
-                $conversi_tebal_tengah = ($tebal_tengah >= 0) ? 1 : $tebal_tengah;
-                $conversi_tebal_kanan  = ($tebal_kanan >= 0) ? 1 : $tebal_kanan;
+                $pembagi_tka_1 = ($value_dua->tka_1 != 0 ? 1 : 0);
+                $pembagi_tka_2 = ($value_dua->tka_2 != 0 ? 1 : 0);
+                $pembagi_tka_3 = ($value_dua->tka_3 != 0 ? 1 : 0);
+                $total_pembagi_tka = ($pembagi_tka_1 + $pembagi_tka_2 + $pembagi_tka_3);
 
-                $sum_tebal = (($conversi_tebal_kiri + $conversi_tebal_tengah + $conversi_tebal_kanan) / 3);
+                $lebar = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                $tebal_kiri = @((($value_dua->tki_1 + $value_dua->tki_2 + $value_dua->tki_3) / $total_pembagi_tki) / 100);
+                $tebal_tengah = @((($value_dua->tte_1 + $value_dua->tte_2 + $value_dua->tte_3) / $total_pembagi_tte) / 100);
+                $tebal_kanan = @((($value_dua->tka_1 + $value_dua->tka_2 + $value_dua->tka_3) / $total_pembagi_tka) / 100);
 
-                $count = ($value_dua->panjang * $lebar * $sum_tebal * $value_dua->berat_bersih);
+                $conversi_tebal_kiri = (is_nan($tebal_kiri)) ? 1 : $tebal_kiri;
+                $conversi_tebal_tengah = (is_nan($tebal_tengah)) ? 1 : $tebal_tengah;
+                $conversi_tebal_kanan = (is_nan($tebal_kanan)) ? 1 : $tebal_kanan;
+
+                $average_tebal = (($conversi_tebal_kiri + $conversi_tebal_tengah + $conversi_tebal_kanan) / 3);
+
+                $count = ($value_dua->panjang * $lebar * $average_tebal * $value_dua->berat_bersih);
                 $volume += $count;
             }
 
