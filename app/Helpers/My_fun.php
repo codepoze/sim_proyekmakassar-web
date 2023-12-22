@@ -544,7 +544,8 @@ if (!function_exists('count_progress')) {
             }
 
             $total_volume = round($volume, 2);
-            $count_volume = (@(($total_volume * $harga_satuan) / $total_kontrak) * 100);
+            // $count_volume = (@(($total_volume * $harga_satuan) / $total_kontrak) * 100);
+            $count_volume = 0;
 
             if ($total_volume > 0) {
                 $result += $count_volume;
