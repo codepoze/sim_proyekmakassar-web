@@ -544,11 +544,10 @@ if (!function_exists('count_progress')) {
             }
 
             $total_volume = round($volume, 2);
-            // $count_volume = @((($total_volume * $harga_satuan) / $total_kontrak) * 100);
-            $count_volume = @(($total_volume * $harga_satuan) / $total_kontrak);
+            $count_volume = ($total_kontrak === 0) ? 0 : (($total_volume * $harga_satuan) / $total_kontrak) * 100;
 
             if ($total_volume > 0) {
-                $result += is_nan($count_volume) ? 0 : $count_volume;
+                $result += $count_volume;
             }
         }
         
