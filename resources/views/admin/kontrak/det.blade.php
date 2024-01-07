@@ -134,7 +134,7 @@
                                             <label class="col-form-label">Tanggal BA. MC NOL</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_ba_mc0 }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_ba_mc0) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
@@ -150,7 +150,7 @@
                                             <label class="col-form-label">Tanggal BA. NEGO</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_ba_kntb }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_ba_kntb) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
@@ -166,7 +166,7 @@
                                             <label class="col-form-label">Tanggal SPPBJ</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_sppbj }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_sppbj) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
@@ -182,7 +182,7 @@
                                             <label class="col-form-label">Tanggal BA. Persiapan Penandatanganan</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_ba_rp2k }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_ba_rp2k) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
@@ -198,7 +198,7 @@
                                             <label class="col-form-label">Tanggal Surat Pesanan</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_sp }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_sp) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
@@ -214,7 +214,7 @@
                                             <label class="col-form-label">Tanggal Kontrak / SPK</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_kontrak }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_kontrak) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
@@ -238,7 +238,7 @@
                                             <label class="col-form-label">Tanggal SPMK</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_spmk }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_spmk) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
@@ -254,7 +254,7 @@
                                             <label class="col-form-label">Tanggal BA. Penyerahan Lokasi Pekerjaan</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_ba_plp }}" readonly="readonly" />
+                                            <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_ba_plp) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
