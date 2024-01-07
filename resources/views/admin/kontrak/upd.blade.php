@@ -274,8 +274,6 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
-
-
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
                                     <label class="col-form-label" for="id_fund">Sumber Dana&nbsp;*</label>
@@ -296,10 +294,6 @@
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
-
-
-
-
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
                                     <label class="col-form-label" for="foto_lokasi">Foto Lokasi&nbsp;*</label>

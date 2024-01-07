@@ -201,10 +201,126 @@
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_sp }}" readonly="readonly" />
                                         </div>
                                     </div>
-
-
-
-
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Nomor Kontrak / SPK</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_kontrak }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Tanggal Kontrak / SPK</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_kontrak }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Waktu Kontrak</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $kontrak->tgl_kontrak_akhir, $kontrak->tgl_kontrak_mulai) . ' Hari'; }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Nomor SPMK</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_spmk }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Tanggal SPMK</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_spmk }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Nomor BA. Penyerahan Lokasi Pekerjaan</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_ba_plp }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Tanggal BA. Penyerahan Lokasi Pekerjaan</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->tgl_ba_plp }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Nilai Kontak</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($kontrak->nil_kontrak) }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Nilai Pagu</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($kontrak->nil_pagu) }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Tahun Anggaran</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->thn_anggaran }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Pembuat Kontrak</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->pembuat_kontrak }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Sumber Dana</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->toFund->nama }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Kode Rekening</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ $kontrak->kd_rekening }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Nilai Kontrak Per Item</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_kontrak) }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Nilai HPS Per Item</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_hps) }}" readonly="readonly" />
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                             <div class="col-lg-4">
