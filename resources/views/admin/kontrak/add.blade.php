@@ -83,19 +83,109 @@
                             </div>
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="no_spmk">Nomor SPMK&nbsp;*</label>
+                                    <label class="col-form-label" for="no_ba_mc0">Nomor BA. MC NOL&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="no_spmk" name="no_spmk" placeholder="Masukkan nomor spmk" />
+                                    <input type="text" class="form-control form-control-sm" id="no_ba_mc0" name="no_ba_mc0" placeholder="Masukkan ba mc0" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="no_kontrak">Nomor Kontrak&nbsp;*</label>
+                                    <label class="col-form-label" for="tgl_ba_mc0">Tanggal BA. MC NOL&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_ba_mc0" name="tgl_ba_mc0" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="no_ba_kntb">Nomor BA. NEGO&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control form-control-sm" id="no_ba_kntb" name="no_ba_kntb" placeholder="Masukkan ba kntb" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_ba_kntb">Tanggal BA. NEGO&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_ba_kntb" name="tgl_ba_kntb" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="no_sppbj">Nomor SPPBJ&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control form-control-sm" id="no_sppbj" name="no_sppbj" placeholder="Masukkan sppbj" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_sppbj">Tanggal SPPBJ&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_sppbj" name="tgl_sppbj" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="no_ba_rp2k">Nomor BA. Persiapan Penandatanganan&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control form-control-sm" id="no_ba_rp2k" name="no_ba_rp2k" placeholder="Masukkan ba rp2k" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_ba_rp2k">Tanggal BA. Persiapan Penandatanganan&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_ba_rp2k" name="tgl_ba_rp2k" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="no_sp">Nomor Surat Pesanan&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control form-control-sm" id="no_sp" name="no_sp" placeholder="Masukkan surat pesanan" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_sp">Tanggal Surat Pesanan&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_sp" name="tgl_sp" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="no_kontrak">Nomor Kontrak / SPK&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
                                     <input type="text" class="form-control form-control-sm" id="no_kontrak" name="no_kontrak" placeholder="Masukkan nomor kontrak" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_kontrak">Tanggal Kontrak / SPK&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_kontrak" name="tgl_kontrak" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -125,10 +215,46 @@
                             </div>
                             <div class="field-input mb-1 row">
                                 <div class="col-sm-3">
-                                    <label class="col-form-label" for="thn_anggaran">Tahun Anggaran&nbsp;*</label>
+                                    <label class="col-form-label" for="no_spmk">Nomor SPMK&nbsp;*</label>
                                 </div>
                                 <div class="col-sm-9 my-auto">
-                                    <input type="text" class="form-control form-control-sm" id="thn_anggaran" name="thn_anggaran" placeholder="Masukkan tahun anggaran" />
+                                    <input type="text" class="form-control form-control-sm" id="no_spmk" name="no_spmk" placeholder="Masukkan nomor spmk" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_spmk">Tanggal SPMK&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_spmk" name="tgl_spmk" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="no_ba_plp">Nomor BA. Penyerahan Lokasi Pekerjaan&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control form-control-sm" id="no_ba_plp" name="no_ba_plp" placeholder="Masukkan no plp" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_ba_plp">Tanggal BA. Penyerahan Lokasi Pekerjaan&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_ba_plp" name="tgl_ba_plp" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="nil_kontrak">Nilai Kontrak&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control form-control-sm" id="nil_kontrak" name="nil_kontrak" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan nilai kontrak" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -138,6 +264,24 @@
                                 </div>
                                 <div class="col-sm-9 my-auto">
                                     <input type="text" class="form-control form-control-sm" id="nil_pagu" name="nil_pagu" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan nilai pagu" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="thn_anggaran">Tahun Anggaran&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control form-control-sm" id="thn_anggaran" name="thn_anggaran" placeholder="Masukkan tahun anggaran" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="pembuat_kontrak">Pembuat Kontrak&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9 my-auto">
+                                    <input type="text" class="form-control form-control-sm" id="pembuat_kontrak" name="pembuat_kontrak" placeholder="Masukkan pembuat kontrak" />
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
@@ -158,19 +302,6 @@
                                 </div>
                                 <div class="col-sm-9 my-auto">
                                     <input type="text" class="form-control form-control-sm" id="kd_rekening" name="kd_rekening" placeholder="Masukkan kode rekening" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                            <div class="field-input mb-1 row">
-                                <div class="col-sm-3">
-                                    <label class="col-form-label" for="jns_kontrak">Jenis Kontrak&nbsp;*</label>
-                                </div>
-                                <div class="col-sm-9 my-auto">
-                                    <select class="form-control form-control-sm" id="jns_kontrak" name="jns_kontrak">
-                                        <option value="">Pilih jenis kontrak</option>
-                                        <option value="utama">Utama</option>
-                                        <option value="adendium">Adendium</option>
-                                    </select>
                                     <div class="invalid-feedback"></div>
                                 </div>
                             </div>
