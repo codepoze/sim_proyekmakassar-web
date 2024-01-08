@@ -128,7 +128,6 @@ class KontrakController extends Controller
 
     public function pdf()
     {
-        dd('pdf');
         $id = last(request()->segments());
 
         $kontrak = Kontrak::findOrFail(my_decrypt($id));
