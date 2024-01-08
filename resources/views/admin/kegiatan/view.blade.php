@@ -4,7 +4,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/forms/select/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/pickers/pickadate/pickadate.css') }}">
 
     <style>
         .picker {
@@ -76,7 +75,7 @@
                                             <label class="col-form-label" for="role">Tanggal Kegiatan&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" id="tgl" class="form-control form-control-sm pickadate" name="tgl" placeholder="18 June, 2020" />
+                                            <input type="date" id="tgl" class="form-control form-control-sm" name="tgl" />
                                             <div id="pickdate-container"></div>
                                             <div class="invalid-feedback"></div>
                                         </div>
@@ -127,37 +126,10 @@
     <script src="{{ asset_admin('vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
     <script src="{{ asset_admin('vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
     <script src="{{ asset_admin('vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
-    <script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.js') }}"></script>
-    <script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-    <script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.time.js') }}"></script>
-    <script src="{{ asset_admin('vendors/js/pickers/pickadate/legacy.js') }}"></script>
     <script src="{{ asset_admin('vendors/js/forms/select/select2.full.min.js') }}"></script>
 
     <script>
-        let tgl = $('#tgl').pickadate({
-            container: '#pickdate-container',
-            format: 'dd mmmm, yyyy',
-            formatSubmit: 'yyyy-mm-dd',
-            monthsFull: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-            weekdaysShort: ["Mn", "Sn", "Sl", "Rb", "Km", "Jm", "Sb"],
-            hiddenName: true,
-            clear: 'Hapus',
-            close: 'Tutup',
-            today: 'Hari Ini',
-            selectYears: true,
-            selectMonths: true,
-            max: 365,
-            closeOnSelect: true,
-            closeOnClear: true,
-            onSet: function(context) {
-                if (context.select) {
-                    this.close();
-                }
-            },
-        });
-
         var table;
-        var picker = tgl.pickadate('picker');
 
         let untukTabel = function() {
             table = $('#tabel-kegiatan-dt').DataTable({
@@ -284,14 +256,6 @@
             $(document).on('change', '#form-add-upd select', function(e) {
                 e.preventDefault();
 
-                if ($(this).val() == '') {
-                    $(this).removeClass('is-valid').addClass('is-invalid');
-                } else {
-                    $(this).removeClass('is-invalid').addClass('is-valid');
-                }
-            });
-
-            tgl.on('change', function() {
                 if ($(this).val() == '') {
                     $(this).removeClass('is-valid').addClass('is-invalid');
                 } else {

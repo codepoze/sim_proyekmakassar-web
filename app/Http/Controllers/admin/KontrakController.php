@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\KontrakExport;
 use App\Http\Controllers\Controller;
 use App\Libraries\Pdf;
 use App\Libraries\Template;
@@ -13,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class KontrakController extends Controller
@@ -124,8 +126,9 @@ class KontrakController extends Controller
         return Template::load('admin', 'Rincian Kontrak', 'kontrak', 'rincian', $data);
     }
 
-    public function print()
+    public function pdf()
     {
+        dd('pdf');
         $id = last(request()->segments());
 
         $kontrak = Kontrak::findOrFail(my_decrypt($id));
@@ -151,7 +154,12 @@ class KontrakController extends Controller
             'nil_kontrak' => $nil_kontrak
         ];
 
-        Pdf::printPdf('Rencana Anggaran Biaya', 'admin.kontrak.print', 'legal', 'landscape', $data);
+        Pdf::printPdf('Rencana Anggaran Biaya', 'admin.kontrak.pdf', 'legal', 'landscape', $data);
+    }
+
+    public function excel()
+    {
+        return Excel::download(new KontrakExport, 'kontrak.xlsx');
     }
 
     public function get_data_dt(Request $request)

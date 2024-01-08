@@ -21,9 +21,15 @@
                                     <i data-feather="bar-chart"></i>&nbsp;Rincian
                                 </a>
                                 &nbsp;
-                                <a href="{{ route_role('admin.kontrak.print', ['id' => $id_kontrak]) }}" target="_blank" class="btn btn-sm btn-relief-info">
-                                    <i data-feather="printer"></i>&nbsp;Cetak
-                                </a>
+                                <div class="btn-group" role="group">
+                                    <button id="btnGroupDrop1" type="button" class="btn btn-sm btn-relief-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i data-feather="printer"></i>&nbsp;Cetak
+                                    </button>
+                                    <ul class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                                        <li><a href="{{ route_role('admin.kontrak.pdf', ['id' => $id_kontrak]) }}" target="_blank" class="dropdown-item" href="#">PDF</a></li>
+                                        <li><a href="{{ route_role('admin.kontrak.excel', ['id' => $id_kontrak]) }}" target="_blank" class="dropdown-item" href="#">Excel</a></li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
