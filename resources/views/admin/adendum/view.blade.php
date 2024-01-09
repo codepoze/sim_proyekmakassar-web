@@ -1,6 +1,7 @@
 <x-admin-layout title="{{ $title }}">
     <!-- begin:: css local -->
     @push('css')
+    <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/forms/select/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
     @endpush
@@ -53,6 +54,19 @@
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
+                                            <label class="col-form-label" for="id_kontrak">Kontrak&nbsp;*</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <select class="form-select select2" id="id_kontrak" name="id_kontrak">
+                                                <option value=""></option>
+                                            </select>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="field-input mb-1 row">
+                                        <div class="col-sm-3">
                                             <label class="col-form-label" for="no_adendum">Nomor Adendum&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
@@ -88,28 +102,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-12">
-                                    <div class="field-input mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="tgl_adendum_mulai">Tanggal Adendum Mulai&nbsp;*</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" id="tgl_adendum_mulai" name="tgl_adendum_mulai" />
-                                            <div class="invalid-feedback"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="field-input mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="tgl_adendum_akhir">Tanggal Adendum Selesai&nbsp;*</label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" id="tgl_adendum_akhir" name="tgl_adendum_akhir" />
-                                            <div class="invalid-feedback"></div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div id="jenis-input"></div>
                             </div>
                         </div>
                     </div>
@@ -142,6 +135,7 @@
     <script src="{{ asset_admin('vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
     <script src="{{ asset_admin('vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
     <script src="{{ asset_admin('vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
+    <script src="{{ asset_admin('vendors/js/forms/select/select2.full.min.js') }}"></script>
 
     <script>
         var table;
@@ -165,6 +159,11 @@
                 columns: [{
                         title: 'No.',
                         data: 'DT_RowIndex',
+                        class: 'text-center'
+                    },
+                    {
+                        title: 'Kontrak',
+                        data: 'to_kontrak.no_kontrak',
                         class: 'text-center'
                     },
                     {
@@ -207,6 +206,9 @@
                     cache: false,
                     dataType: 'json',
                     beforeSend: function() {
+                        $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
+                        $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
+
                         $('#save').attr('disabled', 'disabled');
                         $('#save').html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
                         feather.replace();
@@ -292,6 +294,8 @@
         let untukTambahData = function() {
             $(document).on('click', '#add', function(e) {
                 e.preventDefault();
+                get_kontrak();
+
                 $('#judul-add-upd').text('Tambah');
 
                 $('#id_adendum').removeAttr('value');
@@ -331,6 +335,8 @@
                     success: function(response) {
                         $('#form-loading').empty();
                         $('#form-show').removeAttr('style');
+
+                        get_kontrak(response.id_kontrak);
 
                         $.each(response, function(key, value) {
                             if (key) {
@@ -406,6 +412,55 @@
                 });
             });
         }();
+
+        let untukSelectJenis = function() {
+            $(document).on('change', '#jenis', function() {
+                let ini = $(this);
+
+                if (ini.val() === 'perpanjangan') {
+                    $('#jenis-input').html(`
+                        <div class="col-12">
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_adendum_mulai">Tanggal Adendum Mulai&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_adendum_mulai" name="tgl_adendum_mulai" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="tgl_adendum_akhir">Tanggal Adendum Selesai&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="date" class="form-control form-control-sm" id="tgl_adendum_akhir" name="tgl_adendum_akhir" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                } else {
+                    $('#jenis-input').html(``);
+                }
+            });
+        }();
+
+        function get_kontrak(id = null) {
+            $.get("{{ route_role('admin.kontrak.get_all') }}", {
+                id: id
+            }, function(response) {
+                $("#id_kontrak").select2({
+                    placeholder: "Pilih kontrak",
+                    width: '100%',
+                    allowClear: true,
+                    containerCssClass: 'select-sm',
+                    data: response,
+                });
+            }, 'json');
+        }
     </script>
     @endpush
     <!-- end:: js local -->

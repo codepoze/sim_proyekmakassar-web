@@ -185,6 +185,9 @@
                     cache: false,
                     dataType: 'json',
                     beforeSend: function() {
+                        $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
+                        $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
+                        
                         $('#save').attr('disabled', 'disabled');
                         $('#save').html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
                         feather.replace();

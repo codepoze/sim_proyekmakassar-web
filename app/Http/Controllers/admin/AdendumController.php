@@ -61,19 +61,25 @@ class AdendumController extends Controller
 
     public function save(Request $request)
     {
-        $rule = [
-            'no_adendum'  => 'required',
-            'tgl_adendum' => 'required',
-            'jenis'       => 'required',
-        ];
+        $rules['id_kontrak']  = 'required';
+        $rules['no_adendum']  = 'required';
+        $rules['tgl_adendum'] = 'required';
+        $rules['jenis']       = 'required';
 
-        $message = [
-            'no_adendum.required'  => 'No. Adendum harus diisi!',
-            'tgl_adendum.required' => 'Tgl. Adendum harus diisi!',
-            'jenis.required'       => 'Jenis Adendum harus diisi!',
-        ];
+        $message['id_kontrak.required']  = 'Kontrak harus diisi!';
+        $message['no_adendum.required']  = 'No. Adendum harus diisi!';
+        $message['tgl_adendum.required'] = 'Tgl. Adendum harus diisi!';
+        $message['jenis.required']       = 'Jenis Adendum harus diisi!';
 
-        $validator = Validator::make($request->all(), $rule, $message);
+        if ($request->jenis === 'perpanjangan') {
+            $rules['tgl_adendum_mulai'] = 'required';
+            $rules['tgl_adendum_akhir'] = 'required';
+
+            $message['tgl_adendum_mulai.required'] = 'Tgl. Adendum Mulai harus diisi!';
+            $message['tgl_adendum_akhir.required'] = 'Tgl. Adendum Akhir harus diisi!';
+        }
+
+        $validator = Validator::make($request->all(), $rules, $message);
 
         if ($validator->fails()) {
             $response = ['title' => 'Gagal!', 'text'  => 'Data gagal ditambahkan!', 'type'  => 'error', 'button' => 'Ok!', 'class' => 'danger', 'errors' => $validator->errors()];
@@ -87,10 +93,13 @@ class AdendumController extends Controller
                     'id_adendum' => $request->id_adendum,
                 ],
                 [
-                    'no_adendum'  => $request->no_adendum,
-                    'tgl_adendum' => $request->tgl_adendum,
-                    'jenis'       => $request->jenis,
-                    'by_users'    => $this->session['id_users'],
+                    'id_kontrak'        => $request->id_kontrak,
+                    'no_adendum'        => $request->no_adendum,
+                    'tgl_adendum'       => $request->tgl_adendum,
+                    'tgl_adendum_mulai' => $request->tgl_adendum_mulai,
+                    'tgl_adendum_akhir' => $request->tgl_adendum_akhir,
+                    'jenis'             => $request->jenis,
+                    'by_users'          => $this->session['id_users'],
                 ]
             );
 

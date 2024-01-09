@@ -209,6 +209,22 @@ class KontrakController extends Controller
             ->make(true);
     }
 
+    public function get_all(Request $request)
+    {
+        $data = Kontrak::orderBy('id_kontrak', 'desc')->get();
+
+        $response = [];
+        foreach ($data as $key => $value) {
+            $response[] = [
+                'id'       => $value->id_kontrak,
+                'text'     => $value->no_kontrak,
+                'selected' => ($request->id == $value->id_kontrak ? true : false)
+            ];
+        }
+
+        return Response::json($response);
+    }
+
     public function get_chart_progress(Request $request)
     {
         $id_kontrak = my_decrypt($request->id);

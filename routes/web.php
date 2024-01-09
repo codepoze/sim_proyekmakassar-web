@@ -229,6 +229,7 @@ Route::group([
         Route::get('/pdf/{id}', 'pdf')->name('pdf');
         Route::get('/excel/{id}', 'excel')->name('excel');
         Route::get('/rincian/{id}', 'rincian')->name('rincian');
+        Route::get('/get_all', 'get_all')->name('get_all');
         Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
         Route::get('/get_chart_progress', 'get_chart_progress')->name('get_chart_progress');
         Route::post('/rencana', 'rencana')->name('rencana');
