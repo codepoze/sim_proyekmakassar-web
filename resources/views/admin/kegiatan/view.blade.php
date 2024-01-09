@@ -4,13 +4,6 @@
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/forms/select/select2.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
-
-    <style>
-        .picker {
-            z-index: 9999 !important;
-            position: relative !important;
-        }
-    </style>
     @endpush
     <!-- end:: css local -->
 

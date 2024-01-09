@@ -3,14 +3,6 @@
     @push('css')
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset_admin('vendors/css/pickers/pickadate/pickadate.css') }}">
-
-    <style>
-        .picker {
-            z-index: 9999 !important;
-            position: relative !important;
-        }
-    </style>
     @endpush
     <!-- end:: css local -->
 
@@ -32,7 +24,7 @@
                         </div>
                     </div>
                     <div class="card-datatable">
-                        <table class="table table-striped table-bordered" id="tabel-satuan-dt" style="width: 100%;">
+                        <table class="table table-striped table-bordered" id="tabel-holiday-dt" style="width: 100%;">
                         </table>
                     </div>
                 </div>
@@ -64,7 +56,7 @@
                                             <label class="col-form-label" for="date">Tanggal&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm pickadate" id="date" name="date" placeholder="18 June, 2020" />
+                                            <input type="date" class="form-control form-control-sm" id="date" name="date" />
                                             <div id="pickdate-container"></div>
                                             <div class="invalid-feedback"></div>
                                         </div>
@@ -113,38 +105,12 @@
     <script src="{{ asset_admin('vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
     <script src="{{ asset_admin('vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
     <script src="{{ asset_admin('vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
-    <script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.js') }}"></script>
-    <script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.date.js') }}"></script>
-    <script src="{{ asset_admin('vendors/js/pickers/pickadate/picker.time.js') }}"></script>
-    <script src="{{ asset_admin('vendors/js/pickers/pickadate/legacy.js') }}"></script>
 
     <script>
-        $('#date').pickadate({
-            container: '#pickdate-container',
-            format: 'dd mmmm, yyyy',
-            formatSubmit: 'yyyy-mm-dd',
-            monthsFull: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
-            weekdaysShort: ["Mn", "Sn", "Sl", "Rb", "Km", "Jm", "Sb"],
-            hiddenName: true,
-            clear: 'Hapus',
-            close: 'Tutup',
-            today: 'Hari Ini',
-            selectMonths: true,
-            min: new Date(new Date().getFullYear(), 0, 1),
-            max: new Date(new Date().getFullYear(), 11, 31),
-            closeOnSelect: true,
-            closeOnClear: true,
-            onSet: function(context) {
-                if (context.select) {
-                    this.close();
-                }
-            },
-        });
-
         var table;
 
         let untukTabel = function() {
-            table = $('#tabel-satuan-dt').DataTable({
+            table = $('#tabel-holiday-dt').DataTable({
                 serverSide: true,
                 responsive: true,
                 processing: true,
