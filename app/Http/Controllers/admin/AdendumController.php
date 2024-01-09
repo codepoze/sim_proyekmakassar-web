@@ -18,7 +18,6 @@ class AdendumController extends Controller
 
     public function index()
     {
-        dd('adendum');
-        return Template::load('admin', 'Hari Libur', 'holiday', 'view');
+        return Template::load('admin', 'Adendum', 'adendum', 'view');
     }
 }

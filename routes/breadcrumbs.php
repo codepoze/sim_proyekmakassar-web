@@ -200,3 +200,9 @@ Breadcrumbs::for('admin.kontrak.fh0.index', function (BreadcrumbTrail $trail) {
 
     $trail->push('Fh0 Ruas', '#');
 });
+
+Breadcrumbs::for('admin.adendum.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Adendum', route_role('admin.adendum.index'));
+});
