@@ -95,6 +95,14 @@ class MenuHeadTableSeeder extends Seeder
                 'jenis'        => 'single',
                 'by_users'     => 1,
             ],
+            [
+                'nama'         => 'Adendum',
+                'icon'         => 'list',
+                'path'         => '/adendum',
+                'status'       => '1',
+                'jenis'        => 'single',
+                'by_users'     => 1,
+            ],
         ];
         foreach ($menu_heads as $row) {
             DB::table('menu_heads')->insert($row);
