@@ -30,6 +30,21 @@ class KontrakRuasController extends Controller
         return Template::load('admin', 'Kontrak Ruas', 'kontrak/ruas', 'view', $data);
     }
 
+    public function get_all(Request $request)
+    {
+        $data = KontrakRuas::select('id_kontrak_ruas', 'nama')->whereIdKontrak($request->id)->orderBy('id_kontrak_ruas', 'desc')->get();
+
+        $response = [];
+        foreach ($data as $key => $value) {
+            $response[] = [
+                'id_kontrak_ruas' => $value->id_kontrak_ruas,
+                'nama'            => $value->nama,
+            ];
+        }
+
+        return Response::json($response);
+    }
+
     public function del(Request $request)
     {
         try {

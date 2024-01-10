@@ -5,6 +5,8 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
 use App\Models\Adendum;
+use App\Models\AdendumRuas;
+use App\Models\Kontrak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -25,6 +27,48 @@ class AdendumController extends Controller
         return Template::load('admin', 'Adendum', 'adendum', 'view');
     }
 
+    public function det()
+    {
+        $id = last(request()->segments());
+
+        $adendum = Adendum::findOrFail(my_decrypt($id));
+
+        $nil_kontrak = 0;
+        foreach ($adendum->toAdendumRuas as $key => $value) {
+            $nil_kontrak += $value->toAdendumRuasItem->sum(function ($item) {
+                return $item->volume * $item->harga_kontrak;
+            });
+        }
+
+        $nil_hps = 0;
+        foreach ($adendum->toAdendumRuas as $key => $value) {
+            $nil_hps += $value->toAdendumRuasItem->sum(function ($item) {
+                return $item->volume * $item->harga_hps;
+            });
+        }
+
+        $data = [
+            'id_adendum'  => $id,
+            'adendum'     => $adendum,
+            'nil_hps'     => $nil_hps,
+            'nil_kontrak' => $nil_kontrak
+        ];
+
+        return Template::load('admin', 'Detail Adendum', 'adendum', 'det', $data);
+    }
+
+    public function cco()
+    {
+        $id_adendum = my_decrypt(last(request()->segments()));
+
+        $data = [
+            'id_adendum'   => $id_adendum,
+            'adendum_ruas' => AdendumRuas::whereIdAdendum($id_adendum)->get()
+        ];
+
+        return Template::load('admin', 'Adendum Ruas', 'adendum/cco', 'view', $data);
+    }
+
     public function get_data_dt()
     {
         $data = Adendum::orderBy('id_adendum', 'desc')->get();
@@ -43,10 +87,10 @@ class AdendumController extends Controller
                     return 'ADENDUM PERPANJANGAN WAKTU/PEMBERIAN KESEMPATAN';
                 }
             })
-            ->addColumn('action', function ($row) {
+            ->addColumn('action', function ($row) {                
                 return '
-                    <button type="button" id="upd" data-id="' . my_encrypt($row->id_adendum) . '" class="btn btn-sm btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
-                    <button type="button" id="del" data-id="' . my_encrypt($row->id_adendum) . '" class="btn btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
+                    <a href="' . route_role('admin.adendum.det', ['id' => my_encrypt($row->id_adendum)]) . '" class="btn btn-action btn-sm btn-relief-info"><i data-feather="info"></i>&nbsp;Detail</a>&nbsp;
+                    <button type="button" id="del" data-id="' . my_encrypt($row->id_adendum) . '" class="btn btn-action btn-sm btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                 ';
             })
             ->make(true);
@@ -71,7 +115,11 @@ class AdendumController extends Controller
         $message['tgl_adendum.required'] = 'Tgl. Adendum harus diisi!';
         $message['jenis.required']       = 'Jenis Adendum harus diisi!';
 
-        if ($request->jenis === 'optimasi') {
+        if ($request->jenis === 'cco') {
+            $rules['id_kontrak_ruas'] = 'required';
+
+            $message['id_kontrak_ruas.required'] = 'Kontrak Ruas harus diisi!';
+        } else if ($request->jenis === 'optimasi') {
             $rules['nil_adendum_kontrak'] = 'required';
 
             $message['nil_adendum_kontrak.required'] = 'Nilai Adendum Kontrak harus diisi!';
@@ -92,23 +140,48 @@ class AdendumController extends Controller
         }
 
         try {
-            Adendum::updateOrCreate(
-                [
-                    'id_adendum' => $request->id_adendum,
-                ],
-                [
-                    'id_kontrak'          => $request->id_kontrak,
-                    'no_adendum'          => $request->no_adendum,
-                    'tgl_adendum'         => $request->tgl_adendum,
-                    'jenis'               => $request->jenis,
-                    'nil_adendum_kontrak' => remove_separator($request->nil_adendum_kontrak),
-                    'tgl_adendum_mulai'   => $request->tgl_adendum_mulai,
-                    'tgl_adendum_akhir'   => $request->tgl_adendum_akhir,
-                    'by_users'            => $this->session['id_users'],
-                ]
-            );
+            $adendum = new Adendum();
 
-            $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
+            $adendum->id_kontrak  = $request->id_kontrak;
+            $adendum->no_adendum  = $request->no_adendum;
+            $adendum->tgl_adendum = $request->tgl_adendum;
+            $adendum->jenis       = $request->jenis;
+            $adendum->by_users    = $this->session['id_users'];
+
+            if ($request->jenis === 'optimasi') {
+                $adendum->nil_adendum_kontrak = remove_separator($request->nil_adendum_kontrak);
+
+                $kontrak = Kontrak::find($request->id_kontrak);
+                $kontrak->nil_kontrak = $adendum->nil_adendum_kontrak;
+                $kontrak->save();
+            }
+
+            if ($request->jenis === 'perpanjangan') {
+                $adendum->tgl_adendum_mulai = $request->tgl_adendum_mulai;
+                $adendum->tgl_adendum_akhir = $request->tgl_adendum_akhir;
+            }
+
+            $adendum->save();
+
+            if ($request->jenis === 'cco') {
+                $id_adendum = $adendum->id_adendum;
+
+                $id_kontrak_ruas = $request->id_kontrak_ruas;
+
+                foreach ($id_kontrak_ruas as $key => $value) {
+                    AdendumRuas::create([
+                        'id_adendum'      => $id_adendum,
+                        'id_kontrak_ruas' => $value,
+                        'by_users'        => $this->session['id_users'],
+                    ]);
+                }
+            }
+
+            if ($request->jenis === 'cco') {
+                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route_role('admin.adendum.cco', ['id' => my_encrypt($id_adendum)])];
+            } else {
+                $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success'];
+            }
         } catch (\Exception $e) {
             $response = ['title' => 'Gagal!', 'text' => 'Data Gagal di Proses!', 'type' => 'error', 'button' => 'Ok!', 'class' => 'danger'];
         }

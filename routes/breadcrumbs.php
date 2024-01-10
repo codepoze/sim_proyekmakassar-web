@@ -206,3 +206,15 @@ Breadcrumbs::for('admin.adendum.index', function (BreadcrumbTrail $trail) {
 
     $trail->push('Adendum', route_role('admin.adendum.index'));
 });
+
+Breadcrumbs::for('admin.adendum.det', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.adendum.index');
+
+    $trail->push('Adendum Detail', '#');
+});
+
+Breadcrumbs::for('admin.adendum.cco', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.adendum.index');
+
+    $trail->push('Adendum Ruas', '#');
+});

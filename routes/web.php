@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\AdendumController;
+use App\Http\Controllers\admin\AdendumRuasItemController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\Fh0Controller;
 use App\Http\Controllers\admin\FundController;
@@ -238,6 +239,7 @@ Route::group([
 
         Route::controller(KontrakRuasController::class)->prefix('ruas')->as('ruas.')->group(function () {
             Route::get('/{id}', 'index')->name('index');
+            Route::post('/get_all', 'get_all')->name('get_all');
             Route::post('/del', 'del')->name('del');
 
             Route::controller(KontrakRuasItemController::class)->prefix('item')->as('item.')->group(function () {
@@ -265,9 +267,17 @@ Route::group([
     Route::controller(AdendumController::class)->prefix('adendum')->as('adendum.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+        Route::get('/det/{id}', 'det')->name('det');
+        Route::get('/cco/{id}', 'cco')->name('cco');
         Route::post('/show', 'show')->name('show');
         Route::post('/save', 'save')->name('save');
         Route::post('/del', 'del')->name('del');
+
+        Route::controller(AdendumRuasItemController::class)->prefix('item')->as('item.')->group(function () {
+            Route::post('/show', 'show')->name('show');
+            Route::post('/save', 'save')->name('save');
+            Route::post('/del', 'del')->name('del');
+        });
     });
     // end:: adendum
 });

@@ -10,25 +10,94 @@
     <!-- begin:: content -->
     <section>
         <div class="row">
+            @foreach ($adendum_ruas as $key => $row)
             <div class="col-12">
                 <div class="card">
                     <div class="card-header border-bottom">
                         <div class="head-label">
-                            <h4 class="card-title">{{ $title }}</h4>
+                            <h4 class="card-title">{{ $row->toKontrakRuas->nama }}</h4>
                         </div>
                         <div class="dt-action-buttons text-end">
                             <div class="dt-buttons d-inline-flex">
-                                <button type="button" id="add" class="btn btn-sm btn-relief-success" data-bs-toggle="modal" data-bs-target="#modal-add-upd">
+                                <button type="button" id="add" data-id_adendum_ruas="{{ $row->id_adendum_ruas }}" class="btn btn-sm btn-relief-success" data-bs-toggle="modal" data-bs-target="#modal-add-upd">
                                     <i data-feather='plus'></i>&nbsp;<span>Tambah</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                     <div class="card-datatable">
-                        <table class="table table-striped table-bordered" id="tabel-adendum-dt" style="width: 100%;">
+                        <table class="table table-striped table-bordered table-ruas-item" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th class="text-center">Aksi</th>
+                                    <th class="text-center">No</th>
+                                    <th class="text-center">Nama</th>
+                                    <th class="text-center">Satuan</th>
+                                    <th class="text-center">Volume</th>
+                                    <th class="text-center">Harga HPS</th>
+                                    <th class="text-center">Harga Kontrak</th>
+                                    <th class="text-center">Jumlah Harga HPS</th>
+                                    <th class="text-center">Jumlah Harga Kontrak</th>
+                                    <th class="text-center">Bobot (%)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @php
+                                $total_hps = $row->toAdendumRuasItem->sum(function ($item) {
+                                return $item->volume * $item->harga_hps;
+                                });
+
+                                $total_kontrak = $row->toAdendumRuasItem->sum(function ($item) {
+                                return $item->volume * $item->harga_kontrak;
+                                });
+
+                                $bobot = 0;
+                                @endphp
+
+                                @foreach ($row->toAdendumRuasItem as $key => $value)
+
+                                @php
+                                $jumlah_hps = ($value->volume * $value->harga_hps);
+                                $jumlah_kontrak = ($value->volume * $value->harga_kontrak);
+                                $jumlah_bobot = (($jumlah_kontrak / $total_kontrak) * 100);
+                                $bobot += $jumlah_bobot;
+                                @endphp
+
+                                <tr>
+                                    <td class="text-center">
+                                        <button type="button" id="upd" data-id="{{ my_encrypt($value->id_adendum_ruas_item) }}" data-id_adendum_ruas="{{ $value->id_adendum_ruas }}" class="btn btn-sm btn-action btn-relief-primary" data-bs-toggle="modal" data-bs-target="#modal-add-upd"><i data-feather="edit"></i>&nbsp;<span>Ubah</span></button>&nbsp;
+                                        <button type="button" id="del" data-id="{{ my_encrypt($value->id_adendum_ruas_item) }}" data-id_adendum_ruas="{{ $value->id_adendum_ruas }}" class="btn btn-sm btn-action btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
+                                    </td>
+                                    <td class="text-center">{{ $key+1 }}</td>
+                                    <td class="text-center">{{ $value->nama }}</td>
+                                    <td class="text-center">{{ $value->toSatuan->nama }}</td>
+                                    <td class="text-center">{{ $value->volume }}</td>
+                                    <td class="text-center">{{ rupiah($value->harga_hps) }}</td>
+                                    <td class="text-center">{{ rupiah($value->harga_kontrak) }}</td>
+                                    <td class="text-center">{{ rupiah($jumlah_hps) }}</td>
+                                    <td class="text-center">{{ rupiah($jumlah_kontrak) }}</td>
+                                    <td class="text-center">{{ number_format($jumlah_bobot, 2) }}</td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th class="text-center" colspan="7">Total Nilai Per Ruas</th>
+                                    <th class="text-center">{{ rupiah($total_hps) }}</th>
+                                    <th class="text-center">{{ rupiah($total_kontrak) }}</th>
+                                    <th class="text-center">{{ number_format($bobot, 2) }}</th>
+                                </tr>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
+            </div>
+            @endforeach
+
+            <div class="d-grid gap-2">
+                <a href="{{ route_role('admin.adendum.det', ['id' => my_encrypt($id_adendum)]) }}" class="btn btn-lg btn-relief-info">
+                    <i data-feather='check'></i>&nbsp;<span>Selesai</span>
+                </a>
             </div>
         </div>
     </section>
@@ -41,7 +110,7 @@
                     <h4 class="modal-title"><span id="judul-add-upd"></span> <?= $title ?></h4>
                 </div>
                 <!-- begin:: untuk form -->
-                <form id="form-add-upd" class="form form-horizontal" action="{{ route_role('admin.adendum.save') }}" method="POST">
+                <form id="form-add-upd" class="form form-horizontal" action="{{ route_role('admin.adendum.item.save') }}" method="POST">
                     <div class="modal-body">
                         <!-- begin:: untuk loading -->
                         <div id="form-loading"></div>
@@ -49,15 +118,27 @@
                         <div id="form-show">
                             <div class="row">
                                 <!-- begin:: id -->
-                                <input type="hidden" name="id_adendum" id="id_adendum" />
+                                <input type="hidden" name="id_adendum_ruas_item" id="id_adendum_ruas_item" />
+                                <input type="hidden" name="id_adendum_ruas" id="id_adendum_ruas" />
                                 <!-- end:: id -->
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label" for="id_kontrak">Kontrak&nbsp;*</label>
+                                            <label class="col-form-label" for="nama">Nama Item&nbsp;*</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control form-control-sm" id="nama" name="nama" placeholder="Masukkan nama item" />
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="field-input mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label" for="id_satuan">Satuan&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
-                                            <select class="form-select select2" id="id_kontrak" name="id_kontrak">
+                                            <select class="form-select select2" id="id_satuan" name="id_satuan">
                                                 <option value=""></option>
                                             </select>
                                             <div class="invalid-feedback"></div>
@@ -67,10 +148,10 @@
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label" for="no_adendum">Nomor Adendum&nbsp;*</label>
+                                            <label class="col-form-label" for="volume">Volume&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm" id="no_adendum" name="no_adendum" placeholder="Masukkan nomor adendum" />
+                                            <input type="text" class="form-control form-control-sm" id="volume" name="volume" placeholder="Masukkan volume" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
@@ -78,10 +159,10 @@
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label" for="tgl_adendum">Tanggal Adendum&nbsp;*</label>
+                                            <label class="col-form-label" for="harga_hps">Harga HPS&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <input type="date" class="form-control form-control-sm" id="tgl_adendum" name="tgl_adendum" />
+                                            <input type="text" class="form-control form-control-sm" id="harga_hps" name="harga_hps" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan harga hps" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
@@ -89,20 +170,14 @@
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label" for="jenis">Jenis Adendum&nbsp;*</label>
+                                            <label class="col-form-label" for="harga_kontrak">Harga Kontrak&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">
-                                            <select class="form-select form-select-sm" id="jenis" name="jenis">
-                                                <option value="" selected>-- Pilih --</option>
-                                                <option value="cco">ADENDUM CCO</option>
-                                                <option value="optimasi">ADENDUM OPTIMASI/PERUBAHAN NILAI KONTRAK</option>
-                                                <option value="perpanjangan">ADENDUM PERPANJANGAN WAKTU/PEMBERIAN KESEMPATAN</option>
-                                            </select>
+                                            <input type="text" class="form-control form-control-sm" id="harga_kontrak" name="harga_kontrak" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Masukkan kontrak" />
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
                                 </div>
-                                <div id="jenis-input"></div>
                             </div>
                         </div>
                     </div>
@@ -138,60 +213,17 @@
     <script src="{{ asset_admin('vendors/js/forms/select/select2.full.min.js') }}"></script>
 
     <script>
-        var table;
-
-        let untukTabel = function() {
-            table = $('#tabel-adendum-dt').DataTable({
-                serverSide: true,
-                responsive: true,
-                processing: true,
-                lengthMenu: [5, 10, 25, 50],
-                pageLength: 10,
-                language: {
-                    emptyTable: "Tak ada data yang tersedia pada tabel ini.",
-                    processing: "Data sedang diproses...",
-                },
-                ajax: "{{ route_role('admin.adendum.get_data_dt') }}",
-                dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
-                drawCallback: function() {
-                    feather.replace();
-                },
-                columns: [{
-                        title: 'No.',
-                        data: 'DT_RowIndex',
-                        class: 'text-center'
-                    },
-                    {
-                        title: 'Kontrak',
-                        data: 'to_kontrak.no_kontrak',
-                        class: 'text-center'
-                    },
-                    {
-                        title: 'No. Adendum',
-                        data: 'no_adendum',
-                        class: 'text-center'
-                    },
-                    {
-                        title: 'Tanggal Adendum',
-                        data: 'tgl_adendum',
-                        class: 'text-center'
-                    },
-                    {
-                        title: 'Jenis Adendum',
-                        data: 'jenis',
-                        class: 'text-center'
-                    },
-                    {
-                        title: 'Aksi',
-                        data: 'action',
-                        className: 'text-center',
-                        responsivePriority: -1,
-                        orderable: false,
-                        searchable: false,
-                    },
-                ],
-            });
-        }();
+        $('.table-ruas-item').DataTable({
+            responsive: true,
+            processing: true,
+            lengthMenu: [5, 10, 25, 50],
+            pageLength: 10,
+            language: {
+                emptyTable: "Tak ada data yang tersedia pada tabel ini.",
+                processing: "Data sedang diproses...",
+            },
+            dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+        });
 
         let untukSimpanData = function() {
             $(document).on('submit', '#form-add-upd', function(e) {
@@ -206,9 +238,6 @@
                     cache: false,
                     dataType: 'json',
                     beforeSend: function() {
-                        $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
-                        $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
-
                         $('#save').attr('disabled', 'disabled');
                         $('#save').html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
                         feather.replace();
@@ -226,11 +255,7 @@
                                 buttonsStyling: false,
                             }).then((value) => {
                                 $('#modal-add-upd').modal('hide');
-                                table.ajax.reload();
-
-                                if ($('#jenis').val() === 'cco') {
-                                    location.href = response.url;
-                                }
+                                location.reload();
                             });
                         } else {
                             $.each(response.errors, function(key, value) {
@@ -298,13 +323,12 @@
         let untukTambahData = function() {
             $(document).on('click', '#add', function(e) {
                 e.preventDefault();
-                get_kontrak();
-
-                $('#jenis-input').html(``);
+                var ini = $(this);
 
                 $('#judul-add-upd').text('Tambah');
+                $('#id_adendum_ruas').val(ini.data('id_adendum_ruas'));
 
-                $('#id_adendum').removeAttr('value');
+                $('#id_adendum_ruas_item').removeAttr('value');
 
                 $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
                 $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
@@ -312,6 +336,55 @@
                 $('#form-add-upd').parsley().destroy();
                 $('#form-add-upd').parsley().reset();
                 $('#form-add-upd')[0].reset();
+
+                get_satuan();
+            });
+        }();
+
+        let untukUbahData = function() {
+            $(document).on('click', '#upd', function(e) {
+                var ini = $(this);
+
+                $.ajax({
+                    type: 'POST',
+                    dataType: 'json',
+                    url: "{{ route_role('admin.adendum.item.show') }}",
+                    data: {
+                        id: ini.data('id')
+                    },
+                    beforeSend: function() {
+                        $('#judul-add-upd').html('Ubah');
+                        $('#form-loading').html(`<div class="center"><div class="loader"></div></div>`);
+                        $('#form-show').attr('style', 'display: none');
+
+                        $('#form-add-upd').find('input, textarea, select').removeClass('is-valid');
+                        $('#form-add-upd').find('input, textarea, select').removeClass('is-invalid');
+
+                        ini.attr('disabled', 'disabled');
+                        ini.html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
+                        feather.replace();
+                    },
+                    success: function(response) {
+                        $('#form-loading').empty();
+                        $('#form-show').removeAttr('style');
+
+                        get_satuan(response.id_satuan);
+
+                        $.each(response, function(key, value) {
+                            if (key) {
+                                if (($('#' + key).prop('tagName') === 'INPUT' || $('#' + key).prop('tagName') === 'TEXTAREA')) {
+                                    $('#' + key).val(value);
+                                } else if ($('#' + key).prop('tagName') === 'SELECT') {
+                                    $('#' + key).val(value);
+                                }
+                            }
+                        });
+
+                        ini.removeAttr('disabled');
+                        ini.html('<i data-feather="edit"></i>&nbsp;<span>Ubah</span>');
+                        feather.replace();
+                    }
+                });
             });
         }();
 
@@ -340,7 +413,7 @@
                         }).then((result) => {
                             $.ajax({
                                 type: "post",
-                                url: "{{ route_role('admin.adendum.del') }}",
+                                url: "{{ route_role('admin.adendum.item.del') }}",
                                 dataType: 'json',
                                 data: {
                                     id: ini.data('id'),
@@ -362,7 +435,7 @@
                                         },
                                         buttonsStyling: false,
                                     }).then((value) => {
-                                        table.ajax.reload();
+                                        location.reload();
                                     });
                                 }
                             });
@@ -372,98 +445,17 @@
             });
         }();
 
-        let untukSelectJenis = function() {
-            $(document).on('change', '#jenis', function() {
-                let ini = $(this);
-                let id_kontrak = $('#id_kontrak').val();
-
-                if (ini.val() === 'cco') {
-                    if (id_kontrak === '') {
-                        Swal.fire('Oops...', 'Pilih kontrak terlebih dahulu!', 'error').then((value) => {
-                            if (value.isConfirmed) {
-                                ini.val('');
-                            }
-                        });;
-                    } else {
-                        get_kontrak_ruas(id_kontrak);
-                    }
-                } else if (ini.val() === 'optimasi') {
-                    $('#jenis-input').html(`
-                        <div class="col-12">
-                            <div class="field-input mb-1 row">
-                                <div class="col-sm-3">
-                                    <label class="col-form-label" for="nil_adendum_kontrak">Nilai Kontrak&nbsp;*</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="text" class="form-control form-control-sm" id="nil_adendum_kontrak" name="nil_adendum_kontrak" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Nilai Kontrak" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-                    `);
-                } else if (ini.val() === 'perpanjangan') {
-                    $('#jenis-input').html(`
-                        <div class="col-12">
-                            <div class="field-input mb-1 row">
-                                <div class="col-sm-3">
-                                    <label class="col-form-label" for="tgl_adendum_mulai">Tanggal Adendum Mulai&nbsp;*</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control form-control-sm" id="tgl_adendum_mulai" name="tgl_adendum_mulai" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="field-input mb-1 row">
-                                <div class="col-sm-3">
-                                    <label class="col-form-label" for="tgl_adendum_akhir">Tanggal Adendum Selesai&nbsp;*</label>
-                                </div>
-                                <div class="col-sm-9">
-                                    <input type="date" class="form-control form-control-sm" id="tgl_adendum_akhir" name="tgl_adendum_akhir" />
-                                    <div class="invalid-feedback"></div>
-                                </div>
-                            </div>
-                        </div>
-                    `);
-                }
-            });
-        }();
-
-        function get_kontrak(id = null) {
-            $.get("{{ route_role('admin.kontrak.get_all') }}", {
+        function get_satuan(id = null) {
+            $.get("{{ route_role('admin.satuan.get_all') }}", {
                 id: id
             }, function(response) {
-                $("#id_kontrak").select2({
-                    placeholder: "Pilih kontrak",
+                $("#id_satuan").select2({
+                    placeholder: "Pilih satuan",
                     width: '100%',
                     allowClear: true,
                     containerCssClass: 'select-sm',
                     data: response,
                 });
-            }, 'json');
-        }
-
-        function get_kontrak_ruas(id = null) {
-            $.post("{{ route_role('admin.kontrak.ruas.get_all') }}", {
-                id: id
-            }, function(response) {
-                var html = ``;
-
-                $.each(response, function(key, value) {
-                    html += `
-                    <div class="field-input mb-1 row">
-                        <div class="col-12">
-                            <div class="form-check form-check-inline mb-2">
-                                <input type="checkbox" class="form-check-input" id="id_kontrak_ruas" name="id_kontrak_ruas[]" value="` + value.id_kontrak_ruas + `">
-                                <label class="form-check-label" for="">` + value.nama + `</label>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-                });
-
-                $('#jenis-input').html(html);
             }, 'json');
         }
     </script>

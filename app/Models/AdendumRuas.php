@@ -37,4 +37,10 @@ class AdendumRuas extends Model
     {
         return $this->belongsTo(KontrakRuas::class, 'id_kontrak_ruas', 'id_kontrak_ruas');
     }
+
+    // untuk relasi ke tabel adendum_ruas_item
+    public function toAdendumRuasItem()
+    {
+        return $this->hasMany(AdendumRuasItem::class, 'id_adendum_ruas', 'id_adendum_ruas');
+    }
 }
