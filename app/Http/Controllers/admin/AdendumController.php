@@ -71,7 +71,11 @@ class AdendumController extends Controller
         $message['tgl_adendum.required'] = 'Tgl. Adendum harus diisi!';
         $message['jenis.required']       = 'Jenis Adendum harus diisi!';
 
-        if ($request->jenis === 'perpanjangan') {
+        if ($request->jenis === 'optimasi') {
+            $rules['nil_adendum_kontrak'] = 'required';
+
+            $message['nil_adendum_kontrak.required'] = 'Nilai Adendum Kontrak harus diisi!';
+        } else if ($request->jenis === 'perpanjangan') {
             $rules['tgl_adendum_mulai'] = 'required';
             $rules['tgl_adendum_akhir'] = 'required';
 
@@ -93,13 +97,14 @@ class AdendumController extends Controller
                     'id_adendum' => $request->id_adendum,
                 ],
                 [
-                    'id_kontrak'        => $request->id_kontrak,
-                    'no_adendum'        => $request->no_adendum,
-                    'tgl_adendum'       => $request->tgl_adendum,
-                    'tgl_adendum_mulai' => $request->tgl_adendum_mulai,
-                    'tgl_adendum_akhir' => $request->tgl_adendum_akhir,
-                    'jenis'             => $request->jenis,
-                    'by_users'          => $this->session['id_users'],
+                    'id_kontrak'          => $request->id_kontrak,
+                    'no_adendum'          => $request->no_adendum,
+                    'tgl_adendum'         => $request->tgl_adendum,
+                    'jenis'               => $request->jenis,
+                    'nil_adendum_kontrak' => remove_separator($request->nil_adendum_kontrak),
+                    'tgl_adendum_mulai'   => $request->tgl_adendum_mulai,
+                    'tgl_adendum_akhir'   => $request->tgl_adendum_akhir,
+                    'by_users'            => $this->session['id_users'],
                 ]
             );
 

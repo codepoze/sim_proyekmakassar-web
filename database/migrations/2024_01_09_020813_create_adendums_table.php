@@ -18,9 +18,10 @@ class CreateAdendumsTable extends Migration
             $table->integer('id_kontrak')->unsigned()->nullable();
             $table->string('no_adendum', 50)->nullable();
             $table->date('tgl_adendum')->nullable();
+            $table->enum('jenis', ['cco', 'optimasi', 'perpanjangan'])->nullable();
+            $table->bigInteger('nil_adendum_kontrak')->nullable();
             $table->date('tgl_adendum_mulai')->nullable();
             $table->date('tgl_adendum_akhir')->nullable();
-            $table->enum('jenis', ['cco', 'optimasi', 'perpanjangan'])->nullable();
 
             $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();

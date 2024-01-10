@@ -296,6 +296,8 @@
                 e.preventDefault();
                 get_kontrak();
 
+                $('#jenis-input').html(``);
+
                 $('#judul-add-upd').text('Tambah');
 
                 $('#id_adendum').removeAttr('value');
@@ -417,7 +419,23 @@
             $(document).on('change', '#jenis', function() {
                 let ini = $(this);
 
-                if (ini.val() === 'perpanjangan') {
+                if (ini.val() === 'cco') {
+                    $('#jenis-input').html(`cco`);
+                } else if (ini.val() === 'optimasi') {
+                    $('#jenis-input').html(`
+                        <div class="col-12">
+                            <div class="field-input mb-1 row">
+                                <div class="col-sm-3">
+                                    <label class="col-form-label" for="nil_adendum_kontrak">Nilai Kontrak&nbsp;*</label>
+                                </div>
+                                <div class="col-sm-9">
+                                    <input type="text" class="form-control form-control-sm" id="nil_adendum_kontrak" name="nil_adendum_kontrak" onkeydown="return justAngka(event)" onkeyup="javascript:this.value=autoSeparator(this.value);" placeholder="Nilai Kontrak" />
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                    `);
+                } else if (ini.val() === 'perpanjangan') {
                     $('#jenis-input').html(`
                         <div class="col-12">
                             <div class="field-input mb-1 row">
@@ -442,8 +460,6 @@
                             </div>
                         </div>
                     `);
-                } else {
-                    $('#jenis-input').html(``);
                 }
             });
         }();

@@ -18,9 +18,10 @@ class Adendum extends Model
         'id_kontrak',
         'no_adendum',
         'tgl_adendum',
+        'jenis',
+        'nil_adendum_kontrak',
         'tgl_adendum_mulai',
         'tgl_adendum_akhir',
-        'jenis',
         'by_users',
     ];
 
