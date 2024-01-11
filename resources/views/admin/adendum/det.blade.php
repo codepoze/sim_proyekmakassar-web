@@ -172,6 +172,14 @@
                                 <form class="form form-horizontal mt-2">
                                     <div class="mb-1 row">
                                         <div class="col-sm-3">
+                                            <label class="col-form-label">Nilai Kontrak</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($adendum->toKontrak->nil_kontrak) }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
                                             <label class="col-form-label">Tanggal Adendum Mulai</label>
                                         </div>
                                         <div class="col-sm-9">
@@ -184,6 +192,41 @@
                                         </div>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($adendum->tgl_adendum_akhir) }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Jangka Waktu Adendum</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $adendum->tgl_adendum_akhir, $adendum->tgl_adendum_mulai) . ' HK'; }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    <hr />
+                                    @php
+                                    $total_denda = 0;
+                                    @endphp
+
+                                    @for($i = 1; $i <= count_day_excluding_weekends_holiday( $adendum->tgl_adendum_akhir, $adendum->tgl_adendum_mulai); $i++)
+                                    @php
+                                    $denda = ($adendum->toKontrak->nil_kontrak * 0.01);
+                                    $total_denda += $denda;
+                                    @endphp
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label">Denda Hari Ke {{ $i }}</label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($denda) }}" readonly="readonly" />
+                                        </div>
+                                    </div>
+                                    @endfor
+                                    <div class="mb-1 row">
+                                        <div class="col-sm-3">
+                                            <label class="col-form-label"><b>Total Denda</b></label>
+                                        </div>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($total_denda) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                 </form>

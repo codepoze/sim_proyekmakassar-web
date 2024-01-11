@@ -101,4 +101,10 @@ class Kontrak extends Model
     {
         return $this->hasMany(KontrakRencana::class, 'id_kontrak', 'id_kontrak');
     }
+
+    // untuk relasi ke tabel adendum
+    public function toAdendum()
+    {
+        return $this->hasMany(Adendum::class, 'id_kontrak', 'id_kontrak');
+    }
 }

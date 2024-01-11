@@ -88,242 +88,242 @@
                             <div class="col-lg-8">
                                 <form class="form form-horizontal mt-2">
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Penyedia</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->toPenyedia->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">PJ Penyedia</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->pj_penyedia }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Konsultan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->toKonsultan->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">PJ Konsultan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->pj_konsultan }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Kord Teknis Lapangan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->toTeknislap->toUser->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nomor BA. MC NOL</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_ba_mc0 }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tanggal BA. MC NOL</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_ba_mc0) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nomor BA. NEGO</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_ba_kntb }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tanggal BA. NEGO</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_ba_kntb) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nomor SPPBJ</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_sppbj }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tanggal SPPBJ</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_sppbj) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nomor BA. Persiapan Penandatanganan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_ba_rp2k }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tanggal BA. Persiapan Penandatanganan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_ba_rp2k) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nomor Surat Pesanan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_sp }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tanggal Surat Pesanan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_sp) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nomor Kontrak / SPK</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_kontrak }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tanggal Kontrak / SPK</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_kontrak) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label">Waktu Kontrak</label>
+                                        <div class="col-sm-8">
+                                            <label class="col-form-label">Jangka Waktu Kontrak</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
-                                            <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $kontrak->tgl_kontrak_akhir, $kontrak->tgl_kontrak_mulai) . ' Hari'; }}" readonly="readonly" />
+                                        <div class="col-sm-4 my-auto">
+                                            <input type="text" class="form-control-plaintext" value="{{ count_day_excluding_weekends_holiday( $kontrak->tgl_kontrak_akhir, $kontrak->tgl_kontrak_mulai) . ' HK'; }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nomor SPMK</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_spmk }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tanggal SPMK</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_spmk) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nomor BA. Penyerahan Lokasi Pekerjaan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->no_ba_plp }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tanggal BA. Penyerahan Lokasi Pekerjaan</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ tgl_indo($kontrak->tgl_ba_plp) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nilai Kontak</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ rupiah($kontrak->nil_kontrak) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nilai Pagu</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ rupiah($kontrak->nil_pagu) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Tahun Anggaran</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->thn_anggaran }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Pembuat Kontrak</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->pembuat_kontrak }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Sumber Dana</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->toFund->nama }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Kode Rekening</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ $kontrak->kd_rekening }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nilai Kontrak Per Item</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_kontrak) }}" readonly="readonly" />
                                         </div>
                                     </div>
                                     <div class="mb-1 row">
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-8">
                                             <label class="col-form-label">Nilai HPS Per Item</label>
                                         </div>
-                                        <div class="col-sm-9 my-auto">
+                                        <div class="col-sm-4 my-auto">
                                             <input type="text" class="form-control-plaintext" value="{{ rupiah($nil_hps) }}" readonly="readonly" />
                                         </div>
                                     </div>
