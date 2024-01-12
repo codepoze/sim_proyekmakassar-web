@@ -27,6 +27,7 @@ use App\Http\Controllers\admin\TeknislapAnggController;
 use App\Http\Controllers\admin\TeknislapController;
 use App\Http\Controllers\admin\UsersController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DownloadController;
 use Illuminate\Support\Facades\Route;
 
 // begin:: auth
@@ -34,6 +35,8 @@ Route::get('/', [AuthController::class, 'login'])->name('auth.login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 Route::post('/check', [AuthController::class, 'check'])->name('auth.check');
 // end:: auth
+
+Route::get('/download', [DownloadController::class, 'index'])->name('download');
 
 Route::group([
     'prefix' => '{role}',
