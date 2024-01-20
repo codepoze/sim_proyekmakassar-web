@@ -29,57 +29,31 @@ class Fh0Controller extends Controller
     {
         DB::beginTransaction();
         try {
-            // Validasi input dari request
-            $validator = Validator::make($request->all(), [
-                'id_kontrak_ruas_item' => 'required',
-                'nma_pekerjaan'        => 'required',
-                "panjang"              => 'required',
-                "titik_core"           => 'required',
-                "l_1"                  => 'required',
-                "l_2"                  => 'required',
-                "l_3"                  => 'required',
-                "l_4"                  => 'required',
-                "tki_1"                => 'required',
-                "tki_2"                => 'required',
-                "tki_3"                => 'required',
-                "tte_1"                => 'required',
-                "tte_2"                => 'required',
-                "tte_3"                => 'required',
-                "tka_1"                => 'required',
-                "tka_2"                => 'required',
-                "tka_3"                => 'required',
-                "berat_bersih"         => 'required',
-            ]);
-
-            // Jika validasi gagal
-            if ($validator->fails()) {
-                return response([
-                    'message' => 'Gagal menyimpan data, validasi tidak sesuai',
-                    'errors'  => $validator->errors(),
-                ], Response::HTTP_BAD_REQUEST); // Kode status 400 untuk Bad Request
-            }
-
             // Buat instance model Fh0 untuk menambahkan data
             $data = [
                 "id_kontrak_ruas_item" => $request->input('id_kontrak_ruas_item'),
                 "nma_pekerjaan"        => $request->input('nma_pekerjaan'),
                 "panjang"              => trim($request->input('panjang')),
-                "titik_core"           => trim($request->input('titik_core')),
-                "l_1"                  => trim($request->input('l_1')),
-                "l_2"                  => trim($request->input('l_2')),
-                "l_3"                  => trim($request->input('l_3')),
-                "l_4"                  => trim($request->input('l_4')),
-                "tki_1"                => trim($request->input('tki_1')),
-                "tki_2"                => trim($request->input('tki_2')),
-                "tki_3"                => trim($request->input('tki_3')),
-                "tte_1"                => trim($request->input('tte_1')),
-                "tte_2"                => trim($request->input('tte_2')),
-                "tte_3"                => trim($request->input('tte_3')),
-                "tka_1"                => trim($request->input('tka_1')),
-                "tka_2"                => trim($request->input('tka_2')),
-                "tka_3"                => trim($request->input('tka_3')),
-                "berat_bersih"         => trim($request->input('berat_bersih')),
-                "by_users"             => Auth::id()
+
+                "titik_core"  => trim($request->input('titik_core')),
+                "penambahan"  => trim($request->input('penambahan')),
+                "pengurangan" => trim($request->input('pengurangan')),
+                "l_1"         => trim($request->input('l_1')),
+                "l_2"         => trim($request->input('l_2')),
+                "l_3"         => trim($request->input('l_3')),
+                "l_4"         => trim($request->input('l_4')),
+                "t1_1"        => trim($request->input('t1_1')),
+                "t1_2"        => trim($request->input('t1_2')),
+                "t1_3"        => trim($request->input('t1_3')),
+                "t2_1"        => trim($request->input('t2_1')),
+                "t2_2"        => trim($request->input('t2_2')),
+                "t2_3"        => trim($request->input('t2_3')),
+                "t3_1"        => trim($request->input('t3_1')),
+                "t3_2"        => trim($request->input('t3_2')),
+                "t3_3"        => trim($request->input('t3_3')),
+                "berat_jenis" => trim($request->input('berat_jenis')),
+
+                "by_users" => Auth::id()
             ];
 
             // Simpan data ke dalam database

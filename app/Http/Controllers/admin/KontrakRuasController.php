@@ -21,9 +21,52 @@ class KontrakRuasController extends Controller
     public function index()
     {
         $id_kontrak = my_decrypt(last(request()->segments()));
+        $tipe = [
+            [
+                'value' => 'pbj',
+                'text'  => 'Penyiapan Badan Jalan',
+            ],
+            [
+                'value' => 'lpa',
+                'text'  => 'Lpa',
+            ],
+            [
+                'value' => 'lpb',
+                'text'  => 'LpB',
+            ],
+            [
+                'value' => 'ac_bc',
+                'text'  => 'Aspal',
+            ],
+            [
+                'value' => 'lc',
+                'text'  => 'Beton',
+            ],
+            [
+                'value' => 'timbunan',
+                'text'  => 'Timbunan Pilihan',
+            ],
+            [
+                'value' => 'paving',
+                'text'  => 'Paving',
+            ],
+            [
+                'value' => 'k_precast',
+                'text'  => 'Kastin Precast',
+            ],
+            [
+                'value' => 'k_cor',
+                'text'  => 'Kastin Cor',
+            ],
+            [
+                'value' => 'pas_batu',
+                'text'  => 'Pas Batu',
+            ],
+        ];
         
         $data = [
             'id_kontrak'   => $id_kontrak,
+            'tipe'         => $tipe,
             'kontrak_ruas' => KontrakRuas::with('toKontrakRuasItem')->whereIdKontrak($id_kontrak)->get()
         ];
 

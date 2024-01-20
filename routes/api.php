@@ -30,6 +30,7 @@ Route::group([
     Route::get('/kontrak-rencana/{id}', [KontrakRencanaController::class, 'show']);
     Route::get('/kontrak-ruas/{id}', [KontrakRuasController::class, 'showKontrakRuasByIdKontrak']);
     Route::get('/kontrak-ruas-item/{id}', [KontrakRuasItemController::class, 'showKontrakRuasItemByIdKontrakRuas']);
+    Route::get('/kontrak-ruas-item-detail/{id}', [KontrakRuasItemController::class, 'showKontrakRuasItemByIdKontrakRuasItem']);
     // kontrak end
 
     // progress

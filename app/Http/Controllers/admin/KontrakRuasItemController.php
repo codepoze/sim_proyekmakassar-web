@@ -37,6 +37,7 @@ class KontrakRuasItemController extends Controller
             'id_kontrak_ruas_item' => $data->id_kontrak_ruas_item,
             'id_kontrak_ruas'      => $data->id_kontrak_ruas,
             'id_satuan'            => $data->id_satuan,
+            'tipe'                 => $data->tipe,
             'nama'                 => $data->nama,
             'volume'               => $data->volume,
             'harga_hps'            => create_separator($data->harga_hps),
@@ -51,6 +52,7 @@ class KontrakRuasItemController extends Controller
     {
         $rule = [
             'id_satuan'     => 'required',
+            'tipe'          => 'required',
             'nama'          => 'required',
             'volume'        => 'required',
             'harga_hps'     => 'required',
@@ -59,6 +61,7 @@ class KontrakRuasItemController extends Controller
 
         $message = [
             'id_satuan.required'     => 'Satuan tidak boleh kosong!',
+            'tipe.required'          => 'Tipe tidak boleh kosong!',
             'nama.required'          => 'Nama tidak boleh kosong!',
             'volume.required'        => 'Volume tidak boleh kosong!',
             'harga_hps.required'     => 'Harga HPS tidak boleh kosong!',
@@ -80,12 +83,13 @@ class KontrakRuasItemController extends Controller
                 ],
                 [
                     'id_kontrak_ruas' => $request->id_kontrak_ruas,
-                    'id_satuan'     => $request->id_satuan,
-                    'nama'          => $request->nama,
-                    'volume'        => $request->volume,
-                    'harga_hps'     => remove_separator($request->harga_hps),
-                    'harga_kontrak' => remove_separator($request->harga_kontrak),
-                    'by_users'      => $this->session['id_users'],
+                    'id_satuan'       => $request->id_satuan,
+                    'tipe'            => $request->tipe,
+                    'nama'            => $request->nama,
+                    'volume'          => $request->volume,
+                    'harga_hps'       => remove_separator($request->harga_hps),
+                    'harga_kontrak'   => remove_separator($request->harga_kontrak),
+                    'by_users'        => $this->session['id_users'],
                 ]
             );
 

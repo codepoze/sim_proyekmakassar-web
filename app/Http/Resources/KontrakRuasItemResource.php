@@ -18,6 +18,7 @@ class KontrakRuasItemResource extends JsonResource
             "id_kontrak_ruas_item" => $this->id_kontrak_ruas_item,
             "id_kontrak_ruas"      => $this->id_kontrak_ruas,
             "id_satuan"            => $this->id_satuan,
+            "tipe"                 => $this->tipe,
             "nama"                 => $this->nama,
             "harga_hps"            => $this->harga_hps,
             "harga_kontrak"        => $this->harga_kontrak,

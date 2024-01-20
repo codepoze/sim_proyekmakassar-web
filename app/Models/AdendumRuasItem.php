@@ -17,6 +17,7 @@ class AdendumRuasItem extends Model
         'id_adendum_ruas_item',
         'id_adendum_ruas',
         'id_satuan',
+        'tipe',
         'nama',
         'volume',
         'harga_hps',

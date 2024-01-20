@@ -148,6 +148,22 @@
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
+                                            <label class="col-form-label" for="tipe">Satuan&nbsp;*</label>
+                                        </div>
+                                        <div class="col-sm-9 my-auto">
+                                            <select class="form-select form-select-sm" id="tipe" name="tipe">
+                                                <option value="">Pilih</option>
+                                                @foreach ($tipe as $key => $value)
+                                                <option value="{{ $value['value'] }}">{{ $value['text'] }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="field-input mb-1 row">
+                                        <div class="col-sm-3">
                                             <label class="col-form-label" for="volume">Volume&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9">

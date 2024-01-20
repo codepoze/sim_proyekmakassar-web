@@ -17,6 +17,7 @@ class KontrakRuasItem extends Model
         'id_kontrak_ruas_item',
         'id_kontrak_ruas',
         'id_satuan',
+        'tipe',
         'nama',
         'volume',
         'harga_hps',

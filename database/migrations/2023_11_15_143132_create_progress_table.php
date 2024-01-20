@@ -19,21 +19,24 @@ class CreateProgressTable extends Migration
             $table->integer('id_kontrak_ruas_item')->unsigned()->nullable();
             $table->text('nma_pekerjaan')->nullable();
             $table->float('panjang')->nullable();
+            
             $table->float('titik_core')->nullable();
+            $table->float('penambahan')->nullable();
+            $table->float('pengurangan')->nullable();
             $table->float('l_1')->nullable();
             $table->float('l_2')->nullable();
             $table->float('l_3')->nullable();
             $table->float('l_4')->nullable();
-            $table->float('tki_1')->nullable();
-            $table->float('tki_2')->nullable();
-            $table->float('tki_3')->nullable();
-            $table->float('tte_1')->nullable();
-            $table->float('tte_2')->nullable();
-            $table->float('tte_3')->nullable();
-            $table->float('tka_1')->nullable();
-            $table->float('tka_2')->nullable();
-            $table->float('tka_3')->nullable();
-            $table->float('berat_bersih')->nullable();
+            $table->float('t1_1')->nullable();
+            $table->float('t1_2')->nullable();
+            $table->float('t1_3')->nullable();
+            $table->float('t2_1')->nullable();
+            $table->float('t2_2')->nullable();
+            $table->float('t2_3')->nullable();
+            $table->float('t3_1')->nullable();
+            $table->float('t3_2')->nullable();
+            $table->float('t3_3')->nullable();
+            $table->float('berat_jenis')->nullable();
 
             $table->integer('by_users')->nullable();
             $table->timestamp('created_at')->useCurrent();

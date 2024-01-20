@@ -29,4 +29,11 @@ class KontrakRuasItemController extends Controller
 
     return KontrakRuasItemResource::collection($kontrakRuasItem);
   }
+
+  public function showKontrakRuasItemByIdKontrakRuasItem($id)
+  {
+    $kontrakRuasItem = KontrakRuasItem::findOrFail($id);
+
+    return new KontrakRuasItemResource($kontrakRuasItem);
+  }
 }

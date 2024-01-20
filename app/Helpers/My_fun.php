@@ -502,7 +502,7 @@ if (!function_exists('count_progress')) {
         
         $result = 0;
         foreach ($kontrak_ruas_item as $key => $value_satu) {
-            $kontrak_rencana = DB::select("SELECT kri.id_kontrak_ruas_item, p.id_progress, p.id_kontrak_rencana, p.panjang, p.titik_core, p.l_1, p.l_2, p.l_3, p.l_4, p.tki_1, p.tki_2, p.tki_3, p.tte_1, p.tte_2, p.tte_3, p.tka_1, p.tka_2, p.tka_3, p.berat_bersih FROM kontrak_ruas_item AS kri LEFT JOIN progress AS p ON p.id_kontrak_ruas_item = kri.id_kontrak_ruas_item WHERE kri.id_kontrak_ruas_item = '$value_satu->id_kontrak_ruas_item' AND p.id_kontrak_rencana = '$id_kontrak_rencana'");
+            $kontrak_rencana = DB::select("SELECT kri.id_kontrak_ruas_item, p.id_progress, p.id_kontrak_rencana, p.panjang, p.titik_core, p.l_1, p.l_2, p.l_3, p.l_4, p.t1_1, p.t1_2, p.t1_3, p.t2_1, p.t2_2, p.t2_3, p.t3_1, p.t3_2, p.t3_3, p.berat_jenis FROM kontrak_ruas_item AS kri LEFT JOIN progress AS p ON p.id_kontrak_ruas_item = kri.id_kontrak_ruas_item WHERE kri.id_kontrak_ruas_item = '$value_satu->id_kontrak_ruas_item' AND p.id_kontrak_rencana = '$id_kontrak_rencana'");
             $harga_satuan    = $value_satu->harga_kontrak;
             $volume          = 0;
 
@@ -513,25 +513,25 @@ if (!function_exists('count_progress')) {
                 $pembagi_l_4 = ($value_dua->l_4 != 0 ? 1 : 0);
                 $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
 
-                $pembagi_tki_1 = ($value_dua->tki_1 != 0 ? 1 : 0);
-                $pembagi_tki_2 = ($value_dua->tki_2 != 0 ? 1 : 0);
-                $pembagi_tki_3 = ($value_dua->tki_3 != 0 ? 1 : 0);
-                $total_pembagi_tki = ($pembagi_tki_1 + $pembagi_tki_2 + $pembagi_tki_3);
+                $pembagi_t1_1 = ($value_dua->t1_1 != 0 ? 1 : 0);
+                $pembagi_t1_2 = ($value_dua->t1_2 != 0 ? 1 : 0);
+                $pembagi_t1_3 = ($value_dua->t1_3 != 0 ? 1 : 0);
+                $total_pembagi_tki = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
 
-                $pembagi_tte_1 = ($value_dua->tte_1 != 0 ? 1 : 0);
-                $pembagi_tte_2 = ($value_dua->tte_2 != 0 ? 1 : 0);
-                $pembagi_tte_3 = ($value_dua->tte_3 != 0 ? 1 : 0);
-                $total_pembagi_tte = ($pembagi_tte_1 + $pembagi_tte_2 + $pembagi_tte_3);
+                $pembagi_t2_1 = ($value_dua->t2_1 != 0 ? 1 : 0);
+                $pembagi_t2_2 = ($value_dua->t2_2 != 0 ? 1 : 0);
+                $pembagi_t2_3 = ($value_dua->t2_3 != 0 ? 1 : 0);
+                $total_pembagi_tte = ($pembagi_t2_1 + $pembagi_t2_2 + $pembagi_t2_3);
 
-                $pembagi_tka_1 = ($value_dua->tka_1 != 0 ? 1 : 0);
-                $pembagi_tka_2 = ($value_dua->tka_2 != 0 ? 1 : 0);
-                $pembagi_tka_3 = ($value_dua->tka_3 != 0 ? 1 : 0);
-                $total_pembagi_tka = ($pembagi_tka_1 + $pembagi_tka_2 + $pembagi_tka_3);
+                $pembagi_t3_1 = ($value_dua->t3_1 != 0 ? 1 : 0);
+                $pembagi_t3_2 = ($value_dua->t3_2 != 0 ? 1 : 0);
+                $pembagi_t3_3 = ($value_dua->t3_3 != 0 ? 1 : 0);
+                $total_pembagi_tka = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
 
                 $lebar = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
-                $tebal_kiri = @((($value_dua->tki_1 + $value_dua->tki_2 + $value_dua->tki_3) / $total_pembagi_tki) / 100);
-                $tebal_tengah = @((($value_dua->tte_1 + $value_dua->tte_2 + $value_dua->tte_3) / $total_pembagi_tte) / 100);
-                $tebal_kanan = @((($value_dua->tka_1 + $value_dua->tka_2 + $value_dua->tka_3) / $total_pembagi_tka) / 100);
+                $tebal_kiri = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_tki) / 100);
+                $tebal_tengah = @((($value_dua->t2_1 + $value_dua->t2_2 + $value_dua->t2_3) / $total_pembagi_tte) / 100);
+                $tebal_kanan = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_tka) / 100);
 
                 $conversi_tebal_kiri = (is_nan($tebal_kiri)) ? 1 : $tebal_kiri;
                 $conversi_tebal_tengah = (is_nan($tebal_tengah)) ? 1 : $tebal_tengah;
@@ -539,7 +539,7 @@ if (!function_exists('count_progress')) {
 
                 $average_tebal = (($conversi_tebal_kiri + $conversi_tebal_tengah + $conversi_tebal_kanan) / 3);
 
-                $count = ($value_dua->panjang * $lebar * $average_tebal * $value_dua->berat_bersih);
+                $count = ($value_dua->panjang * $lebar * $average_tebal * $value_dua->berat_jenis);
                 $volume += $count;
             }
 
