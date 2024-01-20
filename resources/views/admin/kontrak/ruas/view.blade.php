@@ -148,7 +148,7 @@
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label" for="tipe">Satuan&nbsp;*</label>
+                                            <label class="col-form-label" for="tipe">Tipe&nbsp;*</label>
                                         </div>
                                         <div class="col-sm-9 my-auto">
                                             <select class="form-select form-select-sm" id="tipe" name="tipe">
