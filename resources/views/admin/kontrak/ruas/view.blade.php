@@ -84,7 +84,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <th class="text-center" colspan="7">Total Nilai Per Ruas</th>
+                                    <th class="text-center" colspan="8">Total Nilai Per Ruas</th>
                                     <th class="text-center">{{ rupiah($total_hps) }}</th>
                                     <th class="text-center">{{ rupiah($total_kontrak) }}</th>
                                     <th class="text-center">{{ number_format($bobot, 2) }}</th>
