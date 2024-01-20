@@ -33,6 +33,7 @@
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama</th>
                                     <th class="text-center">Satuan</th>
+                                    <th class="text-center">Tipe</th>
                                     <th class="text-center">Volume</th>
                                     <th class="text-center">Harga HPS</th>
                                     <th class="text-center">Harga Kontrak</th>
@@ -71,6 +72,7 @@
                                     <td class="text-center">{{ $key+1 }}</td>
                                     <td class="text-center">{{ $value->nama }}</td>
                                     <td class="text-center">{{ $value->toSatuan->nama }}</td>
+                                    <td class="text-center">{{ $value->tipe }}</td>
                                     <td class="text-center">{{ $value->volume }}</td>
                                     <td class="text-center">{{ rupiah($value->harga_hps) }}</td>
                                     <td class="text-center">{{ rupiah($value->harga_kontrak) }}</td>
