@@ -17,7 +17,7 @@ class CreateKontrakRuasItemsTable extends Migration
             $table->increments('id_kontrak_ruas_item');
             $table->integer('id_kontrak_ruas')->unsigned()->nullable();
             $table->integer('id_satuan')->unsigned()->nullable();
-            $table->enum('tipe', ['pbj', 'lpa', 'lpb', 'ac_bc', 'lc', 'timbunan', 'paving', 'k_precast', 'k_cor', 'pas_batu'])->nullable();
+            $table->enum('tipe', ['pbj', 'lpa', 'lpb', 'ac_bc', 'ac_wc', 'lc', 'rigid', 'timbunan', 'paving', 'k_precast', 'k_cor', 'pas_batu'])->nullable();
             $table->text('nama')->nullable();
             $table->float('volume')->nullable();
             $table->bigInteger('harga_hps')->nullable();

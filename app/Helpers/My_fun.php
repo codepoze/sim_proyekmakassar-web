@@ -498,49 +498,316 @@ if (!function_exists('get_uri_segment')) {
 if (!function_exists('count_progress')) {
     function count_progress($id_kontrak, $id_kontrak_rencana, $total_kontrak)
     {
-        $kontrak_ruas_item = DB::select("SELECT kri.id_kontrak_ruas_item, kri.volume, kri.harga_hps, kri.harga_kontrak FROM kontrak AS k LEFT JOIN kontrak_ruas AS kr ON kr.id_kontrak = k.id_kontrak LEFT JOIN kontrak_ruas_item AS kri ON kri.id_kontrak_ruas = kr.id_kontrak_ruas WHERE k.id_kontrak = '$id_kontrak'");
-        
+        $kontrak_ruas_item = DB::select("SELECT kri.id_kontrak_ruas_item, kri.tipe, kri.volume, kri.harga_hps, kri.harga_kontrak FROM kontrak AS k LEFT JOIN kontrak_ruas AS kr ON kr.id_kontrak = k.id_kontrak LEFT JOIN kontrak_ruas_item AS kri ON kri.id_kontrak_ruas = kr.id_kontrak_ruas WHERE k.id_kontrak = '$id_kontrak'");
+
         $result = 0;
         foreach ($kontrak_ruas_item as $key => $value_satu) {
-            $kontrak_rencana = DB::select("SELECT kri.id_kontrak_ruas_item, p.id_progress, p.id_kontrak_rencana, p.panjang, p.titik_core, p.l_1, p.l_2, p.l_3, p.l_4, p.t1_1, p.t1_2, p.t1_3, p.t2_1, p.t2_2, p.t2_3, p.t3_1, p.t3_2, p.t3_3, p.berat_jenis FROM kontrak_ruas_item AS kri LEFT JOIN progress AS p ON p.id_kontrak_ruas_item = kri.id_kontrak_ruas_item WHERE kri.id_kontrak_ruas_item = '$value_satu->id_kontrak_ruas_item' AND p.id_kontrak_rencana = '$id_kontrak_rencana'");
+            $kontrak_rencana = DB::select("SELECT kri.id_kontrak_ruas_item, p.id_progress, p.id_kontrak_rencana, p.panjang, p.titik_core, p.penambahan, p.pengurangan, p.l_1, p.l_2, p.l_3, p.l_4, p.t1_1, p.t1_2, p.t1_3, p.t2_1, p.t2_2, p.t2_3, p.t3_1, p.t3_2, p.t3_3, p.berat_jenis FROM kontrak_ruas_item AS kri LEFT JOIN progress AS p ON p.id_kontrak_ruas_item = kri.id_kontrak_ruas_item WHERE kri.id_kontrak_ruas_item = '$value_satu->id_kontrak_ruas_item' AND p.id_kontrak_rencana = '$id_kontrak_rencana'");
             $harga_satuan    = $value_satu->harga_kontrak;
             $volume          = 0;
 
             foreach ($kontrak_rencana as $key => $value_dua) {
-                $pembagi_l_1 = ($value_dua->l_1 != 0 ? 1 : 0);
-                $pembagi_l_2 = ($value_dua->l_2 != 0 ? 1 : 0);
-                $pembagi_l_3 = ($value_dua->l_3 != 0 ? 1 : 0);
-                $pembagi_l_4 = ($value_dua->l_4 != 0 ? 1 : 0);
-                $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+                if ($value_satu->tipe === 'pbj') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
 
-                $pembagi_t1_1 = ($value_dua->t1_1 != 0 ? 1 : 0);
-                $pembagi_t1_2 = ($value_dua->t1_2 != 0 ? 1 : 0);
-                $pembagi_t1_3 = ($value_dua->t1_3 != 0 ? 1 : 0);
-                $total_pembagi_tki = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
+                    $L = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
 
-                $pembagi_t2_1 = ($value_dua->t2_1 != 0 ? 1 : 0);
-                $pembagi_t2_2 = ($value_dua->t2_2 != 0 ? 1 : 0);
-                $pembagi_t2_3 = ($value_dua->t2_3 != 0 ? 1 : 0);
-                $total_pembagi_tte = ($pembagi_t2_1 + $pembagi_t2_2 + $pembagi_t2_3);
+                    $count = ($value_dua->panjang * $L);
 
-                $pembagi_t3_1 = ($value_dua->t3_1 != 0 ? 1 : 0);
-                $pembagi_t3_2 = ($value_dua->t3_2 != 0 ? 1 : 0);
-                $pembagi_t3_3 = ($value_dua->t3_3 != 0 ? 1 : 0);
-                $total_pembagi_tka = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'lpa') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
 
-                $lebar = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
-                $tebal_kiri = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_tki) / 100);
-                $tebal_tengah = @((($value_dua->t2_1 + $value_dua->t2_2 + $value_dua->t2_3) / $total_pembagi_tte) / 100);
-                $tebal_kanan = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_tka) / 100);
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $pembagi_t1_3     = ($value_dua->t1_3 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
 
-                $conversi_tebal_kiri = (is_nan($tebal_kiri)) ? 1 : $tebal_kiri;
-                $conversi_tebal_tengah = (is_nan($tebal_tengah)) ? 1 : $tebal_tengah;
-                $conversi_tebal_kanan = (is_nan($tebal_kanan)) ? 1 : $tebal_kanan;
+                    $pembagi_t3_1     = ($value_dua->t3_1 != 0 ? 1 : 0);
+                    $pembagi_t3_2     = ($value_dua->t3_2 != 0 ? 1 : 0);
+                    $pembagi_t3_3     = ($value_dua->t3_3 != 0 ? 1 : 0);
+                    $total_pembagi_t3 = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
 
-                $average_tebal = (($conversi_tebal_kiri + $conversi_tebal_tengah + $conversi_tebal_kanan) / 3);
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_t1));
+                    $T3 = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_t3));
 
-                $count = ($value_dua->panjang * $lebar * $average_tebal * $value_dua->berat_jenis);
-                $volume += $count;
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+                    $conversi_T3 = (is_nan($T3)) ? 1 : $T3;
+
+                    $average_tebal = (($conversi_T1 + $conversi_T3) / 2);
+
+                    $count = ($value_dua->panjang * $L * $average_tebal);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'lpb') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $pembagi_t1_3     = ($value_dua->t1_3 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
+
+                    $pembagi_t3_1     = ($value_dua->t3_1 != 0 ? 1 : 0);
+                    $pembagi_t3_2     = ($value_dua->t3_2 != 0 ? 1 : 0);
+                    $pembagi_t3_3     = ($value_dua->t3_3 != 0 ? 1 : 0);
+                    $total_pembagi_t3 = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
+
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_t1));
+                    $T3 = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_t3));
+
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+                    $conversi_T3 = (is_nan($T3)) ? 1 : $T3;
+
+                    $average_tebal = (($conversi_T1 + $conversi_T3) / 2);
+
+                    $count = ($value_dua->panjang * $L * $average_tebal);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'ac_bc') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $pembagi_t1_3     = ($value_dua->t1_3 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
+
+                    $pembagi_t2_1     = ($value_dua->t2_1 != 0 ? 1 : 0);
+                    $pembagi_t2_2     = ($value_dua->t2_2 != 0 ? 1 : 0);
+                    $pembagi_t2_3     = ($value_dua->t2_3 != 0 ? 1 : 0);
+                    $total_pembagi_t2 = ($pembagi_t2_1 + $pembagi_t2_2 + $pembagi_t2_3);
+
+                    $pembagi_t3_1     = ($value_dua->t3_1 != 0 ? 1 : 0);
+                    $pembagi_t3_2     = ($value_dua->t3_2 != 0 ? 1 : 0);
+                    $pembagi_t3_3     = ($value_dua->t3_3 != 0 ? 1 : 0);
+                    $total_pembagi_t3 = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
+
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_t1));
+                    $T2 = @((($value_dua->t2_1 + $value_dua->t2_2 + $value_dua->t2_3) / $total_pembagi_t2));
+                    $T3 = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_t3));
+
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+                    $conversi_T2 = (is_nan($T2)) ? 1 : $T2;
+                    $conversi_T3 = (is_nan($T3)) ? 1 : $T3;
+
+                    $average_tebal = (($conversi_T1 + $conversi_T2 + $conversi_T3) / 3);
+
+                    $count = ($value_dua->panjang * $L * $average_tebal * $value_dua->berat_jenis);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'ac_wc') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $pembagi_t1_3     = ($value_dua->t1_3 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
+
+                    $pembagi_t2_1     = ($value_dua->t2_1 != 0 ? 1 : 0);
+                    $pembagi_t2_2     = ($value_dua->t2_2 != 0 ? 1 : 0);
+                    $pembagi_t2_3     = ($value_dua->t2_3 != 0 ? 1 : 0);
+                    $total_pembagi_t2 = ($pembagi_t2_1 + $pembagi_t2_2 + $pembagi_t2_3);
+
+                    $pembagi_t3_1     = ($value_dua->t3_1 != 0 ? 1 : 0);
+                    $pembagi_t3_2     = ($value_dua->t3_2 != 0 ? 1 : 0);
+                    $pembagi_t3_3     = ($value_dua->t3_3 != 0 ? 1 : 0);
+                    $total_pembagi_t3 = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
+
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_t1));
+                    $T2 = @((($value_dua->t2_1 + $value_dua->t2_2 + $value_dua->t2_3) / $total_pembagi_t2));
+                    $T3 = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_t3));
+
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+                    $conversi_T2 = (is_nan($T2)) ? 1 : $T2;
+                    $conversi_T3 = (is_nan($T3)) ? 1 : $T3;
+
+                    $average_tebal = (($conversi_T1 + $conversi_T2 + $conversi_T3) / 3);
+
+                    $count = ($value_dua->panjang * $L * $average_tebal * $value_dua->berat_jenis);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'lc') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $pembagi_t1_3     = ($value_dua->t1_3 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
+
+                    $pembagi_t2_1     = ($value_dua->t2_1 != 0 ? 1 : 0);
+                    $pembagi_t2_2     = ($value_dua->t2_2 != 0 ? 1 : 0);
+                    $pembagi_t2_3     = ($value_dua->t2_3 != 0 ? 1 : 0);
+                    $total_pembagi_t2 = ($pembagi_t2_1 + $pembagi_t2_2 + $pembagi_t2_3);
+
+                    $pembagi_t3_1     = ($value_dua->t3_1 != 0 ? 1 : 0);
+                    $pembagi_t3_2     = ($value_dua->t3_2 != 0 ? 1 : 0);
+                    $pembagi_t3_3     = ($value_dua->t3_3 != 0 ? 1 : 0);
+                    $total_pembagi_t3 = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
+
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_t1));
+                    $T2 = @((($value_dua->t2_1 + $value_dua->t2_2 + $value_dua->t2_3) / $total_pembagi_t2));
+                    $T3 = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_t3));
+
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+                    $conversi_T2 = (is_nan($T2)) ? 1 : $T2;
+                    $conversi_T3 = (is_nan($T3)) ? 1 : $T3;
+
+                    $average_tebal = (($conversi_T1 + $conversi_T2 + $conversi_T3) / 3);
+
+                    $count = ($value_dua->panjang * $L * $average_tebal);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'rigid') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $pembagi_t1_3     = ($value_dua->t1_3 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
+
+                    $pembagi_t2_1     = ($value_dua->t2_1 != 0 ? 1 : 0);
+                    $pembagi_t2_2     = ($value_dua->t2_2 != 0 ? 1 : 0);
+                    $pembagi_t2_3     = ($value_dua->t2_3 != 0 ? 1 : 0);
+                    $total_pembagi_t2 = ($pembagi_t2_1 + $pembagi_t2_2 + $pembagi_t2_3);
+
+                    $pembagi_t3_1     = ($value_dua->t3_1 != 0 ? 1 : 0);
+                    $pembagi_t3_2     = ($value_dua->t3_2 != 0 ? 1 : 0);
+                    $pembagi_t3_3     = ($value_dua->t3_3 != 0 ? 1 : 0);
+                    $total_pembagi_t3 = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
+
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_t1));
+                    $T2 = @((($value_dua->t2_1 + $value_dua->t2_2 + $value_dua->t2_3) / $total_pembagi_t2));
+                    $T3 = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_t3));
+
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+                    $conversi_T2 = (is_nan($T2)) ? 1 : $T2;
+                    $conversi_T3 = (is_nan($T3)) ? 1 : $T3;
+
+                    $average_tebal = (($conversi_T1 + $conversi_T2 + $conversi_T3) / 3);
+
+                    $count = ($value_dua->panjang * $L * $average_tebal);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'timbunan') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $pembagi_t1_3     = ($value_dua->t1_3 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
+
+                    $pembagi_t3_1     = ($value_dua->t3_1 != 0 ? 1 : 0);
+                    $pembagi_t3_2     = ($value_dua->t3_2 != 0 ? 1 : 0);
+                    $pembagi_t3_3     = ($value_dua->t3_3 != 0 ? 1 : 0);
+                    $total_pembagi_t3 = ($pembagi_t3_1 + $pembagi_t3_2 + $pembagi_t3_3);
+
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_t1));
+                    $T3 = @((($value_dua->t3_1 + $value_dua->t3_2 + $value_dua->t3_3) / $total_pembagi_t3));
+
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+                    $conversi_T3 = (is_nan($T3)) ? 1 : $T3;
+
+                    $average_tebal = (($conversi_T1 + $conversi_T3) / 2);
+
+                    $count = ($value_dua->panjang * $L * $average_tebal);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'paving') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+
+                    $L = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+
+                    $count = ($value_dua->panjang * $L);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'k_precast') {
+                    $panjang     = $value_dua->panjang;
+                    $pengurangan = $value_dua->pengurangan;
+                    $penambahan  = $value_dua->penambahan;
+
+                    $count = ($panjang + $pengurangan + $penambahan);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'k_cor') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $pembagi_l_3     = ($value_dua->l_3 != 0 ? 1 : 0);
+                    $pembagi_l_4     = ($value_dua->l_4 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2 + $pembagi_l_3 + $pembagi_l_4);
+
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $pembagi_t1_3     = ($value_dua->t1_3 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2 + $pembagi_t1_3);
+
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2 + $value_dua->l_3 + $value_dua->l_4) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2 + $value_dua->t1_3) / $total_pembagi_t1));
+
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+
+                    $count = ($value_dua->panjang * $L * $conversi_T1);
+
+                    $volume += $count;
+                } else if ($value_satu->tipe === 'pas_batu') {
+                    $pembagi_l_1     = ($value_dua->l_1 != 0 ? 1 : 0);
+                    $pembagi_l_2     = ($value_dua->l_2 != 0 ? 1 : 0);
+                    $total_pembagi_l = ($pembagi_l_1 + $pembagi_l_2);
+
+                    $pembagi_t1_1     = ($value_dua->t1_1 != 0 ? 1 : 0);
+                    $pembagi_t1_2     = ($value_dua->t1_2 != 0 ? 1 : 0);
+                    $total_pembagi_t1 = ($pembagi_t1_1 + $pembagi_t1_2);
+
+                    $L  = ((($value_dua->l_1 + $value_dua->l_2) / $total_pembagi_l));
+                    $T1 = @((($value_dua->t1_1 + $value_dua->t1_2) / $total_pembagi_t1));
+
+                    $conversi_T1 = (is_nan($T1)) ? 1 : $T1;
+
+                    $count = ($value_dua->panjang * $L * $conversi_T1);
+
+                    $volume += $count;
+                }
             }
 
             $total_volume = round($volume, 2);
@@ -550,7 +817,7 @@ if (!function_exists('count_progress')) {
                 $result += $count_volume;
             }
         }
-        
+
         return round($result, 2);
     }
 }

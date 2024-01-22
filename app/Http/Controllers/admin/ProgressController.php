@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
+use App\Models\KontrakRuasItem;
 use App\Models\Progress;
 
 class ProgressController extends Controller
@@ -21,7 +22,8 @@ class ProgressController extends Controller
         $id_kontrak_ruas_item = my_decrypt(last(request()->segments()));
         
         $data = [
-            'progress' => Progress::whereIdKontrakRuasItem($id_kontrak_ruas_item)->get()
+            'kontrak_ruas_item' => KontrakRuasItem::find($id_kontrak_ruas_item),
+            'progress'          => Progress::whereIdKontrakRuasItem($id_kontrak_ruas_item)->get()
         ];
 
         return Template::load('admin', 'Progress Ruas', 'kontrak/progress', 'view', $data);
