@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
 use App\Models\Fh0;
+use App\Models\KontrakRuasItem;
 
 class Fh0Controller extends Controller
 {
@@ -19,9 +20,10 @@ class Fh0Controller extends Controller
     public function index()
     {
         $id_kontrak_ruas_item = my_decrypt(last(request()->segments()));
-        
+
         $data = [
-            'fh0' => Fh0::whereIdKontrakRuasItem($id_kontrak_ruas_item)->get(),
+            'kontrak_ruas_item' => KontrakRuasItem::find($id_kontrak_ruas_item),
+            'fh0'               => Fh0::whereIdKontrakRuasItem($id_kontrak_ruas_item)->get(),
         ];
 
         return Template::load('admin', 'Fh0 Ruas', 'kontrak/fh0', 'view', $data);

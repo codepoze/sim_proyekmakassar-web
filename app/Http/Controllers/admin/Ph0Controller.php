@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Libraries\Template;
+use App\Models\KontrakRuasItem;
 use App\Models\Ph0;
 
 class Ph0Controller extends Controller
@@ -21,7 +22,8 @@ class Ph0Controller extends Controller
         $id_kontrak_ruas_item = my_decrypt(last(request()->segments()));
 
         $data = [
-            'ph0' => Ph0::whereIdKontrakRuasItem($id_kontrak_ruas_item)->get(),
+            'kontrak_ruas_item' => KontrakRuasItem::find($id_kontrak_ruas_item),
+            'ph0'               => Ph0::whereIdKontrakRuasItem($id_kontrak_ruas_item)->get(),
         ];
 
         return Template::load('admin', 'Ph0 Ruas', 'kontrak/ph0', 'view', $data);
