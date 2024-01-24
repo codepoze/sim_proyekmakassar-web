@@ -8,6 +8,8 @@ use App\Http\Controllers\api\ProgressController;
 use App\Http\Controllers\api\Fh0Controller;
 use App\Http\Controllers\api\KontrakRencanaController;
 use App\Http\Controllers\api\Ph0Controller;
+use App\Http\Controllers\api\DokumentasiController;
+use App\Http\Controllers\api\OpnameController;
 use Illuminate\Support\Facades\Route;
 
 // auth
@@ -53,4 +55,19 @@ Route::group([
     Route::patch('/ph0/{id}', [Ph0Controller::class, 'saveData']);
     Route::delete('/ph0/{id}', [Ph0Controller::class, 'delete']);
     // ph0 end
+    
+    // dokumentasi
+    Route::get('/dokumentasi', [DokumentasiController::class, 'index']);
+    Route::post('/dokumentasi', [DokumentasiController::class, 'saveData']);
+    Route::patch('/dokumentasi/{id}', [DokumentasiController::class, 'saveData']);
+    Route::delete('/dokumentasi/{id}', [DokumentasiController::class, 'delete']);
+    // dokumentasi end
+
+    // opname
+    Route::get('/opname', [OpnameController::class, 'index']);
+    Route::get('/opname/{id}', [OpnameController::class, 'show']);
+    Route::post('/opname', [OpnameController::class, 'saveData']);
+    Route::patch('/opname/{id}', [OpnameController::class, 'saveData']);
+    Route::delete('/opname/{id}', [OpnameController::class, 'delete']);
+    // opname end
 });
