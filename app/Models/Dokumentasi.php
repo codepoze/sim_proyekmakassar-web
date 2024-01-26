@@ -16,6 +16,7 @@ class Dokumentasi extends Model
     protected $fillable = [
         "id_dokumentasi",
         "id_kontrak_ruas_item",
+        "tipe",
         "keterangan",
     ];
 

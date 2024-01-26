@@ -49,7 +49,8 @@ class OpnameController extends Controller
 
         Opname::updateOrCreate([
             "id_kontrak_ruas_item" => $request->input('id_kontrak_ruas_item'),
-            'file' => $fileContents,
+            "tipe"                 => $request->input('tipe'),
+            'file'                 => $fileContents,
         ]);
 
         DB::commit();

@@ -16,6 +16,7 @@ class CreateOpnamesTable extends Migration
         Schema::create('opname', function (Blueprint $table) {
             $table->increments('id_opname');
             $table->integer('id_kontrak_ruas_item')->unsigned()->nullable();
+            $table->enum('tipe', ['progress', 'ph0', 'fh0'])->nullable();
             $table->binary('file')->nullable();
 
             $table->timestamp('created_at')->useCurrent();

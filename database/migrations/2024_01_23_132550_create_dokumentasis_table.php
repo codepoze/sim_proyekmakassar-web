@@ -16,6 +16,7 @@ class CreateDokumentasisTable extends Migration
         Schema::create('dokumentasi', function (Blueprint $table) {
             $table->increments('id_dokumentasi');
             $table->integer('id_kontrak_ruas_item')->unsigned()->nullable();
+            $table->enum('tipe', ['progress', 'ph0', 'fh0'])->nullable();
             $table->text('keterangan')->nullable();
 
             $table->timestamp('created_at')->useCurrent();
