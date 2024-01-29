@@ -394,15 +394,38 @@
 
                                         <tr>
                                             <td class="text-center">
-                                                <a href="{{ route_role('admin.kontrak.progress.index', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}" class="btn btn-sm btn-action btn-relief-success">
-                                                    <span>Progress</span>
-                                                </a>&nbsp;
-                                                <a href="{{ route_role('admin.kontrak.ph0.index', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}" class="btn btn-sm btn-action btn-relief-primary">
-                                                    <span>PHO</span>
-                                                </a>&nbsp;
-                                                <a href="{{ route_role('admin.kontrak.fh0.index', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}" class="btn btn-sm btn-action btn-relief-info">
-                                                    <span>FHO</span>
-                                                </a>
+                                                <div class="btn-group btn-action">
+                                                    <button class="btn btn-relief-success btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span>Progress</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.progress.backupdata', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Backup Data</a>
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.progress.dokumentasi', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Dokumentasi</a>
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.progress.opname', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Opname</a>
+                                                    </div>
+                                                </div>
+                                                &nbsp;
+                                                <div class="btn-group btn-action">
+                                                    <button class="btn btn-relief-primary btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span>PHO</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.ph0.backupdata', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Backup Data</a>
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.ph0.dokumentasi', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Dokumentasi</a>
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.ph0.opname', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Opname</a>
+                                                    </div>
+                                                </div>
+                                                &nbsp;
+                                                <div class="btn-group btn-action">
+                                                    <button class="btn btn-relief-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <span>FHO</span>
+                                                    </button>
+                                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.fh0.backupdata', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Backup Data</a>
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.fh0.dokumentasi', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Dokumentasi</a>
+                                                        <a class="dropdown-item" href="{{ route_role('admin.kontrak.fh0.opname', ['id' => my_encrypt($value->id_kontrak_ruas_item)]) }}">Opname</a>
+                                                    </div>
+                                                </div>
                                             </td>
                                             <td class="text-center">{{ $key+1 }}</td>
                                             <td class="text-center">{{ $value->nama }}</td>
