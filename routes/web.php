@@ -253,15 +253,21 @@ Route::group([
         });
 
         Route::controller(ProgressController::class)->prefix('progress')->as('progress.')->group(function () {
-            Route::get('/{id}', 'index')->name('index');
+            Route::get('/backupdata/{id}', 'index')->name('backupdata');
+            Route::get('/dokumentasi/{id}', 'dokumentasi')->name('dokumentasi');
+            Route::get('/opname/{id}', 'opname')->name('opname');
         });
 
         Route::controller(Ph0Controller::class)->prefix('ph0')->as('ph0.')->group(function () {
-            Route::get('/{id}', 'index')->name('index');
+            Route::get('/backupdata/{id}', 'index')->name('backupdata');
+            Route::get('/dokumentasi/{id}', 'dokumentasi')->name('dokumentasi');
+            Route::get('/opname/{id}', 'opname')->name('opname');
         });
 
         Route::controller(Fh0Controller::class)->prefix('fh0')->as('fh0.')->group(function () {
-            Route::get('/{id}', 'index')->name('index');
+            Route::get('/backupdata/{id}', 'index')->name('backupdata');
+            Route::get('/dokumentasi/{id}', 'dokumentasi')->name('dokumentasi');
+            Route::get('/opname/{id}', 'opname')->name('opname');
         });
     });
     // end:: kontrak

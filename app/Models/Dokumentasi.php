@@ -23,11 +23,18 @@ class Dokumentasi extends Model
     // untuk foreign key
     protected $with = [
         'toKontrakRuasItem',
+        'toDokumentasiFoto'
     ];
 
     // untuk relasi ke tabel paket
     public function toKontrakRuasItem()
     {
         return $this->belongsTo(KontrakRuasItem::class, 'id_kontrak_ruas_item', 'id_kontrak_ruas_item');
+    }
+
+    // untuk relasi ke tabel dokumentasi foto
+    public function toDokumentasiFoto()
+    {
+        return $this->hasMany(DokumentasiFoto::class, 'id_dokumentasi', 'id_dokumentasi');
     }
 }

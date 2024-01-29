@@ -183,22 +183,58 @@ Breadcrumbs::for('admin.kontrak.ruas.index', function (BreadcrumbTrail $trail) {
     $trail->push('Kontrak Ruas', '#');
 });
 
-Breadcrumbs::for('admin.kontrak.progress.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.kontrak.progress.backupdata', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.kontrak.index');
 
-    $trail->push('Progress Ruas', '#');
+    $trail->push('Backup Data', '#');
 });
 
-Breadcrumbs::for('admin.kontrak.ph0.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.kontrak.progress.dokumentasi', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Dokumentasi', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.progress.opname', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Opname', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.ph0.backupdata', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.kontrak.index');
 
     $trail->push('Ph0 Ruas', '#');
 });
 
-Breadcrumbs::for('admin.kontrak.fh0.index', function (BreadcrumbTrail $trail) {
+Breadcrumbs::for('admin.kontrak.ph0.dokumentasi', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Dokumentasi', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.ph0.opname', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Opname', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.fh0.backupdata', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.kontrak.index');
 
     $trail->push('Fh0 Ruas', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.fh0.dokumentasi', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Dokumentasi', '#');
+});
+
+Breadcrumbs::for('admin.kontrak.fh0.opname', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.kontrak.index');
+
+    $trail->push('Opname', '#');
 });
 
 Breadcrumbs::for('admin.adendum.index', function (BreadcrumbTrail $trail) {

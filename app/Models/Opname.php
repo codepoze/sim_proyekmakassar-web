@@ -16,6 +16,7 @@ class Opname extends Model
     protected $fillable = [
         "id_opname",
         "id_kontrak_ruas_item",
+        "tipe",
         "file",
     ];
 
