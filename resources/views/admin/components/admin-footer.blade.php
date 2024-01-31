@@ -1,10 +1,7 @@
 <footer class="footer footer-static footer-light">
     <p class="clearfix mb-0">
         <span class="float-md-start d-block d-md-inline-block mt-25">
-            COPYRIGHT &copy; 2021<span class="d-none d-sm-inline-block">, Dinas Pekerjaan Umum Makassar.</span>
-        </span>
-        <span class="float-md-end d-none d-md-block">
-            Hand-crafted & Made with<i data-feather="heart"></i>
+            COPYRIGHT &copy; {{ date('Y') }}<span class="d-none d-sm-inline-block">, Dinas Pekerjaan Umum Makassar.</span>
         </span>
     </p>
 </footer>
