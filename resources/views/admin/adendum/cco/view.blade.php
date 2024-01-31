@@ -95,9 +95,9 @@
             @endforeach
 
             <div class="d-grid gap-2">
-                <a href="{{ route_role('admin.adendum.det', ['id' => my_encrypt($id_adendum)]) }}" class="btn btn-lg btn-relief-info">
+                <button type="button" id="finish" data-id="{{ my_encrypt($id_adendum) }}" class="btn btn-lg btn-relief-info">
                     <i data-feather='check'></i>&nbsp;<span>Selesai</span>
-                </a>
+                </button>
             </div>
         </div>
     </section>
@@ -440,6 +440,40 @@
                                 }
                             });
                         })
+                    }
+                });
+            });
+        }();
+
+        let untukFinish = function() {
+            $(document).on('click', '#finish', function() {
+                var ini = $(this);
+
+                $.ajax({
+                    type: "post",
+                    url: "{{ route_role('admin.adendum.item.finish') }}",
+                    dataType: 'json',
+                    data: {
+                        id: ini.data('id'),
+                    },
+                    beforeSend: function() {
+                        ini.attr('disabled', 'disabled');
+                        ini.html('<i data-feather="refresh-ccw"></i>&nbsp;<span>Menunggu...</span>');
+                        feather.replace();
+                    },
+                    success: function(response) {
+                        Swal.fire({
+                            title: response.title,
+                            text: response.text,
+                            icon: response.type,
+                            confirmButtonText: response.button,
+                            customClass: {
+                                confirmButton: `btn btn-sm btn-${response.class}`,
+                            },
+                            buttonsStyling: false,
+                        }).then((value) => {
+                            location.href = response.url;
+                        });
                     }
                 });
             });

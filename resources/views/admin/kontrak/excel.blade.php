@@ -95,7 +95,7 @@
             @foreach ($cco as $key => $value)
             <td>{{ $value->no_adendum }}</td>
             <td>{{ tgl_indo($value->tgl_adendum) }}</td>
-            <td>3</td>
+            <td>{{ rupiah($value->nil_adendum_kontrak) }}</td>
             @endforeach
             @else
             <td></td>

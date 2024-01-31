@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Adendum;
 use App\Models\AdendumRuasItem;
+use App\Models\KontrakRuas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
@@ -102,6 +104,36 @@ class AdendumRuasItemController extends Controller
         } else {
             $response = ['title' => 'Maaf!', 'text' => 'Password Anda Salah!', 'type' => 'warning', 'button' => 'Ok!', 'class' => 'warning'];
         }
+        return Response::json($response);
+    }
+
+    public function finish(Request $request)
+    {
+        $id = my_decrypt($request->id);
+
+        $adendum = Adendum::findOrFail($id);
+
+        $nil_kontrak_awal = 0;
+        $nil_kontrak_akhir = 0;
+
+        foreach ($adendum->toAdendumRuas as $key => $value) {
+            $nil_kontrak_akhir += $value->toAdendumRuasItem->sum(function ($item) {
+                return $item->volume * $item->harga_kontrak;
+            });
+
+            $kontrak_ruas = KontrakRuas::with(['toKontrakRuasItem'])->where('id_kontrak_ruas', '!=', $value->id_kontrak_ruas)->first();
+            foreach ($kontrak_ruas->toKontrakRuasItem as $key => $value) {
+                $nil_kontrak_awal += $value->volume * $value->harga_kontrak;
+            }
+        }
+
+        $nil_kontrak = ($nil_kontrak_awal + $nil_kontrak_akhir);
+
+        $adendum->nil_adendum_kontrak = $nil_kontrak;
+        $adendum->save();
+
+        $response = ['title' => 'Berhasil!', 'text' => 'Data Sukses di Proses!', 'type' => 'success', 'button' => 'Ok!', 'class' => 'success', 'url' => route_role('admin.adendum.det', ['id' => my_encrypt($id)])];
+
         return Response::json($response);
     }
 }

@@ -286,6 +286,7 @@ Route::group([
             Route::post('/show', 'show')->name('show');
             Route::post('/save', 'save')->name('save');
             Route::post('/del', 'del')->name('del');
+            Route::post('/finish', 'finish')->name('finish');
         });
     });
     // end:: adendum
