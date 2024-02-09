@@ -86,6 +86,7 @@
                                             <tr>
                                                 <th class="text-center">No</th>
                                                 <th class="text-center">Nama</th>
+                                                <th class="text-center">Tipe</th>
                                                 <th class="text-center">Satuan</th>
                                                 <th class="text-center">Volume</th>
                                                 <th class="text-center">Harga HPS</th>
@@ -119,7 +120,8 @@
 
                                             <tr>
                                                 <td class="text-center">{{ $key+1 }}</td>
-                                                <td class="text-center">{{ $value->nama }}</td>
+                                                <td class="text-center">{{ $value->toRuasItem->nama }}</td>
+                                                <td class="text-center">{{ strtoupper(str_replace('_', ' ', $value->toRuasItem->tipe)) }}</td>
                                                 <td class="text-center">{{ $value->toSatuan->nama }}</td>
                                                 <td class="text-center">{{ $value->volume }}</td>
                                                 <td class="text-center">{{ rupiah($value->harga_hps) }}</td>
@@ -208,27 +210,27 @@
                                     @endphp
 
                                     @for($i = 1; $i <= count_day_excluding_weekends_holiday( $adendum->tgl_adendum_akhir, $adendum->tgl_adendum_mulai); $i++)
-                                    @php
-                                    $denda = ($adendum->toKontrak->nil_kontrak * 0.01);
-                                    $total_denda += $denda;
-                                    @endphp
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label">Denda Hari Ke {{ $i }}</label>
+                                        @php
+                                        $denda = ($adendum->toKontrak->nil_kontrak * 0.01);
+                                        $total_denda += $denda;
+                                        @endphp
+                                        <div class="mb-1 row">
+                                            <div class="col-sm-3">
+                                                <label class="col-form-label">Denda Hari Ke {{ $i }}</label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control-plaintext" value="{{ rupiah($denda) }}" readonly="readonly" />
+                                            </div>
                                         </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($denda) }}" readonly="readonly" />
+                                        @endfor
+                                        <div class="mb-1 row">
+                                            <div class="col-sm-3">
+                                                <label class="col-form-label"><b>Total Denda</b></label>
+                                            </div>
+                                            <div class="col-sm-9">
+                                                <input type="text" class="form-control-plaintext" value="{{ rupiah($total_denda) }}" readonly="readonly" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    @endfor
-                                    <div class="mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label"><b>Total Denda</b></label>
-                                        </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control-plaintext" value="{{ rupiah($total_denda) }}" readonly="readonly" />
-                                        </div>
-                                    </div>
                                 </form>
                             </div>
                         </div>

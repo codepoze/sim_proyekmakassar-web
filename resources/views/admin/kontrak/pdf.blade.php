@@ -137,7 +137,7 @@
 
                 <tr align="center">
                     <td>{{ $key+1 }}</td>
-                    <td>{{ $value->nama }}</td>
+                    <td>{{ $value->toRuasItem->nama }}</td>
                     <td>{{ $value->toSatuan->nama }}</td>
                     <td>{{ $value->volume }}</td>
                     <td>{{ rupiah($value->harga_hps) }}</td>

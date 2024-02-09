@@ -32,8 +32,8 @@
                                     <th class="text-center">Aksi</th>
                                     <th class="text-center">No</th>
                                     <th class="text-center">Nama</th>
-                                    <th class="text-center">Satuan</th>
                                     <th class="text-center">Tipe</th>
+                                    <th class="text-center">Satuan</th>
                                     <th class="text-center">Volume</th>
                                     <th class="text-center">Harga HPS</th>
                                     <th class="text-center">Harga Kontrak</th>
@@ -70,9 +70,9 @@
                                         <button type="button" id="del" data-id="{{ my_encrypt($value->id_kontrak_ruas_item) }}" data-id_kontrak_ruas="{{ $value->id_kontrak_ruas }}" class="btn btn-sm btn-action btn-relief-danger"><i data-feather="trash"></i>&nbsp;<span>Hapus</span></button>
                                     </td>
                                     <td class="text-center">{{ $key+1 }}</td>
-                                    <td class="text-center">{{ $value->nama }}</td>
+                                    <td class="text-center">{{ $value->toRuasItem->nama }}</td>
+                                    <td class="text-center">{{ strtoupper(str_replace('_', ' ', $value->toRuasItem->tipe)) }}</td>
                                     <td class="text-center">{{ $value->toSatuan->nama }}</td>
-                                    <td class="text-center">{{ $value->tipe }}</td>
                                     <td class="text-center">{{ $value->volume }}</td>
                                     <td class="text-center">{{ rupiah($value->harga_hps) }}</td>
                                     <td class="text-center">{{ rupiah($value->harga_kontrak) }}</td>
@@ -126,10 +126,12 @@
                                 <div class="col-12">
                                     <div class="field-input mb-1 row">
                                         <div class="col-sm-3">
-                                            <label class="col-form-label" for="nama">Nama Item&nbsp;*</label>
+                                            <label class="col-form-label" for="id_ruas_item">Nama Item&nbsp;*</label>
                                         </div>
-                                        <div class="col-sm-9">
-                                            <input type="text" class="form-control form-control-sm" id="nama" name="nama" placeholder="Masukkan nama item" />
+                                        <div class="col-sm-9 my-auto">
+                                            <select class="form-select select2" id="id_ruas_item" name="id_ruas_item">
+                                                <option value=""></option>
+                                            </select>
                                             <div class="invalid-feedback"></div>
                                         </div>
                                     </div>
@@ -142,22 +144,6 @@
                                         <div class="col-sm-9 my-auto">
                                             <select class="form-select select2" id="id_satuan" name="id_satuan">
                                                 <option value=""></option>
-                                            </select>
-                                            <div class="invalid-feedback"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="field-input mb-1 row">
-                                        <div class="col-sm-3">
-                                            <label class="col-form-label" for="tipe">Tipe&nbsp;*</label>
-                                        </div>
-                                        <div class="col-sm-9 my-auto">
-                                            <select class="form-select form-select-sm" id="tipe" name="tipe">
-                                                <option value="">Pilih</option>
-                                                @foreach ($tipe as $key => $value)
-                                                <option value="{{ $value['value'] }}">{{ $value['text'] }}</option>
-                                                @endforeach
                                             </select>
                                             <div class="invalid-feedback"></div>
                                         </div>
@@ -355,6 +341,7 @@
                 $('#form-add-upd').parsley().reset();
                 $('#form-add-upd')[0].reset();
 
+                get_ruas_item();
                 get_satuan();
             });
         }();
@@ -386,6 +373,7 @@
                         $('#form-loading').empty();
                         $('#form-show').removeAttr('style');
 
+                        get_ruas_item(response.id_ruas_item);
                         get_satuan(response.id_satuan);
 
                         $.each(response, function(key, value) {
@@ -469,6 +457,20 @@
             }, function(response) {
                 $("#id_satuan").select2({
                     placeholder: "Pilih satuan",
+                    width: '100%',
+                    allowClear: true,
+                    containerCssClass: 'select-sm',
+                    data: response,
+                });
+            }, 'json');
+        }
+
+        function get_ruas_item(id = null) {
+            $.get("{{ route_role('admin.ruas_item.get_all') }}", {
+                id: id
+            }, function(response) {
+                $("#id_ruas_item").select2({
+                    placeholder: "Pilih ruas item",
                     width: '100%',
                     allowClear: true,
                     containerCssClass: 'select-sm',
