@@ -129,7 +129,7 @@ class RuasItemController extends Controller
         ];
 
         $message = [
-            'nama.required' => 'Nama Perusahaan tidak boleh kosong!',
+            'nama.required' => 'Nama Ruas Item tidak boleh kosong!',
             'tipe.required' => 'Tipe Ruas Item tidak boleh kosong!',
         ];
 
