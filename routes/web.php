@@ -22,6 +22,7 @@ use App\Http\Controllers\admin\ProfilController;
 use App\Http\Controllers\admin\ProgressController;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\RoleMenuController;
+use App\Http\Controllers\admin\RuasItemController;
 use App\Http\Controllers\admin\SatuanController;
 use App\Http\Controllers\admin\TeknislapAnggController;
 use App\Http\Controllers\admin\TeknislapController;
@@ -223,6 +224,18 @@ Route::group([
         Route::post('/del', 'del')->name('del');
     });
     // end:: paket
+
+    // begin:: ruas item
+    Route::controller(RuasItemController::class)->prefix('ruas_item')->as('ruas_item.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/det/{id}', 'det')->name('det');
+        Route::get('/get_all', 'get_all')->name('get_all');
+        Route::get('/get_data_dt', 'get_data_dt')->name('get_data_dt');
+        Route::post('/show', 'show')->name('show');
+        Route::post('/save', 'save')->name('save');
+        Route::post('/del', 'del')->name('del');
+    });
+    // end:: ruas item
 
     // begin:: kontrak
     Route::controller(KontrakController::class)->prefix('kontrak')->as('kontrak.')->group(function () {

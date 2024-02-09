@@ -16,9 +16,8 @@ class KontrakRuasItem extends Model
     protected $fillable = [
         'id_kontrak_ruas_item',
         'id_kontrak_ruas',
+        'id_ruas_item',
         'id_satuan',
-        'tipe',
-        'nama',
         'volume',
         'harga_hps',
         'harga_kontrak',
@@ -28,6 +27,7 @@ class KontrakRuasItem extends Model
     // untuk foreign key
     protected $with = [
         'toKontrakRuas',
+        'toRuasItem',
         'toSatuan'
     ];
 
@@ -35,6 +35,12 @@ class KontrakRuasItem extends Model
     public function toKontrakRuas()
     {
         return $this->belongsTo(KontrakRuas::class, 'id_kontrak_ruas', 'id_kontrak_ruas');
+    }
+
+    // untuk relasi ke tabel ruas item
+    public function toRuasItem()
+    {
+        return $this->belongsTo(RuasItem::class, 'id_ruas_item', 'id_ruas_item');
     }
 
     // untuk relasi ke tabel satuan

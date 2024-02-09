@@ -72,6 +72,14 @@ class MenuHeadTableSeeder extends Seeder
                 'by_users'     => 1,
             ],
             [
+                'nama'         => 'Ruas Item',
+                'icon'         => 'list',
+                'path'         => '/ruas_item',
+                'status'       => '1',
+                'jenis'        => 'single',
+                'by_users'     => 1,
+            ],
+            [
                 'nama'         => 'Kegiatan',
                 'icon'         => 'list',
                 'path'         => '/kegiatan',

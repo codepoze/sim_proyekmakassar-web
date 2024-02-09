@@ -16,9 +16,8 @@ class AdendumRuasItem extends Model
     protected $fillable = [
         'id_adendum_ruas_item',
         'id_adendum_ruas',
+        'id_ruas_item',
         'id_satuan',
-        'tipe',
-        'nama',
         'volume',
         'harga_hps',
         'harga_kontrak',
@@ -37,9 +36,17 @@ class AdendumRuasItem extends Model
         return $this->belongsTo(AdendumRuas::class, 'id_adendum_ruas', 'id_adendum_ruas');
     }
 
+    // untuk relasi ke tabel ruas item
+    public function toRuasItem()
+    {
+        return $this->belongsTo(RuasItem::class, 'id_ruas_item', 'id_ruas_item');
+    }
+    
     // untuk relasi ke tabel satuan
     public function toSatuan()
     {
         return $this->belongsTo(Satuan::class, 'id_satuan', 'id_satuan');
     }
+
+    
 }

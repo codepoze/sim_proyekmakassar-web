@@ -27,8 +27,8 @@ class AdendumRuasItemController extends Controller
         $response = [
             'id_adendum_ruas_item' => $data->id_adendum_ruas_item,
             'id_adendum_ruas'      => $data->id_adendum_ruas,
+            'id_ruas_item'         => $data->id_ruas_item,
             'id_satuan'            => $data->id_satuan,
-            'nama'                 => $data->nama,
             'volume'               => $data->volume,
             'harga_hps'            => create_separator($data->harga_hps),
             'harga_kontrak'        => create_separator($data->harga_kontrak),
@@ -41,16 +41,16 @@ class AdendumRuasItemController extends Controller
     public function save(Request $request)
     {
         $rule = [
+            'id_ruas_item'  => 'required',
             'id_satuan'     => 'required',
-            'nama'          => 'required',
             'volume'        => 'required',
             'harga_hps'     => 'required',
             'harga_kontrak' => 'required',
         ];
 
         $message = [
+            'id_ruas_item.required'  => 'Ruas Item tidak boleh kosong!',
             'id_satuan.required'     => 'Satuan tidak boleh kosong!',
-            'nama.required'          => 'Nama tidak boleh kosong!',
             'volume.required'        => 'Volume tidak boleh kosong!',
             'harga_hps.required'     => 'Harga HPS tidak boleh kosong!',
             'harga_kontrak.required' => 'Harga Kontrak tidak boleh kosong!',
@@ -71,8 +71,8 @@ class AdendumRuasItemController extends Controller
                 ],
                 [
                     'id_adendum_ruas' => $request->id_adendum_ruas,
+                    'id_ruas_item'    => $request->id_ruas_item,
                     'id_satuan'       => $request->id_satuan,
-                    'nama'            => $request->nama,
                     'volume'          => $request->volume,
                     'harga_hps'       => remove_separator($request->harga_hps),
                     'harga_kontrak'   => remove_separator($request->harga_kontrak),

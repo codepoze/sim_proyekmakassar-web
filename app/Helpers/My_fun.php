@@ -498,7 +498,7 @@ if (!function_exists('get_uri_segment')) {
 if (!function_exists('count_progress')) {
     function count_progress($id_kontrak, $id_kontrak_rencana, $total_kontrak)
     {
-        $kontrak_ruas_item = DB::select("SELECT kri.id_kontrak_ruas_item, kri.tipe, kri.volume, kri.harga_hps, kri.harga_kontrak FROM kontrak AS k LEFT JOIN kontrak_ruas AS kr ON kr.id_kontrak = k.id_kontrak LEFT JOIN kontrak_ruas_item AS kri ON kri.id_kontrak_ruas = kr.id_kontrak_ruas WHERE k.id_kontrak = '$id_kontrak'");
+        $kontrak_ruas_item = DB::select("SELECT kri.id_kontrak_ruas_item, ri.tipe, kri.volume, kri.harga_hps, kri.harga_kontrak FROM kontrak AS k LEFT JOIN kontrak_ruas AS kr ON kr.id_kontrak = k.id_kontrak LEFT JOIN kontrak_ruas_item AS kri ON kri.id_kontrak_ruas = kr.id_kontrak_ruas LEFT JOIN ruas_item AS ri ON ri.id_ruas_item = kri.id_ruas_item WHERE k.id_kontrak = '$id_kontrak'");
 
         $result = 0;
         foreach ($kontrak_ruas_item as $key => $value_satu) {

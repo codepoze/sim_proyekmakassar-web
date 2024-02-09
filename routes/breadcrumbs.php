@@ -147,6 +147,12 @@ Breadcrumbs::for('admin.paket.det', function (BreadcrumbTrail $trail) {
     $trail->push('Detail', '#');
 });
 
+Breadcrumbs::for('admin.ruas_item.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('admin.dashboard');
+
+    $trail->push('Ruas Item', route_role('admin.ruas_item.index'));
+});
+
 Breadcrumbs::for('admin.kontrak.index', function (BreadcrumbTrail $trail) {
     $trail->parent('admin.dashboard');
 
