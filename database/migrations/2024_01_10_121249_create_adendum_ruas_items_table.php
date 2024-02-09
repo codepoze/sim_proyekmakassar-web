@@ -16,9 +16,8 @@ class CreateAdendumRuasItemsTable extends Migration
         Schema::create('adendum_ruas_item', function (Blueprint $table) {
             $table->increments('id_adendum_ruas_item');
             $table->integer('id_adendum_ruas')->unsigned()->nullable();
+            $table->integer('id_ruas_item')->unsigned()->nullable();
             $table->integer('id_satuan')->unsigned()->nullable();
-            $table->enum('tipe', ['pbj', 'lpa', 'lpb', 'ac_bc', 'ac_wc', 'lc', 'rigid', 'timbunan', 'paving', 'k_precast', 'k_cor', 'pas_batu'])->nullable();
-            $table->text('nama')->nullable();
             $table->float('volume')->nullable();
             $table->bigInteger('harga_hps')->nullable();
             $table->bigInteger('harga_kontrak')->nullable();
@@ -28,6 +27,7 @@ class CreateAdendumRuasItemsTable extends Migration
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
 
             $table->foreign('id_adendum_ruas')->references('id_adendum_ruas')->on('adendum_ruas')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('id_ruas_item')->references('id_ruas_item')->on('ruas_item')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('id_satuan')->references('id_satuan')->on('satuan')->onDelete('cascade')->onUpdate('cascade');
         });
     }
